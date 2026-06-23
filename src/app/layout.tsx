@@ -24,7 +24,13 @@ const pinyon = Pinyon_Script({
   display: "swap",
 });
 
-const SITE_URL = "https://palma.design";
+// Resolve the canonical site URL from the build environment so social
+// previews work on whatever domain is actually serving the site.
+// Netlify exposes the primary site URL as `URL` at build time.
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  process.env.URL ??
+  "https://palmastudio.netlify.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
