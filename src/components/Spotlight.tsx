@@ -36,10 +36,7 @@ export function Spotlight() {
     <section id="canvas" className="relative bg-panel py-24 sm:py-32">
       <div className="mx-auto max-w-[1200px] px-6 sm:px-10">
         <Reveal className="mx-auto max-w-[620px] text-center">
-          <p className="text-[12px] font-medium uppercase tracking-[2px] text-faint">
-            The canvas
-          </p>
-          <h2 className="mt-3 font-serif text-[clamp(2.2rem,5.5vw,3.6rem)] leading-[1.02] tracking-[-0.5px] text-ink">
+          <h2 className="font-serif text-[clamp(2.2rem,5.5vw,3.6rem)] leading-[1.02] tracking-[-0.5px] text-ink">
             One surface for everything.
           </h2>
           <p className="mx-auto mt-5 max-w-[460px] text-pretty text-[1.02rem] leading-[1.65] text-muted">

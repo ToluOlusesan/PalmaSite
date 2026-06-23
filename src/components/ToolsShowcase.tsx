@@ -7,10 +7,7 @@ export function ToolsShowcase() {
     <section id="tools" className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-[1200px] px-6 sm:px-10">
         <Reveal className="mx-auto max-w-[680px] text-center">
-          <p className="text-[12px] font-medium uppercase tracking-[2px] text-faint">
-            The toolkit
-          </p>
-          <h2 className="mt-3 font-serif text-[clamp(2rem,5vw,3.4rem)] leading-[1.04] tracking-[-0.5px] text-ink">
+          <h2 className="font-serif text-[clamp(2rem,5vw,3.4rem)] leading-[1.04] tracking-[-0.5px] text-ink">
             Curate your references.
           </h2>
           <p className="mx-auto mt-5 max-w-[460px] text-pretty text-[1.02rem] leading-[1.65] text-muted">
