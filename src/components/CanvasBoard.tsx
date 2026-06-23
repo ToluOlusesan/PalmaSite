@@ -69,16 +69,18 @@ export function CanvasBoard() {
   const typed = useTypewriter(NOTES);
 
   return (
-    <div className="dotgrid relative h-full w-full overflow-hidden bg-paper">
-      {/* notes card — types itself out */}
+    <div className="dotgrid @container relative h-full w-full overflow-hidden bg-paper">
+      {/* notes card — types itself out. Typography is sized in container-query
+          units (cqw) so the card stays a faithful miniature at every width and
+          the copy never overflows on small screens. */}
       <div
-        className="absolute flex flex-col rounded-lg border border-line-2 bg-panel p-3 shadow-soft sm:p-4"
+        className="absolute flex flex-col overflow-hidden rounded-lg border border-line-2 bg-panel p-[1.6cqw] shadow-soft"
         style={{ left: "5%", top: "9%", width: "25%", height: "36%" }}
       >
-        <p className="text-[8px] font-semibold uppercase tracking-[1.5px] text-faint sm:text-[10px]">
+        <p className="text-[1.05cqw] font-semibold uppercase tracking-[0.16cqw] text-faint">
           Notes
         </p>
-        <p className="mt-2 text-[9px] leading-[1.55] text-ink/85 sm:text-[12px]">
+        <p className="mt-[0.85cqw] text-[1.25cqw] leading-[1.55] text-ink/85">
           {typed}
           <span className="spot-caret" />
         </p>
