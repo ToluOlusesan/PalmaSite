@@ -61,7 +61,6 @@ export const metadata: Metadata = {
     description:
       "A local-first creative workspace for motion and 3D designers. No cloud. No clutter. Just your work.",
   },
-  icons: { icon: "/favicon.ico" },
 };
 
 export const viewport: Viewport = {

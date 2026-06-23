@@ -1,5 +1,4 @@
 import { Reveal } from "./Reveal";
-import { BetaInput } from "./BetaInput";
 
 export function Hero() {
   return (
@@ -28,11 +27,14 @@ export function Hero() {
         </Reveal>
 
         <Reveal delay={240}>
-          <div className="mt-10">
-            <BetaInput
-              variant="hero"
-              hint="Windows only for now · Invite-only beta · Your first board in under 5 minutes."
-            />
+          <div className="mt-10 flex flex-col items-center gap-4">
+            <span className="inline-flex items-center gap-2.5 rounded-full border border-line-2 bg-panel px-5 py-2.5 text-[14px] font-medium text-ink shadow-soft">
+              <span className="h-1.5 w-1.5 rounded-full bg-ink/55" aria-hidden />
+              Coming soon
+            </span>
+            <p className="text-[13px] text-faint">
+              Windows only for now · No account required · Runs entirely on your machine.
+            </p>
           </div>
         </Reveal>
       </div>

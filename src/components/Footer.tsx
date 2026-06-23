@@ -8,7 +8,7 @@ const columns: { heading: string; links: { label: string; href: string }[] }[] =
       { label: "Tools", href: "#tools" },
       { label: "The canvas", href: "#canvas" },
       { label: "Why Palma", href: "#why" },
-      { label: "Request access", href: "#request" },
+      { label: "Coming soon", href: "#request" },
     ],
   },
 ];

@@ -29,6 +29,9 @@ export function Nav() {
         >
           <PalmaMark className="h-[22px] w-7" />
           <span className="font-serif text-[21px] leading-none tracking-[0.1px]">Palma</span>
+          <span className="rounded-full border border-line-2 px-2.5 py-0.5 text-[10.5px] font-medium uppercase tracking-[1.5px] text-muted">
+            Beta
+          </span>
         </a>
 
         <div className="flex items-center gap-1 sm:gap-2">
@@ -48,7 +51,7 @@ export function Nav() {
             href="#request"
             className="rounded-full bg-ink px-4 py-2 text-[13.5px] font-medium text-paper transition-opacity hover:opacity-85"
           >
-            Request access
+            Coming soon
           </a>
         </div>
       </div>

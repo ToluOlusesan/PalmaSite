@@ -28,14 +28,14 @@ src/
     layout.tsx          fonts + metadata (Open Graph, etc.)
     page.tsx            composes the homepage sections
     globals.css         design tokens, base styles, utilities (bloom/reveal/dotgrid)
-    api/beta/route.ts   beta-access capture endpoint (validates; wire a provider here)
+    icon.svg            favicon — the Palma island mark on a dark tile
   components/           Nav, Hero, ToolsShowcase, Spotlight, Principles,
-                        SocialProof, CTA, Footer, BetaInput, Reveal, PalmaMark
+                        SocialProof, CTA, Footer, Reveal, PalmaMark
   lib/content.ts        all marketing copy in one place
 _reference/             original single-file landing, kept for design reference
 ```
 
-Section flow on the homepage: **Hero** (pill email input) → **ToolsShowcase**
+Section flow on the homepage: **Hero** (coming-soon callout) → **ToolsShowcase**
 (interactive tabbed feature carousel) → **Spotlight** (device-framed canvas
 mock) → **Principles** (bento grid) → **SocialProof** (testimonial + personas)
 → **CTA** → **Footer**.
@@ -48,9 +48,9 @@ single calligraphic accent word per headline, and Inter handles UI/body. The
 Palma island mark lives in `src/components/PalmaMark.tsx` and is reused across
 nav and footer.
 
-## Beta signup
+## Status
 
-`src/components/BetaInput.tsx` (used in the hero and final CTA) POSTs to
-`/api/beta`, which validates the email and acknowledges it. There is no user
-database (Palma is local-first); to actually collect addresses, forward the
-email to a list/provider in `route.ts` where the `TODO` is marked.
+Palma is pre-launch. The hero and final CTA show a **Coming soon** callout
+rather than collecting emails — there is no signup form or capture endpoint.
+When the app is ready, replace those callouts with whatever the launch needs
+(download link, signup, etc.).
