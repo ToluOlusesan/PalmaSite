@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Palma — marketing site
 
-## Getting Started
+The landing site for **Palma**, a local-first creative workspace for motion
+and 3D designers, by Spatial Foundry. Palma is free, forever — there is no
+pricing, no accounts, no paid tier, so the site never needs commerce pages.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router) + **React 19** + **TypeScript**
+- **Tailwind CSS v4** (tokens defined in `src/app/globals.css` via `@theme`)
+- Fonts: Inter (UI), DM Serif Display (editorial headings), Pinyon Script
+  (display accent) via `next/font`
+
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev      # dev server at http://localhost:3000
+npm run build    # production build
+npm run start    # serve the production build
+npm run lint     # eslint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+src/
+  app/
+    layout.tsx          fonts + metadata (Open Graph, etc.)
+    page.tsx            composes the homepage sections
+    globals.css         design tokens, base styles, utilities (bloom/reveal/dotgrid)
+    api/beta/route.ts   beta-access capture endpoint (validates; wire a provider here)
+  components/           Nav, Hero, ToolsShowcase, Spotlight, Principles,
+                        SocialProof, CTA, Footer, BetaInput, Reveal, PalmaMark
+  lib/content.ts        all marketing copy in one place
+_reference/             original single-file landing, kept for design reference
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Section flow on the homepage: **Hero** (pill email input) → **ToolsShowcase**
+(interactive tabbed feature carousel) → **Spotlight** (device-framed canvas
+mock) → **Principles** (bento grid) → **SocialProof** (testimonial + personas)
+→ **CTA** → **Footer**.
 
-## Learn More
+## Design language
 
-To learn more about Next.js, take a look at the following resources:
+Monochrome, light, editorial: black ink (`#0a0a0a`) on near-white paper, neutral
+greys, no colour. DM Serif Display carries the big headings, Pinyon Script adds a
+single calligraphic accent word per headline, and Inter handles UI/body. The
+Palma island mark lives in `src/components/PalmaMark.tsx` and is reused across
+nav and footer.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Beta signup
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`src/components/BetaInput.tsx` (used in the hero and final CTA) POSTs to
+`/api/beta`, which validates the email and acknowledges it. There is no user
+database (Palma is local-first); to actually collect addresses, forward the
+email to a list/provider in `route.ts` where the `TODO` is marked.

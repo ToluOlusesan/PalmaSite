@@ -1,26 +1,520 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================================================ Design tokens */
+@theme {
+  /* Monochrome, dark, editorial. Pure neutral greys — no warm tint at all. */
+  --color-paper: #0a0a0a;
+  --color-panel: #161616;
+  --color-panel-2: #212121;
+  --color-ink: #f5f5f5;
+  --color-ink-2: #d6d6d6;
+
+  --color-muted: rgba(245, 245, 245, 0.58);
+  --color-faint: rgba(245, 245, 245, 0.4);
+  --color-line: rgba(245, 245, 245, 0.12);
+  --color-line-2: rgba(245, 245, 245, 0.2);
+
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-dm-serif), Georgia, serif;
+  --font-script: var(--font-pinyon), "DM Serif Display", cursive;
+
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.4), 0 16px 40px rgba(0, 0, 0, 0.45);
+  --shadow-lift: 0 2px 8px rgba(0, 0, 0, 0.45), 0 32px 70px rgba(0, 0, 0, 0.55);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ===================================================================== Base */
+* {
+  min-width: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* =============================================================== Utilities */
+
+/* Soft monochrome glow used behind hero / accents */
+.bloom {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    circle,
+    rgba(245, 245, 245, 0.07) 0%,
+    rgba(245, 245, 245, 0.025) 36%,
+    transparent 64%
+  );
+}
+
+/* The pale wash that grounds the hero — a faint horizon glow on black */
+.hero-wash {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 46%;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(120% 100% at 20% 100%, rgba(245, 245, 245, 0.08), transparent 60%),
+    radial-gradient(120% 100% at 80% 100%, rgba(245, 245, 245, 0.07), transparent 60%),
+    linear-gradient(to top, rgba(245, 245, 245, 0.06), transparent);
+}
+
+/* Scroll-reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.8s var(--ease-out-soft),
+    transform 0.8s var(--ease-out-soft);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Gentle float for decorative chips */
+@keyframes drift {
+  0%,
+  100% {
+    transform: translateY(0) var(--rot, none);
+  }
+  50% {
+    transform: translateY(-9px) var(--rot, none);
+  }
+}
+.drift {
+  animation: drift 7s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .drift {
+    animation: none;
+  }
+}
+
+/* Hairline divider */
+.rule {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-line-2) 18%,
+    var(--color-line-2) 82%,
+    transparent
+  );
+}
+
+/* Faint dot-grid used inside mock canvases */
+.dotgrid {
+  background-image: radial-gradient(rgba(245, 245, 245, 0.09) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* ===================================== Canvas spotlight (a card being dragged) */
+@keyframes spot-card {
+  0%,
+  6% {
+    transform: translate(0, 0) scale(1);
+  }
+  14% {
+    transform: translate(4px, -4px) scale(1.05);
+  }
+  38% {
+    transform: translate(118px, -66px) scale(1.05);
+  }
+  60% {
+    transform: translate(196px, -22px) scale(1.05);
+  }
+  80% {
+    transform: translate(96px, -88px) scale(1.05);
+  }
+  93% {
+    transform: translate(0, 0) scale(1.05);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+@keyframes spot-cursor {
+  0%,
+  6% {
+    transform: translate(0, 0);
+  }
+  14% {
+    transform: translate(4px, -4px);
+  }
+  38% {
+    transform: translate(118px, -66px);
+  }
+  60% {
+    transform: translate(196px, -22px);
+  }
+  80% {
+    transform: translate(96px, -88px);
+  }
+  93%,
+  100% {
+    transform: translate(0, 0);
+  }
+}
+.spot-card {
+  animation: spot-card 7s ease-in-out infinite both;
+}
+.spot-cursor {
+  animation: spot-cursor 7s ease-in-out infinite both;
+}
+
+@keyframes spot-caret {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+.spot-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 1px;
+  vertical-align: text-bottom;
+  background: currentColor;
+  animation: spot-caret 1s steps(1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spot-card,
+  .spot-cursor,
+  .spot-caret {
+    animation: none;
+  }
+}
+
+/* ============================================ Tool caricatures (animated SVG)
+   Looping, monochrome vignettes shown in the essential-tools grid. All motion
+   is CSS so it pauses cleanly under prefers-reduced-motion, falling back to the
+   authored (rest) state of each scene. */
+
+.tc svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.tc text {
+  font-family: var(--font-sans);
+}
+/* animated elements transform around their own box */
+.tc-fx {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.tc-fx-l {
+  transform-box: fill-box;
+  transform-origin: left center;
+}
+.tc-fx-b {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+}
+
+/* a popover / composer rising in */
+@keyframes tc-rise {
+  0%,
+  40% {
+    opacity: 0;
+    transform: translateY(9px) scale(0.96);
+  }
+  54% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(9px) scale(0.96);
+  }
+}
+.tc-rise {
+  animation: tc-rise 5s var(--ease-out-soft) infinite both;
+}
+
+/* a soft attention pulse (e.g. the Tidy button) */
+@keyframes tc-pulse {
+  0%,
+  30%,
+  100% {
+    opacity: 0.45;
+  }
+  44%,
+  64% {
+    opacity: 1;
+  }
+}
+.tc-pulse {
+  animation: tc-pulse 5.4s ease-in-out infinite both;
+}
+
+/* 1 — DUMP: tiles keep dropping onto the canvas, staggered */
+@keyframes tc-drop {
+  0% {
+    opacity: 0;
+    transform: translateY(-26px) scale(0.7) rotate(var(--r, 0deg));
+  }
+  14% {
+    opacity: 1;
+  }
+  30%,
+  82% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(var(--r, 0deg));
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-26px) scale(0.7) rotate(var(--r, 0deg));
+  }
+}
+.tc-drop {
+  animation: tc-drop 4.8s var(--ease-out-soft) infinite both;
+}
+
+/* 2 — COMMENTS: cursor taps, pin drops, note bubble types itself in */
+@keyframes tc-cursor {
+  0%,
+  6% {
+    opacity: 0;
+    transform: translate(46px, 30px);
+  }
+  18% {
+    opacity: 1;
+  }
+  36% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  56%,
+  100% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+}
+@keyframes tc-pop {
+  0%,
+  36% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  48% {
+    opacity: 1;
+    transform: scale(1.14);
+  }
+  56%,
+  90% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+@keyframes tc-type {
+  0%,
+  56% {
+    transform: scaleX(0);
+  }
+  74%,
+  90% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(0);
+  }
+}
+.tc-cursor {
+  animation: tc-cursor 5s var(--ease-out-soft) infinite both;
+}
+.tc-pop {
+  animation: tc-pop 5s var(--ease-out-soft) infinite both;
+}
+.tc-type {
+  animation: tc-type 5s var(--ease-out-soft) infinite both;
+}
+
+/* 3 — VIDEO → SCREENSHOT: playhead scrubs, shutter flashes, a still pops out */
+@keyframes tc-scrub {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(var(--track, 116px));
+  }
+}
+@keyframes tc-flash {
+  0%,
+  46% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.85;
+  }
+  58%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes tc-snap {
+  0%,
+  50% {
+    opacity: 0;
+    transform: translate(-26px, 6px) scale(0.4);
+  }
+  64% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1.06);
+  }
+  72%,
+  92% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-26px, 6px) scale(0.4);
+  }
+}
+.tc-scrub {
+  animation: tc-scrub 2.6s linear infinite alternate;
+}
+.tc-flash {
+  animation: tc-flash 5.2s linear infinite both;
+}
+.tc-snap {
+  animation: tc-snap 5.2s var(--ease-out-soft) infinite both;
+}
+
+/* 4 — CURATE: scattered tiles gather into a row, keepers checked, rest culled */
+@keyframes tc-gather {
+  0% {
+    transform: translate(var(--fx, 0), var(--fy, 0)) rotate(var(--fr, 0deg));
+  }
+  42%,
+  84% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate(var(--fx, 0), var(--fy, 0)) rotate(var(--fr, 0deg));
+  }
+}
+@keyframes tc-cull {
+  0%,
+  30% {
+    opacity: 1;
+    transform: scale(1) rotate(var(--cr, 0deg));
+  }
+  50%,
+  82% {
+    opacity: 0;
+    transform: scale(0.4) rotate(var(--cr, 0deg));
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(var(--cr, 0deg));
+  }
+}
+@keyframes tc-check {
+  0%,
+  46% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  58% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  66%,
+  84% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+.tc-gather {
+  animation: tc-gather 5.4s var(--ease-out-soft) infinite both;
+}
+.tc-cull {
+  animation: tc-cull 5.4s var(--ease-out-soft) infinite both;
+}
+.tc-check {
+  animation: tc-check 5.4s var(--ease-out-soft) infinite both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tc-drop,
+  .tc-cursor,
+  .tc-pop,
+  .tc-type,
+  .tc-scrub,
+  .tc-flash,
+  .tc-snap,
+  .tc-gather,
+  .tc-cull,
+  .tc-check,
+  .tc-rise,
+  .tc-pulse {
+    animation: none;
+  }
 }
