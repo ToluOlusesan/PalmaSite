@@ -44,15 +44,31 @@ function Canvas() {
 
 type GProps = SVGProps<SVGGElement> & { style?: CSSProperties };
 
-/** A flat image tile — solid neutral grey with a little inner content. */
+/** An image tile. With `src` it shows a real picture clipped to the rounded
+   rect; without one it falls back to a flat neutral grey placeholder. */
 function Thumb({
   x,
   y,
   w,
   h,
   fill = "#262626",
+  src,
   ...g
-}: { x: number; y: number; w: number; h: number; fill?: string } & GProps) {
+}: { x: number; y: number; w: number; h: number; fill?: string; src?: string } & GProps) {
+  if (src) {
+    // Round the raster via a pattern-filled rect (one vector paint op) rather
+    // than a clipPath: a separate clip layer lags a frame behind the animated
+    // transform and leaks past the corners when tiles overlap.
+    const pat = `tc-img-${x}-${y}-${w}-${h}`;
+    return (
+      <g {...g}>
+        <pattern id={pat} patternUnits="userSpaceOnUse" x={x} y={y} width={w} height={h}>
+          <image href={src} x={0} y={0} width={w} height={h} preserveAspectRatio="xMidYMid slice" />
+        </pattern>
+        <rect x={x} y={y} width={w} height={h} rx="9" fill={`url(#${pat})`} stroke={INK} strokeOpacity="0.12" />
+      </g>
+    );
+  }
   return (
     <g {...g}>
       <rect x={x} y={y} width={w} height={h} rx="9" fill={fill} stroke={INK} strokeOpacity="0.12" />
@@ -104,13 +120,18 @@ function Check({ cx, cy, ...g }: { cx: number; cy: number } & GProps) {
 }
 
 /** Toolbar — tiny labels; the tool buttons are empty squircles (no glyphs). */
-function Toolbar({ tidy = false }: { tidy?: boolean }) {
+function Toolbar({
+  tidy = false,
+  showCount = true,
+  titleMuted = false,
+  focusActive = false,
+}: { tidy?: boolean; showCount?: boolean; titleMuted?: boolean; focusActive?: boolean }) {
   return (
     <g>
       <rect x="0" y="0" width="480" height="24" fill="#131313" />
       <line x1="0" y1="24" x2="480" y2="24" stroke={INK} strokeOpacity="0.08" />
-      <text x="14" y="14.5" fontSize="7" fontWeight="600" fill={INK}>Dump Board</text>
-      <text x="64" y="14.5" fontSize="7" fill={INK} fillOpacity="0.4">Focus</text>
+      <text x="14" y="14.5" fontSize="7" fontWeight={titleMuted ? 400 : 600} fill={INK} fillOpacity={titleMuted ? 0.4 : 1}>Dump Board</text>
+      <text x="64" y="14.5" fontSize="7" fill={INK} fillOpacity={focusActive ? 1 : 0.4}>Focus</text>
       <text x="89" y="14.5" fontSize="7" fill={INK} fillOpacity="0.4">Scratchpad</text>
 
       {[0, 1, 2, 3].map((i) => (
@@ -129,11 +150,15 @@ function Toolbar({ tidy = false }: { tidy?: boolean }) {
         />
       ))}
 
-      <g className={tidy ? "tc-pulse" : undefined}>
-        <rect x="398" y="6.5" width="32" height="12" rx="6" fill={INK} fillOpacity="0.1" stroke={INK} strokeOpacity="0.14" strokeWidth="0.8" />
-        <text x="414" y="14.5" fontSize="6.5" fontWeight="500" textAnchor="middle" fill={INK}>Tidy</text>
-      </g>
-      <text x="466" y="14.5" fontSize="6.5" textAnchor="end" fill={INK} fillOpacity="0.4">16 items</text>
+      {tidy && (
+        <g className="tc-pulse">
+          <rect x="398" y="6.5" width="32" height="12" rx="6" fill={INK} fillOpacity="0.1" stroke={INK} strokeOpacity="0.14" strokeWidth="0.8" />
+          <text x="414" y="14.5" fontSize="6.5" fontWeight="500" textAnchor="middle" fill={INK}>Tidy</text>
+        </g>
+      )}
+      {showCount && (
+        <text x="466" y="14.5" fontSize="6.5" textAnchor="end" fill={INK} fillOpacity="0.4">16 items</text>
+      )}
     </g>
   );
 }
@@ -157,11 +182,11 @@ function DumpScene() {
       <Toolbar />
       <Arrow d="M150 120 C 180 120, 182 140, 206 142" />
       <Arrow d="M334 150 C 350 150, 352 120, 360 112" />
-      <Thumb x={34} y={80} w={116} h={80} fill="#2a2a2a" />
+      <Thumb x={34} y={80} w={116} h={80} src="/site/Spline2.png" />
       <NoteCard x={40} y={176} w={120} h={82} />
-      <Thumb x={206} y={96} w={128} h={92} fill="#232323" />
-      <Thumb x={360} y={78} w={96} h={70} fill="#2e2e2e" className="tc-fx tc-drop" style={{ "--r": "4deg" } as CSSProperties} />
-      <NoteCard x={300} y={196} w={120} h={70} lines={3} className="tc-fx tc-drop" style={{ "--r": "-3deg", animationDelay: "2.4s" } as CSSProperties} />
+      <Thumb x={206} y={96} w={128} h={92} src="/site/Shot3.png" />
+      <Thumb x={360} y={78} w={96} h={70} src="/site/1_175.png" className="tc-fx tc-drop" />
+      <NoteCard x={300} y={196} w={120} h={70} lines={3} className="tc-fx tc-drop" style={{ animationDelay: "2.4s" } as CSSProperties} />
       <ZoomPill />
     </svg>
   );
@@ -173,7 +198,7 @@ function CommentsScene() {
     <svg {...svgProps} aria-label="A comment pinned to an item on the board">
       <Canvas />
       <Toolbar />
-      <Thumb x={110} y={56} w={210} h={150} fill="#262626" />
+      <Thumb x={110} y={56} w={210} h={150} src="/site/1.png" />
 
       {/* composer popover rising in */}
       <g className="tc-fx-b tc-rise">
@@ -183,10 +208,15 @@ function CommentsScene() {
         <rect className="tc-fx-l tc-type" style={{ animationDelay: "0.18s" } as CSSProperties} x={160} y={256} width={120} height={6} rx="3" fill={INK} fillOpacity="0.32" />
       </g>
 
-      {/* numbered pin on the item */}
+      {/* comment pin on the item — Phosphor ChatCircle (fill), scaled into the disc */}
       <g className="tc-fx tc-pop">
         <circle cx={312} cy={64} r="12" fill={INK} />
-        <text x={312} y={68} fontSize="11" fontWeight="700" textAnchor="middle" fill={CANVAS}>1</text>
+        <g transform="translate(304 56) scale(0.0625)">
+          <path
+            d="M128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Z"
+            fill={CANVAS}
+          />
+        </g>
       </g>
     </svg>
   );
@@ -215,7 +245,7 @@ function VideoShotScene() {
 
       {/* extracted still pops out */}
       <g className="tc-fx tc-snap">
-        <Thumb x={298} y={92} w={148} h={106} fill="#303030" />
+        <Thumb x={298} y={92} w={148} h={106} src="/site/AnimLoader.png" />
         <Check cx={310} cy={104} />
       </g>
     </svg>
@@ -225,9 +255,9 @@ function VideoShotScene() {
 /* ----------------------------------------------------------------- 4 Curate */
 function CurateScene() {
   const keepers = [
-    { x: 58, fill: "#2a2a2a", from: { fx: "-34px", fy: "-46px", fr: "-10deg" }, d: "0s" },
-    { x: 196, fill: "#2e2e2e", from: { fx: "2px", fy: "52px", fr: "8deg" }, d: "0.12s" },
-    { x: 334, fill: "#242424", from: { fx: "40px", fy: "-34px", fr: "12deg" }, d: "0.24s" },
+    { x: 58, src: "/site/Spline2.png", from: { fx: "-34px", fy: "-46px", fr: "0deg" }, d: "0s" },
+    { x: 196, src: "/site/Shot3.png", from: { fx: "2px", fy: "52px", fr: "0deg" }, d: "0.12s" },
+    { x: 334, src: "/site/1.png", from: { fx: "40px", fy: "-34px", fr: "0deg" }, d: "0.24s" },
   ];
   const y = 118;
   const w = 112;
@@ -235,11 +265,11 @@ function CurateScene() {
   return (
     <svg {...svgProps} aria-label="Tidying the board down to the keepers">
       <Canvas />
-      <Toolbar tidy />
+      <Toolbar showCount={false} titleMuted focusActive />
 
       {/* culled items fade away */}
-      <Thumb className="tc-fx tc-cull" style={{ "--cr": "-12deg" } as CSSProperties} x={42} y={48} w={82} h={58} fill="#232323" />
-      <NoteCard className="tc-fx tc-cull" style={{ "--cr": "10deg", animationDelay: "0.2s" } as CSSProperties} x={368} y={214} w={94} h={62} lines={3} />
+      <Thumb className="tc-fx tc-cull" x={42} y={48} w={82} h={58} src="/site/1_175.png" />
+      <NoteCard className="tc-fx tc-cull" style={{ animationDelay: "0.2s" } as CSSProperties} x={368} y={214} w={94} h={62} lines={3} />
 
       {/* keepers gather into a tidy row, each checked */}
       {keepers.map((k, i) => (
@@ -248,7 +278,7 @@ function CurateScene() {
           className="tc-fx tc-gather"
           style={{ "--fx": k.from.fx, "--fy": k.from.fy, "--fr": k.from.fr, animationDelay: k.d } as CSSProperties}
         >
-          <Thumb x={k.x} y={y} w={w} h={h} fill={k.fill} />
+          <Thumb x={k.x} y={y} w={w} h={h} src={k.src} />
           <Check className="tc-fx tc-check" style={{ animationDelay: `${0.3 + i * 0.1}s` } as CSSProperties} cx={k.x + w - 6} cy={y - 2} />
         </g>
       ))}

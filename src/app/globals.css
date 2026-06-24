@@ -326,6 +326,7 @@ em {
 }
 .tc-drop {
   animation: tc-drop 4.8s var(--ease-out-soft) infinite both;
+  will-change: transform, opacity;
 }
 
 /* 2 — COMMENTS: cursor taps, pin drops, note bubble types itself in */
@@ -494,9 +495,14 @@ em {
 }
 .tc-gather {
   animation: tc-gather 5.4s var(--ease-out-soft) infinite both;
+  /* composite each tile to its own GPU layer so the raster image is sampled
+     once and translated as a texture — without this the SVG image re-rasterises
+     every frame and shimmers/jitters at the tile edges */
+  will-change: transform;
 }
 .tc-cull {
   animation: tc-cull 5.4s var(--ease-out-soft) infinite both;
+  will-change: transform, opacity;
 }
 .tc-check {
   animation: tc-check 5.4s var(--ease-out-soft) infinite both;
