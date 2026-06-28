@@ -5,9 +5,10 @@ import { useState } from "react";
 type Status = "idle" | "submitting" | "done" | "error";
 
 /**
- * Launch-notify signup. Posts to Netlify Forms (the form is registered at build
- * via /public/__forms.html). It's a single launch email — not an account, not
- * stored alongside any of your work — so it stays true to the local-first promise.
+ * Launch-notify signup. Posts to /api/notify, a host-agnostic Route Handler
+ * that forwards the email to whatever provider is configured (see that file).
+ * It's a single launch email — not an account, not stored alongside any of your
+ * work — so it stays true to the local-first promise.
  */
 export function NotifyForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -18,10 +19,13 @@ export function NotifyForm() {
     const data = new FormData(form);
     setStatus("submitting");
     try {
-      const res = await fetch("/__forms.html", {
+      const res = await fetch("/api/notify", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: data.get("email"),
+          "bot-field": data.get("bot-field"),
+        }),
       });
       setStatus(res.ok ? "done" : "error");
     } catch {
@@ -46,12 +50,9 @@ export function NotifyForm() {
     <form
       name="notify"
       method="POST"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
       onSubmit={onSubmit}
       className="mx-auto mt-9 w-full max-w-[440px]"
     >
-      <input type="hidden" name="form-name" value="notify" />
       <p hidden>
         <label>
           Leave this empty: <input name="bot-field" />
