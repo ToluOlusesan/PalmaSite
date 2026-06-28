@@ -45,7 +45,7 @@ export function Nav() {
         >
           <PalmaMark className="h-[22px] w-7" />
           <span className="font-serif text-[21px] leading-none tracking-[0.1px]">Palma</span>
-          <span className="rounded-full border border-line-2 px-2.5 py-0.5 text-[10.5px] font-medium uppercase tracking-[1.5px] text-muted">
+          <span className="hidden rounded-full border border-line-2 px-2.5 py-0.5 text-[10.5px] font-medium uppercase tracking-[1.5px] text-muted sm:inline-block">
             Beta
           </span>
         </a>

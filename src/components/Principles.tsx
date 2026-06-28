@@ -21,7 +21,7 @@ const accents: Record<PrincipleIcon, string> = {
 
 export function Principles() {
   return (
-    <section id="why" className="relative py-24 sm:py-32">
+    <section id="why" className="relative py-16 sm:py-32">
       <div className="mx-auto max-w-[1200px] px-6 sm:px-10">
         <Reveal className="mx-auto max-w-[680px] text-center">
           <h2 className="font-serif text-[clamp(2.1rem,5vw,3.5rem)] leading-[1.04] tracking-[-0.5px] text-ink">

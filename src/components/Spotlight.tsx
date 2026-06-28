@@ -3,7 +3,7 @@ import { ToolCaricature } from "./ToolCaricatures";
 
 export function Spotlight() {
   return (
-    <section id="focus" className="relative bg-panel py-24 sm:py-32">
+    <section id="focus" className="relative bg-panel py-16 sm:py-32">
       <Reveal className="mx-auto max-w-[640px] px-6 text-center sm:px-10">
         <h2 className="font-serif text-[clamp(2.1rem,5vw,3.5rem)] leading-[1.04] tracking-[-0.5px] text-ink">
           Find the direction in the noise.

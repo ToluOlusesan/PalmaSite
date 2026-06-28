@@ -131,7 +131,7 @@ export function ToolsShowcase() {
         className={
           pinned
             ? "sticky top-0 flex h-screen flex-col overflow-hidden"
-            : "py-24 sm:py-32"
+            : "py-16 sm:py-32"
         }
       >
         {/* heading — full-bleed gutter when pinned so the first card lines up */}

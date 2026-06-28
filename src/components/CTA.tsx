@@ -3,7 +3,7 @@ import { NotifyForm } from "./NotifyForm";
 
 export function CTA() {
   return (
-    <section id="request" className="relative overflow-hidden py-28 text-center sm:py-36">
+    <section id="request" className="relative overflow-hidden py-20 text-center sm:py-36">
       <div
         className="bloom left-1/2 top-1/2 h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2"
         aria-hidden
