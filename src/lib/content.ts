@@ -12,7 +12,7 @@ export const site = {
 };
 
 /** The four essential tools, each shown with an animated caricature screen. */
-export type ToolId = "dump" | "comments" | "video-to-shot" | "focus";
+export type ToolId = "dump" | "comments" | "video-to-shot" | "focus" | "scratchpad";
 
 export type Tool = {
   id: ToolId;
@@ -42,6 +42,13 @@ export const tools: Tool[] = [
     name: "Video to Screenshot",
     blurb:
       "Find the moment you want in any video reference and lift it out as a clean still — one click, right on the board, no separate player or export step.",
+  },
+  {
+    id: "scratchpad",
+    index: "04",
+    name: "Scratchpad",
+    blurb:
+      "A writing space that lives beside the board. Draft briefs, treatments and shot notes in proper rich text — headings, lists, quotes, code — and every keystroke autosaves to the project, never the cloud.",
   },
 ];
 
