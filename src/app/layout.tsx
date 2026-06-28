@@ -25,12 +25,17 @@ const pinyon = Pinyon_Script({
 });
 
 // Resolve the canonical site URL from the build environment so social
-// previews work on whatever domain is actually serving the site.
-// Netlify exposes the primary site URL as `URL` at build time.
+// previews resolve to the right domain (og:image must be absolute). Vercel
+// exposes the production domain as `VERCEL_PROJECT_PRODUCTION_URL` and the
+// per-deployment host as `VERCEL_URL`. Set `NEXT_PUBLIC_SITE_URL` to pin a
+// custom domain (e.g. https://palma.design) once it's live.
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ??
-  process.env.URL ??
-  "https://palmastudio.netlify.app";
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "https://palma.design");
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
