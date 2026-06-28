@@ -48,7 +48,7 @@ export const tools: Tool[] = [
     index: "04",
     name: "Scratchpad",
     blurb:
-      "A writing space that lives beside the board. Draft briefs, treatments and shot notes in proper rich text: headings, lists, quotes, code. Every keystroke autosaves to the project, never the cloud.",
+      "A writing space that lives beside the board. Draft briefs, treatments and shot notes in proper rich text: headings, lists, quotes, code.",
   },
 ];
 

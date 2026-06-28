@@ -111,9 +111,11 @@ export function ToolsShowcase() {
       <h2 className="font-serif text-[clamp(2.1rem,5vw,3.5rem)] leading-[1.04] tracking-[-0.5px] text-ink">
         Curate your references.
       </h2>
-      <p className="mt-5 max-w-[460px] text-pretty text-[1.02rem] leading-[1.65] text-muted">
-        Everything the work needs to go from a pile of references to a clear
-        direction, and not one feature more.
+      <p className="mt-5 max-w-[520px] text-pretty text-[1.02rem] leading-[1.65] text-muted">
+        Everything you need to turn a scattered pile of references into a clear
+        creative direction. Arrange on an infinite canvas, mark refs up where it
+        matters, pull clean stills from video, draft the brief right beside the
+        board, and so much more.
       </p>
     </Reveal>
   );
@@ -148,7 +150,7 @@ export function ToolsShowcase() {
           className={
             pinned
               ? "relative flex min-h-0 flex-1 items-center overflow-hidden py-[3vh]"
-              : "relative mt-12 -mx-6 sm:-mx-10"
+              : "relative mx-auto mt-12 w-full max-w-[1200px]"
           }
         >
           <div
@@ -175,7 +177,7 @@ export function ToolsShowcase() {
               >
                 {/* animated caricature screen — always its true 16:10 ratio so
                     the scene is never stretched, zoomed, or letterboxed */}
-                <div className="relative aspect-[16/10] overflow-hidden border-b border-line bg-paper">
+                <div className="relative aspect-[16/9] overflow-hidden border-b border-line bg-paper">
                   <ToolCaricature id={tool.id} />
                 </div>
 
