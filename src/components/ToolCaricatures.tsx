@@ -7,9 +7,9 @@ import type { ToolId } from "@/lib/content";
    Flat neutral greys only — no gradients, no warm tint, no blur filters (those
    rasterised and softened the icons). Each scene is authored in its REST state. */
 
-const INK = "#f5f5f5";
-const CARD = "#1a1a1a";
-const CANVAS = "#0d0d0d";
+const INK = "#0a0a0a";
+const CARD = "#e5e5e5";
+const CANVAS = "#f2f2f2";
 
 export function CaricatureDefs() {
   return (
@@ -18,7 +18,7 @@ export function CaricatureDefs() {
         <pattern id="tc-dots" width="17" height="17" patternUnits="userSpaceOnUse">
           <circle cx="1" cy="1" r="1" fill={INK} fillOpacity="0.05" />
         </pattern>
-        <marker id="tc-arrow" markerWidth="7" markerHeight="7" refX="5.4" refY="3" orient="auto-start-reverse">
+        <marker id="tc-arrow" markerWidth="7" markerHeight="7" refX="0.4" refY="3" orient="auto-start-reverse">
           <path d="M0 0 L6 3 L0 6 z" fill={INK} fillOpacity="0.4" />
         </marker>
       </defs>
@@ -51,7 +51,7 @@ function Thumb({
   y,
   w,
   h,
-  fill = "#262626",
+  fill = "#d9d9d9",
   src,
   ...g
 }: { x: number; y: number; w: number; h: number; fill?: string; src?: string } & GProps) {
@@ -72,8 +72,8 @@ function Thumb({
   return (
     <g {...g}>
       <rect x={x} y={y} width={w} height={h} rx="9" fill={fill} stroke={INK} strokeOpacity="0.12" />
-      <circle cx={x + w * 0.64} cy={y + h * 0.4} r={Math.min(w, h) * 0.19} fill="#000" fillOpacity="0.22" />
-      <rect x={x + w * 0.14} y={y + h * 0.62} width={w * 0.4} height={Math.max(4, h * 0.11)} rx="3" fill="#fff" fillOpacity="0.09" />
+      <circle cx={x + w * 0.64} cy={y + h * 0.4} r={Math.min(w, h) * 0.19} fill="#fff" fillOpacity="0.22" />
+      <rect x={x + w * 0.14} y={y + h * 0.62} width={w * 0.4} height={Math.max(4, h * 0.11)} rx="3" fill="#000" fillOpacity="0.09" />
     </g>
   );
 }
@@ -110,6 +110,26 @@ function Arrow({ d }: { d: string }) {
   return <path d={d} fill="none" stroke={INK} strokeOpacity="0.26" strokeWidth="1.4" markerEnd="url(#tc-arrow)" />;
 }
 
+/** A Focus zone — a labelled, rounded container the references sort into. */
+function ZoneFrame({
+  x,
+  y,
+  w,
+  h,
+  label,
+  children,
+}: { x: number; y: number; w: number; h: number; label: string } & GProps) {
+  return (
+    <g>
+      <rect x={x} y={y} width={w} height={h} rx="12" fill={INK} fillOpacity="0.025" stroke={INK} strokeOpacity="0.18" />
+      <text x={x + 12} y={y + 15} fontSize="6.5" fontWeight="600" letterSpacing="0.5" fill={INK} fillOpacity="0.55">
+        {label.toUpperCase()}
+      </text>
+      {children}
+    </g>
+  );
+}
+
 function Check({ cx, cy, ...g }: { cx: number; cy: number } & GProps) {
   return (
     <g {...g}>
@@ -128,7 +148,7 @@ function Toolbar({
 }: { tidy?: boolean; showCount?: boolean; titleMuted?: boolean; focusActive?: boolean }) {
   return (
     <g>
-      <rect x="0" y="0" width="480" height="24" fill="#131313" />
+      <rect x="0" y="0" width="480" height="24" fill="#ececec" />
       <line x1="0" y1="24" x2="480" y2="24" stroke={INK} strokeOpacity="0.08" />
       <text x="14" y="14.5" fontSize="7" fontWeight={titleMuted ? 400 : 600} fill={INK} fillOpacity={titleMuted ? 0.4 : 1}>Dump Board</text>
       <text x="64" y="14.5" fontSize="7" fill={INK} fillOpacity={focusActive ? 1 : 0.4}>Focus</text>
@@ -203,7 +223,7 @@ function CommentsScene() {
       {/* composer popover rising in */}
       <g className="tc-fx-b tc-rise">
         <rect x={118} y={222} width={244} height={58} rx="12" fill={CARD} stroke={INK} strokeOpacity="0.14" />
-        <circle cx={140} cy={251} r="11" fill="#2e2e2e" stroke={INK} strokeOpacity="0.15" />
+        <circle cx={140} cy={251} r="11" fill="#d1d1d1" stroke={INK} strokeOpacity="0.15" />
         <rect className="tc-fx-l tc-type" x={160} y={242} width={172} height={6} rx="3" fill={INK} fillOpacity="0.55" />
         <rect className="tc-fx-l tc-type" style={{ animationDelay: "0.18s" } as CSSProperties} x={160} y={256} width={120} height={6} rx="3" fill={INK} fillOpacity="0.32" />
       </g>
@@ -232,7 +252,7 @@ function VideoShotScene() {
 
       {/* video card */}
       <g>
-        <rect x={36} y={56} width={216} height={150} rx="9" fill="#2a2a2a" stroke={INK} strokeOpacity="0.12" />
+        <rect x={36} y={56} width={216} height={150} rx="9" fill="#d5d5d5" stroke={INK} strokeOpacity="0.12" />
         <circle cx={144} cy={124} r="22" fill={CANVAS} fillOpacity="0.5" stroke={INK} strokeOpacity="0.35" />
         <path d="M138 114 L138 134 L157 124 Z" fill={INK} />
         {/* scrubber */}
@@ -252,36 +272,45 @@ function VideoShotScene() {
   );
 }
 
-/* ----------------------------------------------------------------- 4 Curate */
-function CurateScene() {
-  const keepers = [
-    { x: 58, src: "/site/Spline2.png", from: { fx: "-34px", fy: "-46px", fr: "0deg" }, d: "0s" },
-    { x: 196, src: "/site/Shot3.png", from: { fx: "2px", fy: "52px", fr: "0deg" }, d: "0.12s" },
-    { x: 334, src: "/site/1.png", from: { fx: "40px", fy: "-34px", fr: "0deg" }, d: "0.24s" },
-  ];
-  const y = 118;
-  const w = 112;
-  const h = 86;
+/* ------------------------------------------------------------------ 4 Focus */
+function FocusScene() {
   return (
-    <svg {...svgProps} aria-label="Tidying the board down to the keepers">
+    <svg {...svgProps} aria-label="References sorted into named zones on the Focus board">
       <Canvas />
       <Toolbar showCount={false} titleMuted focusActive />
 
-      {/* culled items fade away */}
-      <Thumb className="tc-fx tc-cull" x={42} y={48} w={82} h={58} src="/site/1_175.png" />
-      <NoteCard className="tc-fx tc-cull" style={{ animationDelay: "0.2s" } as CSSProperties} x={368} y={214} w={94} h={62} lines={3} />
+      {/* Zone 1 — a tidy grid of keepers */}
+      <ZoneFrame x={26} y={42} w={196} h={150} label="Colour + Mood">
+        <Thumb x={40} y={66} w={84} h={54} src="/site/Spline2.png" />
+        <Thumb x={132} y={66} w={84} h={54} src="/site/1.png" />
+        <Thumb x={40} y={126} w={84} h={54} src="/site/Shot3.png" />
+        <Thumb x={132} y={126} w={84} h={54} src="/site/1_175.png" />
+      </ZoneFrame>
 
-      {/* keepers gather into a tidy row, each checked */}
-      {keepers.map((k, i) => (
-        <g
-          key={i}
+      {/* Zone 2 — one slot fills as an item slides in from the Queue */}
+      <ZoneFrame x={236} y={42} w={154} h={150} label="Texture">
+        <Thumb x={250} y={66} w={126} h={54} src="/site/AnimLoader.png" />
+        <Thumb x={250} y={126} w={60} h={54} fill="#dedede" />
+        <Thumb
           className="tc-fx tc-gather"
-          style={{ "--fx": k.from.fx, "--fy": k.from.fy, "--fr": k.from.fr, animationDelay: k.d } as CSSProperties}
-        >
-          <Thumb x={k.x} y={y} w={w} h={h} src={k.src} />
-          <Check className="tc-fx tc-check" style={{ animationDelay: `${0.3 + i * 0.1}s` } as CSSProperties} cx={k.x + w - 6} cy={y - 2} />
-        </g>
-      ))}
+          style={{ "--fx": "120px", "--fy": "0px", "--fr": "0deg" } as CSSProperties}
+          x={316}
+          y={126}
+          w={60}
+          h={54}
+          src="/site/1.png"
+        />
+      </ZoneFrame>
+
+      {/* Queue rail — references waiting to be placed */}
+      <g>
+        <rect x={404} y={24} width={76} height={276} fill="#ececec" />
+        <line x1={404} y1={24} x2={404} y2={300} stroke={INK} strokeOpacity="0.08" />
+        <text x={414} y={42} fontSize="6" fontWeight="600" letterSpacing="0.8" fill={INK} fillOpacity="0.5">QUEUE</text>
+        <Thumb x={414} y={50} w={56} h={42} src="/site/Shot3.png" opacity={0.5} />
+        <Thumb x={414} y={100} w={56} h={42} src="/site/AnimLoader.png" opacity={0.5} />
+        <Thumb x={414} y={150} w={56} h={42} src="/site/Spline2.png" />
+      </g>
     </svg>
   );
 }
@@ -290,7 +319,7 @@ const scenes: Record<ToolId, () => React.ReactElement> = {
   dump: DumpScene,
   comments: CommentsScene,
   "video-to-shot": VideoShotScene,
-  curate: CurateScene,
+  focus: FocusScene,
 };
 
 export function ToolCaricature({ id }: { id: ToolId }) {

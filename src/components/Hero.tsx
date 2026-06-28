@@ -1,12 +1,20 @@
+import Image from "next/image";
 import { Reveal } from "./Reveal";
 
 export function Hero() {
   return (
     <header
       id="top"
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pb-28 pt-32 text-center sm:px-10"
+      className="relative overflow-hidden px-6 pb-20 pt-32 text-center sm:px-10 sm:pb-28 sm:pt-40"
     >
-      <div className="relative z-[2] max-w-[820px]">
+      <div className="paper-grain" aria-hidden />
+      <div className="hero-wash" aria-hidden />
+      <div
+        className="bloom left-1/2 top-[24%] h-[620px] w-[620px] -translate-x-1/2 -translate-y-1/2"
+        aria-hidden
+      />
+
+      <div className="relative z-[2] mx-auto max-w-[820px]">
         <Reveal delay={80}>
           <h1 className="font-serif text-[clamp(2.7rem,7vw,5.4rem)] font-normal leading-[1.04] tracking-[-1px] text-ink">
             Your reference board,
@@ -27,9 +35,12 @@ export function Hero() {
         </Reveal>
 
         <Reveal delay={240}>
-          <div className="mt-10 flex flex-col items-center gap-4">
-            <span className="inline-flex items-center gap-2.5 rounded-full border border-line-2 bg-panel px-5 py-2.5 text-[14px] font-medium text-ink shadow-soft">
-              <span className="h-1.5 w-1.5 rounded-full bg-ink/55" aria-hidden />
+          <div className="mt-9 flex flex-col items-center gap-4">
+            <span className="inline-flex items-center gap-2.5 text-[13px] font-medium uppercase tracking-[0.16em] text-muted">
+              <span className="relative flex h-2 w-2" aria-hidden>
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500/70" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+              </span>
               Coming soon
             </span>
             <p className="text-[13px] text-faint">
@@ -39,15 +50,20 @@ export function Hero() {
         </Reveal>
       </div>
 
-      <a
-        href="#canvas"
-        aria-label="Scroll to the canvas"
-        className="absolute bottom-7 left-1/2 z-[2] -translate-x-1/2 text-faint transition-colors hover:text-ink"
-      >
-        <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden>
-          <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </a>
+      {/* the real app, framed as a floating window */}
+      <Reveal delay={320} className="relative z-[2] mx-auto mt-14 max-w-[1440px] sm:mt-16">
+        <div className="overflow-hidden rounded-xl border border-line-2 bg-paper shadow-lift sm:rounded-2xl">
+          <Image
+            src="/site/app-hero.png"
+            alt="The Palma app — a project's references spread across an infinite Dump Board canvas"
+            width={2550}
+            height={1382}
+            priority
+            sizes="(max-width: 1480px) 100vw, 1440px"
+            className="h-auto w-full"
+          />
+        </div>
+      </Reveal>
     </header>
   );
 }

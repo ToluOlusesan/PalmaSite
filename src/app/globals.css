@@ -2,24 +2,25 @@
 
 /* ============================================================ Design tokens */
 @theme {
-  /* Monochrome, dark, editorial. Pure neutral greys — no warm tint at all. */
-  --color-paper: #0a0a0a;
-  --color-panel: #161616;
-  --color-panel-2: #212121;
-  --color-ink: #f5f5f5;
-  --color-ink-2: #d6d6d6;
+  /* Monochrome, light, editorial. Pure white page; light greys for surfaces. */
+  --color-paper: #ffffff;
+  --color-panel: #f2f2f2;
+  --color-panel-2: #e6e6e6;
+  --color-ink: #000000;
+  --color-ink-2: #141414;
 
-  --color-muted: rgba(245, 245, 245, 0.58);
-  --color-faint: rgba(245, 245, 245, 0.4);
-  --color-line: rgba(245, 245, 245, 0.12);
-  --color-line-2: rgba(245, 245, 245, 0.2);
+  /* Text reads pitch black; body copy only a hair softer for long paragraphs. */
+  --color-muted: rgba(0, 0, 0, 0.88);
+  --color-faint: rgba(0, 0, 0, 0.5);
+  --color-line: rgba(0, 0, 0, 0.12);
+  --color-line-2: rgba(0, 0, 0, 0.2);
 
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
   --font-serif: var(--font-dm-serif), Georgia, serif;
   --font-script: var(--font-pinyon), "DM Serif Display", cursive;
 
-  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.4), 0 16px 40px rgba(0, 0, 0, 0.45);
-  --shadow-lift: 0 2px 8px rgba(0, 0, 0, 0.45), 0 32px 70px rgba(0, 0, 0, 0.55);
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.05), 0 12px 32px rgba(0, 0, 0, 0.08);
+  --shadow-lift: 0 2px 8px rgba(0, 0, 0, 0.06), 0 28px 60px rgba(0, 0, 0, 0.12);
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -41,7 +42,7 @@ html {
 }
 
 body {
-  background: var(--color-paper);
+  background-color: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-sans);
   font-weight: 400;
@@ -49,6 +50,22 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+}
+
+/* Paper tooth — a faint fibrous grain, scoped to the landing and faded out at
+   the bottom so the textured hero dissolves into the clean white sections below
+   instead of ending on a hard edge. Pure CSS noise (SVG fractalNoise), no asset
+   to ship. */
+.paper-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 50%, transparent 92%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 50%, transparent 92%);
 }
 
 ::selection {
@@ -78,8 +95,8 @@ em {
   z-index: 0;
   background: radial-gradient(
     circle,
-    rgba(245, 245, 245, 0.07) 0%,
-    rgba(245, 245, 245, 0.025) 36%,
+    rgba(10, 10, 10, 0.07) 0%,
+    rgba(10, 10, 10, 0.025) 36%,
     transparent 64%
   );
 }
@@ -93,9 +110,9 @@ em {
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(120% 100% at 20% 100%, rgba(245, 245, 245, 0.08), transparent 60%),
-    radial-gradient(120% 100% at 80% 100%, rgba(245, 245, 245, 0.07), transparent 60%),
-    linear-gradient(to top, rgba(245, 245, 245, 0.06), transparent);
+    radial-gradient(120% 100% at 20% 100%, rgba(10, 10, 10, 0.08), transparent 60%),
+    radial-gradient(120% 100% at 80% 100%, rgba(10, 10, 10, 0.07), transparent 60%),
+    linear-gradient(to top, rgba(10, 10, 10, 0.06), transparent);
 }
 
 /* Scroll-reveal */
@@ -151,9 +168,19 @@ em {
   );
 }
 
+/* Hide native scrollbar while keeping the element scrollable (used by the
+   horizontal tools rail, which has its own arrow controls + edge fades). */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Faint dot-grid used inside mock canvases */
 .dotgrid {
-  background-image: radial-gradient(rgba(245, 245, 245, 0.09) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(10, 10, 10, 0.09) 1px, transparent 1px);
   background-size: 22px 22px;
 }
 

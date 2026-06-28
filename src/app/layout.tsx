@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     template: "%s · Palma",
   },
   description:
-    "Palma is a local-first creative workspace for motion and 3D designers. Drop your references, lock your palette, distil your mood — all on your machine. No cloud. No account. Free, forever.",
+    "Palma is a local-first creative workspace for motion and 3D designers. Drop your references, mark them up, then sort them into focus zones and export a brief — all on your machine. No cloud. No account. Free, forever.",
   applicationName: "Palma",
   keywords: [
     "Palma",
@@ -70,8 +70,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0a0a",
-  colorScheme: "dark",
+  themeColor: "#ffffff",
+  colorScheme: "light",
 };
 
 export default function RootLayout({

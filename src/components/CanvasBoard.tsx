@@ -118,8 +118,8 @@ export function CanvasBoard() {
       >
         <path
           d="M5 3 L5 19 L9 15 L12 21 L14.5 20 L11.5 14 L17 14 Z"
-          fill="#ffffff"
-          stroke="#0a0a0a"
+          fill="#0a0a0a"
+          stroke="#f5f5f5"
           strokeWidth="1.2"
           strokeLinejoin="round"
         />

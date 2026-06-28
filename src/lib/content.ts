@@ -12,7 +12,7 @@ export const site = {
 };
 
 /** The four essential tools, each shown with an animated caricature screen. */
-export type ToolId = "dump" | "comments" | "video-to-shot" | "curate";
+export type ToolId = "dump" | "comments" | "video-to-shot" | "focus";
 
 export type Tool = {
   id: ToolId;
@@ -41,14 +41,7 @@ export const tools: Tool[] = [
     index: "03",
     name: "Video to Screenshot",
     blurb:
-      "Pull a clean still from any video reference in one click — no scrubbing to the frame, no exporting, no detour.",
-  },
-  {
-    id: "curate",
-    index: "04",
-    name: "Curate",
-    blurb:
-      "Cull the dump down to the keepers. Star what's working, let the rest fall away, until only the strong refs remain.",
+      "Find the moment you want in any video reference and lift it out as a clean still — one click, right on the board, no separate player or export step.",
   },
 ];
 
@@ -91,6 +84,6 @@ export const principles: Principle[] = [
   {
     icon: "camera",
     title: "Video to screenshot",
-    body: "Pull a clean still from any video reference in one click — no scrubbing to the right frame, no exporting, no detour through another app.",
+    body: "Reference footage stays playable on the board. Park it on the right frame, grab the still, and it drops in place — the player and the canvas are the same surface.",
   },
 ];

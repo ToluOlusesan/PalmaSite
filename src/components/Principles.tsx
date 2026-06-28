@@ -10,13 +10,13 @@ const icons: Record<PrincipleIcon, LucideIcon> = {
   camera: Camera,
 };
 
-// A sprinkle of colour — one accent per principle, against the monochrome.
+// A sprinkle of colour — one vivid accent per principle, against the monochrome.
 const accents: Record<PrincipleIcon, string> = {
-  "hard-drive": "#5b9dff",
-  "cloud-off": "#b78bff",
-  infinity: "#4ade80",
-  zap: "#fbbf24",
-  camera: "#fb7185",
+  "hard-drive": "#f97316",
+  "cloud-off": "#16a34a",
+  infinity: "#ec4899",
+  zap: "#2563eb",
+  camera: "#14b8a6",
 };
 
 export function Principles() {
@@ -24,7 +24,7 @@ export function Principles() {
     <section id="why" className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-[1200px] px-6 sm:px-10">
         <Reveal className="mx-auto max-w-[680px] text-center">
-          <h2 className="font-serif text-[clamp(2rem,5vw,3.4rem)] leading-[1.04] tracking-[-0.5px] text-ink">
+          <h2 className="font-serif text-[clamp(2.1rem,5vw,3.5rem)] leading-[1.04] tracking-[-0.5px] text-ink">
             Built for how you actually work.
           </h2>
           <p className="mx-auto mt-5 max-w-[500px] text-pretty text-[1.02rem] leading-[1.65] text-muted">
@@ -49,8 +49,8 @@ export function Principles() {
                   className="grid h-12 w-12 place-items-center rounded-xl border"
                   style={{
                     color: accent,
-                    backgroundColor: `${accent}1f`,
-                    borderColor: `${accent}59`,
+                    backgroundColor: `${accent}26`,
+                    borderColor: `${accent}66`,
                   }}
                 >
                   <Icon className="h-[22px] w-[22px]" strokeWidth={1.5} aria-hidden />
