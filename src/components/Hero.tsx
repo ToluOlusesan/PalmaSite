@@ -29,7 +29,7 @@ export function Hero() {
         <Reveal delay={160}>
           <p className="mx-auto mt-7 max-w-[520px] text-pretty text-[1.05rem] leading-[1.65] text-muted">
             Palma is a creative workspace and moodboarding tool for designers.
-            Drop your references, make notes, curate the vibe — all local on
+            Drop your references, make notes, curate the vibe. All local on
             your machine.
           </p>
         </Reveal>
@@ -55,7 +55,7 @@ export function Hero() {
         <div className="overflow-hidden rounded-xl border border-line-2 bg-paper shadow-lift sm:rounded-2xl">
           <Image
             src="/site/app-hero.png"
-            alt="The Palma app — a project's references spread across an infinite Dump Board canvas"
+            alt="The Palma app: a project's references spread across an infinite Dump Board canvas"
             width={2550}
             height={1382}
             priority

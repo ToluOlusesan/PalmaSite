@@ -40,7 +40,7 @@ export function Nav() {
       <div className="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-4 sm:px-10">
         <a
           href="#top"
-          aria-label="Palma — home"
+          aria-label="Palma home"
           className="flex items-center gap-2.5 text-ink"
         >
           <PalmaMark className="h-[22px] w-7" />

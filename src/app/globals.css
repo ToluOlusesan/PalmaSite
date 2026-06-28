@@ -316,6 +316,21 @@ em {
   animation: tc-rise 5s var(--ease-out-soft) infinite both;
 }
 
+/* hard-blinking text caret for the Scratchpad document */
+@keyframes tc-caret {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+.tc-caret {
+  animation: tc-caret 1.06s steps(1, end) infinite;
+}
+
 /* a soft attention pulse (e.g. the Tidy button) */
 @keyframes tc-pulse {
   0%,
@@ -547,7 +562,8 @@ em {
   .tc-cull,
   .tc-check,
   .tc-rise,
-  .tc-pulse {
+  .tc-pulse,
+  .tc-caret {
     animation: none;
   }
 }

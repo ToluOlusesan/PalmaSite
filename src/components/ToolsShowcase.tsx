@@ -113,7 +113,7 @@ export function ToolsShowcase() {
       </h2>
       <p className="mt-5 max-w-[460px] text-pretty text-[1.02rem] leading-[1.65] text-muted">
         Everything the work needs to go from a pile of references to a clear
-        direction — and not one feature more.
+        direction, and not one feature more.
       </p>
     </Reveal>
   );

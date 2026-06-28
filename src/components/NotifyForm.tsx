@@ -37,7 +37,7 @@ export function NotifyForm() {
             <path d="M5 12l4 4 10-10" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
-        You&apos;re on the list — we&apos;ll email you once, when it&apos;s ready.
+        You&apos;re on the list. We&apos;ll email you once, when it&apos;s ready.
       </p>
     );
   }
@@ -79,7 +79,7 @@ export function NotifyForm() {
 
       <p className="mt-3 text-[12.5px] text-faint">
         {status === "error"
-          ? "Something went wrong — try again in a moment."
+          ? "Something went wrong. Try again in a moment."
           : "One email at launch. No spam, no account, unsubscribe anytime."}
       </p>
     </form>

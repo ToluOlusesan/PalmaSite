@@ -27,7 +27,7 @@ export const tools: Tool[] = [
     index: "01",
     name: "Dump",
     blurb:
-      "Your good old moodboard. Fling images, video and screenshots onto an infinite canvas — arrange them once the idea's ready.",
+      "Your good old moodboard. Fling images, video and screenshots onto an infinite canvas, then arrange them once the idea's ready.",
   },
   {
     id: "comments",
@@ -41,14 +41,14 @@ export const tools: Tool[] = [
     index: "03",
     name: "Video to Screenshot",
     blurb:
-      "Find the moment you want in any video reference and lift it out as a clean still — one click, right on the board, no separate player or export step.",
+      "Find the moment you want in any video reference and lift it out as a clean still. One click, right on the board, with no separate player or export step.",
   },
   {
     id: "scratchpad",
     index: "04",
     name: "Scratchpad",
     blurb:
-      "A writing space that lives beside the board. Draft briefs, treatments and shot notes in proper rich text — headings, lists, quotes, code — and every keystroke autosaves to the project, never the cloud.",
+      "A writing space that lives beside the board. Draft briefs, treatments and shot notes in proper rich text: headings, lists, quotes, code. Every keystroke autosaves to the project, never the cloud.",
   },
 ];
 
@@ -71,7 +71,7 @@ export const principles: Principle[] = [
   {
     icon: "hard-drive",
     title: "Local-first, by design",
-    body: "Everything lives on your machine. On a plane, in a basement, offline for a week — Palma doesn't notice and doesn't care. It just opens.",
+    body: "Everything lives on your machine. On a plane, in a basement, offline for a week. Palma doesn't notice and doesn't care. It just opens.",
   },
   {
     icon: "cloud-off",
@@ -91,6 +91,6 @@ export const principles: Principle[] = [
   {
     icon: "camera",
     title: "Video to screenshot",
-    body: "Reference footage stays playable on the board. Park it on the right frame, grab the still, and it drops in place — the player and the canvas are the same surface.",
+    body: "Reference footage stays playable on the board. Park it on the right frame, grab the still, and it drops in place. The player and the canvas are the same surface.",
   },
 ];

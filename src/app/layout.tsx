@@ -35,11 +35,11 @@ const SITE_URL =
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Palma — Your reference board, finally alive.",
+    default: "Palma: Your reference board, finally alive.",
     template: "%s · Palma",
   },
   description:
-    "Palma is a local-first creative workspace for motion and 3D designers. Drop your references, mark them up, then sort them into focus zones and export a brief — all on your machine. No cloud. No account. Free, forever.",
+    "Palma is a local-first creative workspace for motion and 3D designers. Drop your references, mark them up, then sort them into focus zones and export a brief, all on your machine. No cloud. No account. Free, forever.",
   applicationName: "Palma",
   keywords: [
     "Palma",
@@ -57,13 +57,13 @@ export const metadata: Metadata = {
     type: "website",
     url: SITE_URL,
     siteName: "Palma",
-    title: "Palma — Your reference board, finally alive.",
+    title: "Palma: Your reference board, finally alive.",
     description:
       "A local-first creative workspace for motion and 3D designers. No cloud. No clutter. Just your work.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Palma — Your reference board, finally alive.",
+    title: "Palma: Your reference board, finally alive.",
     description:
       "A local-first creative workspace for motion and 3D designers. No cloud. No clutter. Just your work.",
   },

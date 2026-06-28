@@ -10,7 +10,7 @@ export function Spotlight() {
             Find the direction in the noise.
           </h2>
           <p className="mx-auto mt-5 max-w-[480px] text-pretty text-[1.02rem] leading-[1.65] text-muted">
-            Send the keepers to Focus and drop them into named zones — colour,
+            Send the keepers to Focus and drop them into named zones: colour,
             texture, motion. What lands there becomes the project&apos;s
             direction, ready to export as a one-click brief.
           </p>
