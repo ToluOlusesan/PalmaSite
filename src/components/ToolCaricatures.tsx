@@ -397,15 +397,15 @@ function FocusScene() {
         <Thumb x={312} y={62} w={92} h={56} src="/site/7.png" />
         <Thumb x={312} y={125} w={92} h={56} src="/site/8.png" />
         <Thumb x={312} y={188} w={92} h={56} fill="#dedede" />
-        {/* a keeper slides in from the Queue into the empty Motion slot */}
+        {/* the third queue item slides out of the Queue into the empty slot */}
         <Thumb
           className="tc-fx tc-gather"
-          style={{ "--fx": "84px", "--fy": "-128px", "--fr": "-6deg" } as CSSProperties}
+          style={{ "--fx": "76px", "--fy": "-52px", "--fr": "4deg" } as CSSProperties}
           x={312}
           y={188}
           w={92}
           h={56}
-          src="/site/Solis.png"
+          src="/site/untitled.png"
         />
       </ZoneFrame>
 
@@ -416,7 +416,6 @@ function FocusScene() {
         <text x={424} y={48} fontSize="4.6" fontWeight="600" letterSpacing="0.7" fill={INK} fillOpacity="0.42">QUEUE</text>
         <Thumb x={424} y={54} w={48} h={36} src="/site/Tenebris.png" opacity={0.5} />
         <Thumb x={424} y={96} w={48} h={36} src="/site/Eve.jpg" opacity={0.5} />
-        <Thumb x={424} y={138} w={48} h={36} src="/site/untitled.png" />
       </g>
     </svg>
   );
