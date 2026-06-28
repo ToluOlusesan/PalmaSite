@@ -2,6 +2,7 @@ import type { CSSProperties, SVGProps } from "react";
 import type { ToolId } from "@/lib/content";
 import { PalmaMarkPaths } from "./PalmaMark";
 import { ScratchpadDoc } from "./ScratchpadDoc";
+import { VideoShot } from "./VideoShot";
 
 /* High-fidelity, monochrome caricatures of the Palma app performing each tool's
    action — each framed as a miniature of the real window (sidebar, breadcrumb
@@ -282,15 +283,6 @@ function Arrow({ d }: { d: string }) {
   return <path d={d} fill="none" stroke={INK} strokeOpacity="0.24" strokeWidth="1.2" markerEnd="url(#tc-arrow)" />;
 }
 
-function Check({ cx, cy, ...g }: { cx: number; cy: number } & GProps) {
-  return (
-    <g {...g}>
-      <circle cx={cx} cy={cy} r="7" fill={INK} />
-      <path d={`M${cx - 3} ${cy} l2.2 2.2 l4.3 -4.6`} fill="none" stroke={CANVAS} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-    </g>
-  );
-}
-
 /** A Focus zone — a labelled container with a coloured outline. */
 function ZoneFrame({
   x,
@@ -323,13 +315,15 @@ function DumpScene() {
       <Tabs active="dump" />
       <BoardToolbar />
 
-      <Arrow d="M176 132 C 198 132, 200 150, 218 152" />
-      <Arrow d="M324 150 C 340 150, 342 120, 350 112" />
-      <Thumb x={80} y={66} w={92} h={60} src="/site/Spline2.png" />
+      {/* connectors linking the cards, edge to edge */}
+      <Arrow d="M172 96 C 192 98, 200 110, 217 112" />
+      <Arrow d="M322 100 C 334 98, 340 95, 349 94" />
+      <Arrow d="M306 196 C 324 196, 330 182, 343 180" />
+      <Thumb x={80} y={66} w={92} h={60} src="/site/1.png" />
       <NoteCard x={84} y={142} w={94} h={62} />
-      <Thumb x={218} y={78} w={104} h={74} src="/site/Shot3.png" />
-      <Thumb x={350} y={62} w={82} h={58} src="/site/1_175.png" className="tc-fx tc-drop" />
-      <Thumb x={344} y={138} w={104} h={72} src="/site/AnimLoader.png" />
+      <Thumb x={218} y={78} w={104} h={74} src="/site/2.png" />
+      <Thumb x={350} y={62} w={82} h={58} src="/site/3.png" className="tc-fx tc-drop" />
+      <Thumb x={344} y={138} w={104} h={72} src="/site/4.png" />
       <NoteCard x={210} y={172} w={96} h={52} lines={3} className="tc-fx tc-drop" style={{ animationDelay: "2.4s" } as CSSProperties} />
     </svg>
   );
@@ -345,7 +339,7 @@ function CommentsScene() {
       <Tabs active="dump" />
       <BoardToolbar />
 
-      <Thumb x={150} y={62} w={186} h={126} src="/site/1.png" />
+      <Thumb x={150} y={62} w={186} h={126} src="/site/5.png" />
 
       {/* composer popover rising in */}
       <g className="tc-fx-b tc-rise">
@@ -374,24 +368,8 @@ function VideoShotScene() {
       <Tabs active="dump" />
       <BoardToolbar />
 
-      <Arrow d="M286 132 C 308 134, 314 144, 330 146" />
-
-      {/* video card */}
-      <g>
-        <rect x={88} y={62} width={188} height={128} rx="7" fill="#d5d5d5" stroke={INK} strokeOpacity="0.12" />
-        <circle cx={182} cy={124} r="18" fill={CANVAS} fillOpacity="0.5" stroke={INK} strokeOpacity="0.35" />
-        <PIcon d={IC.playFill} x={174} y={116} size={16} op={0.85} />
-        <line x1={102} y1={176} x2={262} y2={176} stroke={INK} strokeOpacity="0.25" strokeWidth="2.6" strokeLinecap="round" />
-        <circle className="tc-fx tc-scrub" cx={102} cy={176} r="4" fill={INK} style={{ "--track": "160px" } as CSSProperties} />
-        <text x={262} y={169} fontSize="6.6" textAnchor="end" fill={INK} fillOpacity="0.5">0:12</text>
-        <rect className="tc-flash" x={88} y={62} width={188} height={128} rx="7" fill={INK} opacity="0" />
-      </g>
-
-      {/* extracted still pops out */}
-      <g className="tc-fx tc-snap">
-        <Thumb x={330} y={86} w={120} h={86} src="/site/AnimLoader.png" />
-        <Check cx={340} cy={96} />
-      </g>
+      <Arrow d="M276 126 C 296 126, 308 124, 329 124" />
+      <VideoShot />
     </svg>
   );
 }
@@ -408,16 +386,16 @@ function FocusScene() {
       <Tabs active="focus" />
 
       <ZoneFrame x={72} y={44} w={108} h={212} label="Colour" accent="#f97316">
-        {zoneThumbs(72, ["/site/Spline2.png", "/site/Shot3.png", "/site/1.png"])}
+        {zoneThumbs(72, ["/site/1.png", "/site/2.png", "/site/3.png"])}
       </ZoneFrame>
 
       <ZoneFrame x={188} y={44} w={108} h={212} label="Texture" accent="#14b8a6">
-        {zoneThumbs(188, ["/site/1_175.png", "/site/AnimLoader.png", "/site/Spline2.png"])}
+        {zoneThumbs(188, ["/site/4.png", "/site/5.png", "/site/6.png"])}
       </ZoneFrame>
 
       <ZoneFrame x={304} y={44} w={108} h={212} label="Motion" accent="#8b5cf6">
-        <Thumb x={312} y={62} w={92} h={56} src="/site/AnimLoader.png" />
-        <Thumb x={312} y={125} w={92} h={56} src="/site/Shot3.png" />
+        <Thumb x={312} y={62} w={92} h={56} src="/site/7.png" />
+        <Thumb x={312} y={125} w={92} h={56} src="/site/8.png" />
         <Thumb x={312} y={188} w={92} h={56} fill="#dedede" />
         {/* a keeper slides in from the Queue into the empty Motion slot */}
         <Thumb
@@ -427,7 +405,7 @@ function FocusScene() {
           y={188}
           w={92}
           h={56}
-          src="/site/1.png"
+          src="/site/Solis.png"
         />
       </ZoneFrame>
 
@@ -436,9 +414,9 @@ function FocusScene() {
         <rect x={416} y={33} width={64} height={H - 33} fill="#ececec" />
         <line x1={416} y1={33} x2={416} y2={H} stroke={INK} strokeOpacity="0.08" />
         <text x={424} y={48} fontSize="4.6" fontWeight="600" letterSpacing="0.7" fill={INK} fillOpacity="0.42">QUEUE</text>
-        <Thumb x={424} y={54} w={48} h={36} src="/site/AnimLoader.png" opacity={0.5} />
-        <Thumb x={424} y={96} w={48} h={36} src="/site/Spline2.png" opacity={0.5} />
-        <Thumb x={424} y={138} w={48} h={36} src="/site/1.png" />
+        <Thumb x={424} y={54} w={48} h={36} src="/site/Tenebris.png" opacity={0.5} />
+        <Thumb x={424} y={96} w={48} h={36} src="/site/Eve.jpg" opacity={0.5} />
+        <Thumb x={424} y={138} w={48} h={36} src="/site/untitled.png" />
       </g>
     </svg>
   );
