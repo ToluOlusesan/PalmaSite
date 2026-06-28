@@ -1,5 +1,8 @@
 import type { CSSProperties, ReactNode, SVGProps } from "react";
 import type { ToolId } from "@/lib/content";
+import { PalmaMarkPaths } from "./PalmaMark";
+
+const SERIF = { fontFamily: "var(--font-serif)" } as CSSProperties;
 
 /* High-fidelity, monochrome caricatures of the Palma app performing each tool's
    action — each one framed as a miniature of the real window (sidebar, breadcrumb
@@ -62,9 +65,12 @@ function Sidebar() {
       <rect x="0" y="0" width={SBW} height="300" fill={SIDEBAR} />
       <line x1={SBW} y1="0" x2={SBW} y2="300" stroke={INK} strokeOpacity="0.08" />
 
-      {/* brand */}
-      <text x="10" y="19" fontSize="9" fontWeight="600" fill={INK} fontStyle="italic">Palma</text>
-      <path d="M71 13 l-3 3 l3 3" fill="none" stroke={INK} strokeOpacity="0.3" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+      {/* brand — island mark + serif wordmark, matching the site */}
+      <g transform="translate(9 6) scale(0.0131)" fill={INK} aria-hidden>
+        <PalmaMarkPaths />
+      </g>
+      <text x={27} y={16.5} fontSize="10.5" fill={INK} style={SERIF}>Palma</text>
+      <path d="M72 12 l-3 3.5 l3 3.5" fill="none" stroke={INK} strokeOpacity="0.28" strokeWidth="0.9" strokeLinecap="round" strokeLinejoin="round" />
 
       {item(42, "Projects")}
       {item(58, "Library")}
@@ -87,7 +93,7 @@ function TopBar() {
       <rect x={CX0} y="0" width={CW} height="22" fill={BAR} />
       <line x1={CX0} y1="22" x2="480" y2="22" stroke={INK} strokeOpacity="0.07" />
       <text x={CX0 + 12} y="14.6" fontSize="7" fill={INK} fillOpacity="0.4">Projects ›</text>
-      <text x={CX0 + 46} y="14.6" fontSize="7" fontWeight="600" fill={INK}>On my Way</text>
+      <text x={CX0 + 46} y="15" fontSize="8.5" fill={INK} style={SERIF}>On my Way</text>
       <text x="432" y="14.6" fontSize="6.2" textAnchor="end" fill={INK} fillOpacity="0.42">✓ Saved</text>
       <rect x="440" y="5.5" width="34" height="12" rx="6" fill="none" stroke={INK} strokeOpacity="0.18" strokeWidth="0.9" />
       <text x="457" y="13.8" fontSize="6.2" textAnchor="middle" fill={INK} fillOpacity="0.7">Export</text>
@@ -258,9 +264,9 @@ function ZoneFrame({
 }: { x: number; y: number; w: number; h: number; label: string; accent: string } & GProps) {
   return (
     <g>
-      <rect x={x} y={y} width={w} height={h} rx="11" fill={accent} fillOpacity="0.05" stroke={accent} strokeOpacity="0.85" strokeWidth="1.1" />
-      <circle cx={x + 12} cy={y + 13} r="2.6" fill={accent} />
-      <text x={x + 19} y={y + 15.5} fontSize="6.3" fontWeight="700" letterSpacing="0.4" fill={accent}>
+      <rect x={x} y={y} width={w} height={h} rx="11" fill={accent} fillOpacity="0.04" stroke={accent} strokeOpacity="0.6" strokeWidth="0.7" />
+      <circle cx={x + 11} cy={y + 12} r="1.9" fill={accent} fillOpacity="0.9" />
+      <text x={x + 17} y={y + 14.3} fontSize="5.8" fontWeight="500" letterSpacing="0.5" fill={accent} fillOpacity="0.85">
         {label.toUpperCase()}
       </text>
       {children}
@@ -391,7 +397,7 @@ function FocusScene() {
       <g>
         <rect x={410} y={40} width={70} height={260} fill="#ececec" />
         <line x1={410} y1={40} x2={410} y2={300} stroke={INK} strokeOpacity="0.08" />
-        <text x={419} y={56} fontSize="5.6" fontWeight="700" letterSpacing="0.8" fill={INK} fillOpacity="0.45">QUEUE</text>
+        <text x={419} y={56} fontSize="5.4" fontWeight="600" letterSpacing="0.8" fill={INK} fillOpacity="0.42">QUEUE</text>
         <Thumb x={419} y={64} w={52} h={38} src="/site/AnimLoader.png" opacity={0.5} />
         <Thumb x={419} y={110} w={52} h={38} src="/site/Spline2.png" opacity={0.5} />
         <Thumb x={419} y={156} w={52} h={38} src="/site/1.png" />
