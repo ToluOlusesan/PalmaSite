@@ -1,11 +1,12 @@
 import Image from "next/image";
 import { Reveal } from "./Reveal";
+import { DownloadButton, GuideLink } from "./DownloadButton";
 
 export function Hero() {
   return (
     <header
       id="top"
-      className="relative overflow-hidden px-6 pb-20 pt-32 text-center sm:px-10 sm:pb-28 sm:pt-40"
+      className="relative overflow-hidden px-6 pb-16 pt-28 text-center sm:px-10 sm:pb-20 sm:pt-36"
     >
       <div className="paper-grain" aria-hidden />
       <div className="hero-wash" aria-hidden />
@@ -36,15 +37,12 @@ export function Hero() {
 
         <Reveal delay={240}>
           <div className="mt-9 flex flex-col items-center gap-4">
-            <span className="inline-flex items-center gap-2.5 text-[13px] font-medium uppercase tracking-[0.16em] text-muted">
-              <span className="relative flex h-2 w-2" aria-hidden>
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500/70" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
-              </span>
-              Coming soon
-            </span>
+            <div className="flex flex-col items-center gap-3 sm:flex-row">
+              <DownloadButton />
+              <GuideLink />
+            </div>
             <p className="text-[13px] text-faint">
-              Windows only for now · No account required · Runs entirely on your machine.
+              Windows · Free, forever · No account required · Runs entirely on your machine.
             </p>
           </div>
         </Reveal>

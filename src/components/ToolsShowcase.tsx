@@ -124,21 +124,21 @@ export function ToolsShowcase() {
     <section
       ref={sectionRef}
       id="tools"
-      className="relative"
+      className="section-invert relative"
       style={pinned ? { height: sectionHeight } : undefined}
     >
       <div
         className={
           pinned
             ? "sticky top-0 flex h-screen flex-col overflow-hidden"
-            : "py-16 sm:py-32"
+            : "py-14 sm:py-24"
         }
       >
         {/* heading — full-bleed gutter when pinned so the first card lines up */}
         <div
           className={
             pinned
-              ? "w-full shrink-0 px-6 pb-2 pt-[5vh] sm:px-10 lg:px-[6vw]"
+              ? "w-full shrink-0 px-6 pb-2 pt-[3.5vh] sm:px-10 lg:px-[6vw]"
               : "mx-auto w-full max-w-[1200px] px-6 sm:px-10"
           }
         >
@@ -149,8 +149,8 @@ export function ToolsShowcase() {
         <div
           className={
             pinned
-              ? "relative flex min-h-0 flex-1 items-center overflow-hidden py-[3vh]"
-              : "relative mx-auto mt-12 w-full max-w-[1200px]"
+              ? "relative flex min-h-0 flex-1 items-center overflow-hidden py-[2vh]"
+              : "relative mx-auto mt-8 w-full max-w-[1200px]"
           }
         >
           <div

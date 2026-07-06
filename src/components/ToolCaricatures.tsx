@@ -221,9 +221,6 @@ export function CaricatureDefs() {
         <pattern id="tc-dots" width="15" height="15" patternUnits="userSpaceOnUse">
           <circle cx="1" cy="1" r="0.9" fill={INK} fillOpacity="0.05" />
         </pattern>
-        <marker id="tc-arrow" markerWidth="7" markerHeight="7" refX="0.4" refY="3" orient="auto-start-reverse">
-          <path d="M0 0 L6 3 L0 6 z" fill={INK} fillOpacity="0.4" />
-        </marker>
       </defs>
     </svg>
   );
@@ -279,8 +276,10 @@ function NoteCard({
   );
 }
 
+/* Board connectors are drawn tip-less — just soft hairlines linking the cards.
+   The arrowhead marker is intentionally dropped across every scene. */
 function Arrow({ d }: { d: string }) {
-  return <path d={d} fill="none" stroke={INK} strokeOpacity="0.24" strokeWidth="1.2" markerEnd="url(#tc-arrow)" />;
+  return <path d={d} fill="none" stroke={INK} strokeOpacity="0.24" strokeWidth="1.2" strokeLinecap="round" />;
 }
 
 /** A Focus zone — a labelled container with a coloured outline. */

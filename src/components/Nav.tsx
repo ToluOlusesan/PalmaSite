@@ -61,10 +61,10 @@ export function Nav() {
             </a>
           ))}
           <a
-            href="#request"
+            href="#download"
             className="rounded-full bg-ink px-4 py-2 text-[13.5px] font-medium text-paper transition-opacity hover:opacity-85"
           >
-            Get notified
+            Download
           </a>
 
           {/* mobile menu toggle */}

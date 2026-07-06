@@ -9,6 +9,12 @@ export const site = {
   maker: "Spatial Foundry",
   tagline: "Your creative process. Contained.",
   year: new Date().getFullYear(),
+  /** Current Windows release. Bump `version` and the installer stays in sync. */
+  version: "1.1.1",
+  downloadUrl:
+    "https://github.com/ToluOlusesan/PalmaStudio/releases/download/v1.1.1/Palma-Setup-1.1.1.exe",
+  /** The user guide PDF, served straight from /public. */
+  guideUrl: "/Palma-User-Guide.pdf",
 };
 
 /** The four essential tools, each shown with an animated caricature screen. */
