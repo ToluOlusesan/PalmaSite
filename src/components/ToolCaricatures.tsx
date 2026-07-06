@@ -129,9 +129,10 @@ function Sidebar() {
       <rect x="8" y="98.2" width="5" height="5" rx="1.4" fill="none" stroke={INK} strokeOpacity="0.32" strokeWidth="0.8" />
       <text x="17" y="102.6" fontSize="5.2" fill={INK} fillOpacity="0.62">Inbox</text>
 
-      {/* new project */}
+      {/* new project — centred both ways inside its pill (dominant-baseline
+          keeps the label optically centred rather than sitting a hair high) */}
       <rect x="6" y="247" width={SBW - 12} height="15" rx="4" fill={INK} />
-      <text x={SBW / 2} y="254.6" fontSize="5" fontWeight="500" textAnchor="middle" fill={CANVAS}>+ New project</text>
+      <text x={6 + (SBW - 12) / 2} y="254.5" fontSize="5" fontWeight="500" textAnchor="middle" dominantBaseline="central" fill={CANVAS}>+ New project</text>
     </g>
   );
 }

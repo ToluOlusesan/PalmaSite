@@ -166,8 +166,8 @@ export function ToolsShowcase() {
             ref={railRef}
             className={`flex gap-5 ${
               pinned
-                ? "w-max items-center px-6 will-change-transform sm:px-10 lg:px-[6vw]"
-                : "no-scrollbar snap-x snap-mandatory items-start overflow-x-auto scroll-smooth px-6 pb-2 sm:px-10"
+                ? "w-max items-stretch px-6 will-change-transform sm:px-10 lg:px-[6vw]"
+                : "no-scrollbar snap-x snap-mandatory items-stretch overflow-x-auto scroll-smooth px-6 pb-2 sm:px-10"
             }`}
           >
             {tools.map((tool) => (
@@ -177,12 +177,13 @@ export function ToolsShowcase() {
               >
                 {/* animated caricature screen — always its true 16:10 ratio so
                     the scene is never stretched, zoomed, or letterboxed */}
-                <div className="relative aspect-[16/9] overflow-hidden border-b border-line bg-paper">
+                <div className="relative aspect-[16/9] shrink-0 overflow-hidden border-b border-line bg-paper">
                   <ToolCaricature id={tool.id} />
                 </div>
 
-                {/* label */}
-                <div className="flex shrink-0 items-start gap-4 p-7">
+                {/* label — flex-1 so every card fills to the tallest, keeping
+                    the caricature screens the same size and top-aligned */}
+                <div className="flex flex-1 items-start gap-4 p-7">
                   <span className="mt-0.5 font-serif text-[15px] text-faint tabular-nums">
                     {tool.index}
                   </span>
