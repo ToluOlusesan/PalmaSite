@@ -138,7 +138,8 @@ export function ToolsShowcase() {
         <div
           className={
             pinned
-              ? "w-full shrink-0 px-6 pb-2 pt-[3.5vh] sm:px-10 lg:px-[6vw]"
+              ? // clear the fixed nav (~62px) that's opaque once this pins, plus a little air
+                "w-full shrink-0 px-6 pb-2 pt-[calc(62px+3vh)] sm:px-10 lg:px-[6vw]"
               : "mx-auto w-full max-w-[1200px] px-6 sm:px-10"
           }
         >
