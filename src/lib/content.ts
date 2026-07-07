@@ -11,7 +11,7 @@ export const site = {
   year: new Date().getFullYear(),
   /** Current Windows release. Shown as the version label; the download URL below
    *  is a stable "latest release" permalink, so it never needs touching. */
-  version: "1.1.2",
+  version: "1.1.3",
   /** GitHub redirects this to the newest release's `Palma-Setup.exe` asset, so
    *  each new release is picked up automatically — no per-version edits. */
   downloadUrl:
