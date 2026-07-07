@@ -9,10 +9,13 @@ export const site = {
   maker: "Spatial Foundry",
   tagline: "Your creative process. Contained.",
   year: new Date().getFullYear(),
-  /** Current Windows release. Bump `version` and the installer stays in sync. */
-  version: "1.1.1",
+  /** Current Windows release. Shown as the version label; the download URL below
+   *  is a stable "latest release" permalink, so it never needs touching. */
+  version: "1.1.2",
+  /** GitHub redirects this to the newest release's `Palma-Setup.exe` asset, so
+   *  each new release is picked up automatically — no per-version edits. */
   downloadUrl:
-    "https://github.com/ToluOlusesan/PalmaStudio/releases/download/v1.1.1/Palma-Setup-1.1.1.exe",
+    "https://github.com/ToluOlusesan/PalmaStudio/releases/latest/download/Palma-Setup.exe",
   /** The user guide PDF, served straight from /public. */
   guideUrl: "/Palma-User-Guide.pdf",
 };
