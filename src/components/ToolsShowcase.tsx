@@ -1,85 +1,21 @@
-"use client";
-
-import { useEffect, useRef, useState, type KeyboardEvent } from "react";
-import { Camera, MessageSquareText, NotebookPen, type LucideIcon } from "lucide-react";
-import { tools, type ToolId } from "@/lib/content";
+import { tools } from "@/lib/content";
 import { Reveal } from "./Reveal";
 import { ToolCaricature } from "./ToolCaricatures";
-import { useTilt } from "@/lib/motion";
-
-/** One icon per tool, shown as a badge beside the heading. Partial — only the
- *  three tools that appear in this showcase need an entry. */
-const toolIcons: Partial<Record<ToolId, LucideIcon>> = {
-  comments: MessageSquareText,
-  "video-to-shot": Camera,
-  scratchpad: NotebookPen,
-};
 
 /**
- * The tools, told as one large framed "screen" driven by a vertical tab list —
- * not a stack of repeated feature rows (which read flat next to the rest of the
- * page). Selecting a tool spring-crossfades the screen; it also auto-advances
- * while the section is in view and pauses the instant the pointer enters, with
- * a thin dwell line under the active tab. The screen tilts toward the pointer
- * (see `useTilt`). Stays monochrome: a lit light screen on grain-textured black.
+ * The essential tools, laid out as a plain white 2×2 grid — each cell a framed
+ * caricature "screen" of the app performing the action, with the heading and
+ * blurb sitting directly beneath it (the reference feature-grid layout).
+ *
+ * No inverted background, no vertical tab-list, no pointer-driven 3D tilt: the
+ * caricatures used to sit on a GPU-composited, `will-change`-promoted, tilted
+ * surface, which softened their crisp SVG line-work. Rendered flat on paper they
+ * stay sharp.
  */
 export function ToolsShowcase() {
-  const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const [inView, setInView] = useState(false);
-  const [reduced, setReduced] = useState(false);
-
-  const sectionRef = useRef<HTMLElement>(null);
-  const screenRef = useTilt<HTMLDivElement>(3);
-
-  // Only auto-advance while the showcase is actually on screen.
-  useEffect(() => {
-    const node = sectionRef.current;
-    if (!node) return;
-    const obs = new IntersectionObserver(
-      ([e]) => setInView(e.isIntersecting),
-      { threshold: 0.35 },
-    );
-    obs.observe(node);
-    return () => obs.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => setReduced(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
-
-  const advance = () => setActive((a) => (a + 1) % tools.length);
-  const showTimer = inView && !reduced;
-
-  const onKeyDown = (e: KeyboardEvent) => {
-    if (e.key === "ArrowDown" || e.key === "ArrowRight") {
-      e.preventDefault();
-      setActive((a) => (a + 1) % tools.length);
-    } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
-      e.preventDefault();
-      setActive((a) => (a - 1 + tools.length) % tools.length);
-    } else if (e.key === "Home") {
-      e.preventDefault();
-      setActive(0);
-    } else if (e.key === "End") {
-      e.preventDefault();
-      setActive(tools.length - 1);
-    }
-  };
-
   return (
-    <section
-      ref={sectionRef}
-      id="tools"
-      className="section-invert relative overflow-hidden py-16 sm:py-28"
-    >
-      <div className="grain-invert" aria-hidden />
-
-      <div className="relative z-[1] mx-auto max-w-[1120px] px-6 sm:px-10">
+    <section id="tools" className="relative py-16 sm:py-28">
+      <div className="mx-auto max-w-[1120px] px-6 sm:px-10">
         <Reveal className="mx-auto max-w-[680px] text-center">
           <span className="text-[11.5px] font-medium uppercase tracking-[0.16em] text-faint">
             The tools
@@ -95,122 +31,45 @@ export function ToolsShowcase() {
           </p>
         </Reveal>
 
-        <Reveal className="mt-14 lg:mt-16">
-         <div
-          className="grid gap-8 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:items-center lg:gap-16 xl:gap-20"
-          onPointerEnter={() => setPaused(true)}
-          onPointerLeave={() => setPaused(false)}
-         >
-          {/* the tab list */}
-          <div
-            role="tablist"
-            aria-label="Palma tools"
-            aria-orientation="vertical"
-            onKeyDown={onKeyDown}
-            className="order-2 flex flex-col gap-1.5 lg:order-1"
-          >
-            {tools.map((tool, i) => {
-              const Icon = toolIcons[tool.id];
-              const isActive = i === active;
-              return (
-                <button
-                  key={tool.id}
-                  role="tab"
-                  id={`tool-tab-${tool.id}`}
-                  aria-selected={isActive}
-                  aria-controls="tool-screen"
-                  tabIndex={isActive ? 0 : -1}
-                  onClick={() => setActive(i)}
-                  className="group relative rounded-2xl px-5 py-5 text-left focus-visible:outline-none sm:px-6"
-                >
-                  {/* active panel fill — crossfades, no layout shift */}
-                  <span
-                    aria-hidden
-                    className={`absolute inset-0 rounded-2xl border transition-colors duration-300 ease-[var(--ease-out)] ${
-                      isActive
-                        ? "border-line bg-panel"
-                        : "border-transparent bg-transparent group-hover:bg-panel/50"
-                    }`}
-                  />
-
-                  <span
-                    className={`relative flex flex-col gap-2 transition-opacity duration-300 ${
-                      isActive ? "opacity-100" : "opacity-55 group-hover:opacity-80"
-                    }`}
-                  >
-                    <span className="flex items-center gap-3">
-                      {Icon && (
-                        <span
-                          className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg border transition-colors duration-300 ${
-                            isActive ? "border-ink text-ink" : "border-line-2 text-muted"
-                          }`}
-                        >
-                          <Icon className="h-[19px] w-[19px]" strokeWidth={1.5} aria-hidden />
-                        </span>
-                      )}
-                      <span className="font-serif text-[15px] text-faint tabular-nums">
-                        {tool.index}
-                      </span>
-                      <h3 className="font-serif text-[1.35rem] leading-none tracking-[-0.3px] text-ink">
-                        {tool.name}
-                      </h3>
-                    </span>
-                    <p className="max-w-[46ch] text-pretty text-[0.95rem] leading-[1.6] text-muted">
-                      {tool.blurb}
-                    </p>
-                  </span>
-
-                  {/* dwell indicator — only under the active tab, only while the
-                      section is on screen and motion is allowed */}
-                  {isActive && showTimer && (
-                    <span
-                      aria-hidden
-                      className="absolute inset-x-5 bottom-[7px] block h-px overflow-hidden rounded bg-line sm:inset-x-6"
-                    >
-                      <span
-                        key={active}
-                        onAnimationEnd={advance}
-                        className={`tools-progress block h-full w-full bg-ink ${
-                          paused ? "is-paused" : ""
-                        }`}
-                      />
-                    </span>
-                  )}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* the framed screen — one wide focal window that swaps content. It
-              takes the larger share of the row so the app still reads clearly,
-              sitting at its true 16:9 (never cropped) and centred against the
-              tab stack. */}
-          <div className="order-1 [perspective:1600px] lg:order-2">
-            <div
-              ref={screenRef}
-              id="tool-screen"
-              role="tabpanel"
-              aria-labelledby={`tool-tab-${tools[active].id}`}
-              className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-line bg-paper shadow-lift will-change-transform"
-              style={{ transformStyle: "preserve-3d" }}
+        <div className="mt-14 grid gap-x-10 gap-y-14 sm:grid-cols-2 lg:mt-16 lg:gap-x-16 lg:gap-y-16">
+          {tools.map((tool, i) => {
+            // A trailing odd card would sit alone in the left column; span it
+            // across both and pin it to one-column width, centred (the column
+            // width is 50% minus half the current column-gap).
+            const orphan = i === tools.length - 1 && tools.length % 2 === 1;
+            return (
+            // Reveal owns the entrance; the inner group owns the hover-lift —
+            // separate elements so the two transforms don't clobber each other.
+            <Reveal
+              key={tool.id}
+              delay={(i % 2) * 100}
+              className={
+                orphan
+                  ? "sm:col-span-2 sm:mx-auto sm:w-[calc(50%-1.25rem)] lg:w-[calc(50%-2rem)]"
+                  : undefined
+              }
             >
-              {tools.map((tool, i) => (
-                <div
-                  key={tool.id}
-                  aria-hidden={i !== active}
-                  className={`absolute inset-0 transition-[opacity,filter] duration-500 ease-[var(--ease-out)] ${
-                    i === active
-                      ? "opacity-100 blur-0"
-                      : "pointer-events-none opacity-0 blur-[6px]"
-                  }`}
-                >
+              <article className="group">
+                <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-line bg-panel shadow-soft transition-[transform,box-shadow] duration-500 ease-[var(--ease-out)] group-hover:-translate-y-1 group-hover:shadow-lift">
                   <ToolCaricature id={tool.id} />
                 </div>
-              ))}
-            </div>
-          </div>
-         </div>
-        </Reveal>
+
+                <div className="mt-6 flex items-baseline gap-3">
+                  <span className="font-serif text-[15px] text-faint tabular-nums">
+                    {tool.index}
+                  </span>
+                  <h3 className="font-serif text-[1.55rem] leading-[1.1] tracking-[-0.3px] text-ink">
+                    {tool.name}
+                  </h3>
+                </div>
+                <p className="mt-3 max-w-[48ch] text-pretty text-[1rem] leading-[1.65] text-muted">
+                  {tool.blurb}
+                </p>
+              </article>
+            </Reveal>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

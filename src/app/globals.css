@@ -74,22 +74,6 @@ body {
   mask-image: linear-gradient(to bottom, #000 0%, #000 50%, transparent 92%);
 }
 
-/* Paper tooth for inverted (dark) sections. The multiply-blended .paper-grain
-   vanishes on black, so this variant screen-blends the same fibrous noise —
-   reading as a faint light speckle on the ink. Fades at top and bottom so the
-   textured band melts into the clean white sections above and below. */
-.grain-invert {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.05;
-  mix-blend-mode: screen;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
-  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
-  mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
-}
-
 ::selection {
   background: var(--color-ink);
   color: var(--color-paper);
@@ -108,25 +92,6 @@ em {
 }
 
 /* =============================================================== Utilities */
-
-/* Inverted section — flips the monochrome tokens so a normally-light section
-   renders as its dark negative. Any child using bg-paper / text-ink / text-muted
-   / border-line inverts for free, so the section stays a single class. The app
-   caricatures keep their own fixed colours (they're light UI screenshots), which
-   reads as framed stills sitting on black. */
-.section-invert {
-  --color-paper: #0a0a0a;
-  --color-panel: #161616;
-  --color-panel-2: #1f1f1f;
-  --color-ink: #ffffff;
-  --color-ink-2: #f2f2f2;
-  --color-muted: rgba(255, 255, 255, 0.82);
-  --color-faint: rgba(255, 255, 255, 0.5);
-  --color-line: rgba(255, 255, 255, 0.14);
-  --color-line-2: rgba(255, 255, 255, 0.26);
-  background-color: var(--color-paper);
-  color: var(--color-ink);
-}
 
 /* Shimmer CTA — a soft light sweep glides across the button on a loop. The
    pseudo-element sits above the fill but below the label (which is z-[1]) and
@@ -235,26 +200,6 @@ em {
   .drift {
     animation: none;
   }
-}
-
-/* Tools showcase — the auto-advance dwell indicator under the active tab. Fills
-   left-to-right over the dwell time; pausing sets play-state so it resumes
-   where it left off rather than restarting. onAnimationEnd drives the advance,
-   so the bar and the rotation stay in lockstep. */
-@keyframes tools-fill {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-.tools-progress {
-  transform-origin: left center;
-  animation: tools-fill 5.5s linear forwards;
-}
-.tools-progress.is-paused {
-  animation-play-state: paused;
 }
 
 /* Hairline divider */

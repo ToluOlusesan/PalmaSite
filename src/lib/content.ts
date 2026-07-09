@@ -58,7 +58,7 @@ export const tools: Tool[] = [
     index: "03",
     name: "Scratchpad",
     blurb:
-      "A writing space that lives beside the board. Draft briefs and treatments.",
+      "A writing space that lives beside the board. Draft briefs and treatments right where the references are.",
   },
 ];
 
