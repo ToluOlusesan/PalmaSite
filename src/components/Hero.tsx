@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { Reveal } from "./Reveal";
 import { DownloadButton, GuideLink } from "./DownloadButton";
+import { HeroShot } from "./HeroShot";
 
 export function Hero() {
   return (
@@ -48,19 +48,9 @@ export function Hero() {
         </Reveal>
       </div>
 
-      {/* the real app, framed as a floating window */}
+      {/* the real app, framed as a floating window that tilts toward the pointer */}
       <Reveal delay={320} className="relative z-[2] mx-auto mt-14 max-w-[1440px] sm:mt-16">
-        <div className="overflow-hidden rounded-xl border border-line-2 bg-paper shadow-lift sm:rounded-2xl">
-          <Image
-            src="/site/app-hero.png"
-            alt="The Palma app: a project's references spread across an infinite Dump Board canvas"
-            width={2550}
-            height={1382}
-            priority
-            sizes="(max-width: 1480px) 100vw, 1440px"
-            className="h-auto w-full"
-          />
-        </div>
+        <HeroShot />
       </Reveal>
     </header>
   );

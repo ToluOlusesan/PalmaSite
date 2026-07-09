@@ -63,7 +63,7 @@ export function Nav() {
           ))}
           <a
             href="#download"
-            className="rounded-full bg-ink px-4 py-2 text-[13.5px] font-medium text-paper transition-opacity hover:opacity-85"
+            className="rounded-full bg-ink px-4 py-2 text-[13.5px] font-medium text-paper transition-[opacity,transform] duration-200 ease-[var(--ease-out)] hover:opacity-85 active:scale-[0.96] active:duration-[80ms]"
           >
             Download
           </a>

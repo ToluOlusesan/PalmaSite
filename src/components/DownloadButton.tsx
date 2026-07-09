@@ -4,12 +4,14 @@ import { site } from "@/lib/content";
  * The primary call to action: a direct download of the current Windows
  * installer, no waitlist in between. The `shimmer-btn` class (see globals.css)
  * runs a light sweep across it on a loop; pointer-events stay on the anchor.
+ * The button stays put — just a subtle hover-lift and an instant (~80ms) press
+ * so a click always feels heard, without any distracting drift.
  */
 export function DownloadButton({ className = "" }: { className?: string }) {
   return (
     <a
       href={site.downloadUrl}
-      className={`shimmer-btn group relative inline-flex h-12 items-center justify-center gap-2.5 overflow-hidden rounded-full bg-ink px-7 text-[15px] font-medium text-paper shadow-soft transition-transform duration-300 hover:-translate-y-0.5 ${className}`}
+      className={`shimmer-btn group relative inline-flex h-12 items-center justify-center gap-2.5 overflow-hidden rounded-full bg-ink px-7 text-[15px] font-medium text-paper shadow-soft transition-transform duration-200 ease-[var(--ease-out)] hover:-translate-y-0.5 active:scale-[0.96] active:duration-[80ms] ${className}`}
     >
       <svg viewBox="0 0 24 24" className="relative z-[1] h-[18px] w-[18px]" fill="none" aria-hidden>
         <path d="M12 3v11m0 0l-4-4m4 4l4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
@@ -27,7 +29,7 @@ export function GuideLink({ className = "" }: { className?: string }) {
       href={site.guideUrl}
       target="_blank"
       rel="noopener"
-      className={`inline-flex h-12 items-center justify-center gap-2 rounded-full border border-line-2 px-6 text-[15px] font-medium text-ink transition-colors hover:border-ink ${className}`}
+      className={`inline-flex h-12 items-center justify-center gap-2 rounded-full border border-line-2 px-6 text-[15px] font-medium text-ink transition-[color,border-color,transform] duration-200 ease-[var(--ease-out)] hover:border-ink active:scale-[0.97] active:duration-[80ms] ${className}`}
     >
       <svg viewBox="0 0 24 24" className="h-[17px] w-[17px]" fill="none" aria-hidden>
         <path d="M6 3h9l4 4v14a1 1 0 01-1 1H6a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />

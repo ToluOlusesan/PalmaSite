@@ -44,21 +44,21 @@ export const tools: Tool[] = [
     index: "01",
     name: "Comments",
     blurb:
-      "Pin a note to anything. Mark references up with comments that live right on the board, exactly where they matter.",
+      "Pin a note to anything. Mark references up with comments that live right on the board.",
   },
   {
     id: "video-to-shot",
     index: "02",
     name: "Video to Screenshot",
     blurb:
-      "Find the moment you want in any video reference and lift it out as a clean still. One click, right on the board, with no separate player or export step.",
+      "Find the moment you want in any video reference and lift it out as a clean still.",
   },
   {
     id: "scratchpad",
     index: "03",
     name: "Scratchpad",
     blurb:
-      "A writing space that lives beside the board. Draft briefs, treatments and shot notes in proper rich text: headings, lists, quotes, code.",
+      "A writing space that lives beside the board. Draft briefs and treatments.",
   },
 ];
 
