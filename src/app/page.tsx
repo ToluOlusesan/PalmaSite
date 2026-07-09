@@ -1,7 +1,7 @@
 import { Nav } from "@/components/Nav";
 import { Hero } from "@/components/Hero";
+import { HowItWorks } from "@/components/HowItWorks";
 import { ToolsShowcase } from "@/components/ToolsShowcase";
-import { Spotlight } from "@/components/Spotlight";
 import { Principles } from "@/components/Principles";
 import { CTA } from "@/components/CTA";
 import { Footer } from "@/components/Footer";
@@ -14,7 +14,7 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
-        <Spotlight />
+        <HowItWorks />
         <ToolsShowcase />
         <Principles />
         <CTA />

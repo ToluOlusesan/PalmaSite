@@ -29,16 +29,15 @@ src/
     page.tsx            composes the homepage sections
     globals.css         design tokens, base styles, utilities (bloom/reveal/dotgrid)
     icon.svg            favicon — the Palma island mark on a dark tile
-  components/           Nav, Hero, ToolsShowcase, Spotlight, Principles,
+  components/           Nav, Hero, HowItWorks, ToolsShowcase, Principles,
                         SocialProof, CTA, Footer, Reveal, PalmaMark
   lib/content.ts        all marketing copy in one place
 _reference/             original single-file landing, kept for design reference
 ```
 
-Section flow on the homepage: **Hero** (coming-soon callout) → **ToolsShowcase**
-(interactive tabbed feature carousel) → **Spotlight** (device-framed canvas
-mock) → **Principles** (bento grid) → **SocialProof** (testimonial + personas)
-→ **CTA** → **Footer**.
+Section flow on the homepage: **Hero** (coming-soon callout) → **HowItWorks**
+(three-step story) → **ToolsShowcase** (pinned feature rail) → **Principles**
+(bento grid) → **SocialProof** (testimonial + personas) → **CTA** → **Footer**.
 
 ## Design language
 

@@ -70,6 +70,8 @@ const IC = {
     "M104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48Z",
   stack:
     "M230.91,172A8,8,0,0,1,228,182.91l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,36,169.09l92,53.65,92-53.65A8,8,0,0,1,230.91,172ZM220,121.09l-92,53.65L36,121.09A8,8,0,0,0,28,134.91l96,56a8,8,0,0,0,8.06,0l96-56A8,8,0,1,0,220,121.09ZM24,80a8,8,0,0,1,4-6.91l96-56a8,8,0,0,1,8.06,0l96,56a8,8,0,0,1,0,13.82l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,24,80Zm23.88,0L128,126.74,208.12,80,128,33.26Z",
+  crosshair:
+    "M128,20a108,108,0,1,0,108,108A108.12,108.12,0,0,0,128,20Zm8,199.63V184a8,8,0,0,0-16,0v35.63A92.19,92.19,0,0,1,36.37,136H72a8,8,0,0,0,0-16H36.37A92.19,92.19,0,0,1,120,36.37V72a8,8,0,0,0,16,0V36.37A92.19,92.19,0,0,1,219.63,120H184a8,8,0,0,0,0,16h35.63A92.19,92.19,0,0,1,136,219.63Z",
 } as const;
 
 /** A Phosphor glyph placed with its top-left at (x, y), drawn at `size` px. */
@@ -283,6 +285,80 @@ function Arrow({ d }: { d: string }) {
   return <path d={d} fill="none" stroke={INK} strokeOpacity="0.24" strokeWidth="1.2" strokeLinecap="round" />;
 }
 
+/* A hand-drawn annotation: a small paper label with an italic serif caption and
+   a pencil arrow curving out to a point on the scene. Monochrome — the paper-
+   native reinterpretation of the reference sites' mascot pointers (no colour, no
+   collaborator faces). Fades in on a loop via .tc-anno. */
+function AnnoTag({
+  x,
+  y,
+  w,
+  text,
+  tx,
+  ty,
+  rot = -3,
+  bow = 6,
+  delay = 0,
+}: {
+  x: number;
+  y: number;
+  w: number;
+  text: string;
+  /** arrow tip */
+  tx: number;
+  ty: number;
+  rot?: number;
+  /** sideways bow of the arrow curve */
+  bow?: number;
+  delay?: number;
+}) {
+  const h = 13;
+  const cx = x + w / 2;
+  const cy = y + h / 2;
+  // arrow springs from the label edge nearest the target, curves to the tip
+  const sx = cx;
+  const sy = ty > cy ? y + h : y;
+  const mx = (sx + tx) / 2 + bow;
+  const my = (sy + ty) / 2;
+  const ang = Math.atan2(ty - my, tx - mx);
+  const bl = 4;
+  return (
+    <g className="tc-anno" style={{ animationDelay: `${delay}s` } as CSSProperties}>
+      <path d={`M${sx} ${sy} Q ${mx} ${my} ${tx} ${ty}`} fill="none" stroke={INK} strokeOpacity="0.45" strokeWidth="0.9" strokeLinecap="round" />
+      <path
+        d={`M${tx} ${ty} L${tx + bl * Math.cos(ang + 2.5)} ${ty + bl * Math.sin(ang + 2.5)} M${tx} ${ty} L${tx + bl * Math.cos(ang - 2.5)} ${ty + bl * Math.sin(ang - 2.5)}`}
+        fill="none"
+        stroke={INK}
+        strokeOpacity="0.45"
+        strokeWidth="0.9"
+        strokeLinecap="round"
+      />
+      <g transform={`rotate(${rot} ${cx} ${cy})`}>
+        <rect x={x} y={y} width={w} height={h} rx="3" fill={BAR} stroke={INK} strokeOpacity="0.5" strokeWidth="0.7" />
+        <text x={cx} y={cy + 0.3} fontSize="5.6" textAnchor="middle" dominantBaseline="central" fill={INK} fillOpacity="0.82" style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}>
+          {text}
+        </text>
+      </g>
+    </g>
+  );
+}
+
+/** The 1.1.5 hover pill that appears on a Dump-Board image: a dark capsule with
+    the focus crosshair + label. Rises in via .tc-pill as if the image is hovered. */
+function SendToFocusPill({ x, y }: { x: number; y: number }) {
+  const w = 41;
+  const h = 12;
+  return (
+    <g className="tc-fx tc-pill">
+      <rect x={x} y={y} width={w} height={h} rx={h / 2} fill={INK} />
+      <PIcon d={IC.crosshair} x={x + 4} y={y + 2.6} size={6.8} op={1} fill={CANVAS} />
+      <text x={x + 14.5} y={y + h / 2 + 0.3} fontSize="5.4" dominantBaseline="central" fill={CANVAS}>
+        Focus
+      </text>
+    </g>
+  );
+}
+
 /** A Focus zone — a labelled container with a coloured outline. */
 function ZoneFrame({
   x,
@@ -325,6 +401,11 @@ function DumpScene() {
       <Thumb x={350} y={62} w={82} h={58} src="/site/3.png" className="tc-fx tc-drop" />
       <Thumb x={344} y={138} w={104} h={72} src="/site/4.png" />
       <NoteCard x={210} y={172} w={96} h={52} lines={3} className="tc-fx tc-drop" style={{ animationDelay: "2.4s" } as CSSProperties} />
+
+      {/* 1.1.5 — the hover "Send to Focus" pill on an image, called out by a
+          paper annotation tag */}
+      <SendToFocusPill x={277} y={82} />
+      <AnnoTag x={286} y={52} w={58} text="Send to Focus" tx={288} ty={82} rot={-4} bow={-8} delay={0.5} />
     </svg>
   );
 }
@@ -385,38 +466,47 @@ function FocusScene() {
       <TopBar />
       <Tabs active="focus" />
 
+      {/* Colour zone is the anchor; Texture and Motion nudge aside on a loop —
+          the 1.1.5 cascade that keeps zones from ever overlapping. */}
       <ZoneFrame x={72} y={44} w={108} h={212} label="Colour" accent="#f97316">
         {zoneThumbs(72, ["/site/1.png", "/site/2.png", "/site/3.png"])}
       </ZoneFrame>
 
-      <ZoneFrame x={188} y={44} w={108} h={212} label="Texture" accent="#14b8a6">
-        {zoneThumbs(188, ["/site/4.png", "/site/5.png", "/site/6.png"])}
-      </ZoneFrame>
+      <g className="tc-cascade">
+        <ZoneFrame x={188} y={44} w={108} h={212} label="Texture" accent="#14b8a6">
+          {zoneThumbs(188, ["/site/4.png", "/site/5.png", "/site/6.png"])}
+        </ZoneFrame>
+      </g>
 
-      <ZoneFrame x={304} y={44} w={108} h={212} label="Motion" accent="#8b5cf6">
-        <Thumb x={312} y={62} w={92} h={56} src="/site/7.png" />
-        <Thumb x={312} y={125} w={92} h={56} src="/site/8.png" />
-        <Thumb x={312} y={188} w={92} h={56} fill="#dedede" />
-        {/* the third queue item slides out of the Queue into the empty slot */}
-        <Thumb
-          className="tc-fx tc-gather"
-          style={{ "--fx": "76px", "--fy": "-52px", "--fr": "4deg" } as CSSProperties}
-          x={312}
-          y={188}
-          w={92}
-          h={56}
-          src="/site/untitled.png"
-        />
-      </ZoneFrame>
+      <g className="tc-cascade" style={{ animationDelay: "0.18s" } as CSSProperties}>
+        <ZoneFrame x={304} y={44} w={108} h={212} label="Motion" accent="#8b5cf6">
+          <Thumb x={312} y={62} w={92} h={56} src="/site/7.png" />
+          <Thumb x={312} y={125} w={92} h={56} src="/site/8.png" />
+          <Thumb x={312} y={188} w={92} h={56} fill="#dedede" />
+          {/* the queued item slides out of the Queue into the empty slot */}
+          <Thumb
+            className="tc-fx tc-gather"
+            style={{ "--fx": "76px", "--fy": "-52px", "--fr": "4deg" } as CSSProperties}
+            x={312}
+            y={188}
+            w={92}
+            h={56}
+            src="/site/untitled.png"
+          />
+        </ZoneFrame>
+      </g>
 
-      {/* Queue rail */}
+      {/* Queue rail — the placed item fades out of the queue as it lands */}
       <g>
         <rect x={416} y={33} width={64} height={H - 33} fill="#ececec" />
         <line x1={416} y1={33} x2={416} y2={H} stroke={INK} strokeOpacity="0.08" />
         <text x={424} y={48} fontSize="4.6" fontWeight="600" letterSpacing="0.7" fill={INK} fillOpacity="0.42">QUEUE</text>
         <Thumb x={424} y={54} w={48} h={36} src="/site/Tenebris.png" opacity={0.5} />
         <Thumb x={424} y={96} w={48} h={36} src="/site/Eve.jpg" opacity={0.5} />
+        <Thumb className="tc-qout" x={424} y={138} w={48} h={36} src="/site/untitled.png" />
       </g>
+
+      <AnnoTag x={150} y={256} w={40} text="no overlap" tx={184} ty={232} rot={-3} bow={-5} delay={0.8} />
     </svg>
   );
 }
@@ -464,12 +554,89 @@ function ScratchpadScene() {
   );
 }
 
+/* -------------------------------------------------------------- 6 Export */
+/* The 1.1.5 Export dialog on its own — no app chrome, just the modal centred on
+   a plain surface: one "What to export" dropdown (Process Brief chosen) with
+   adaptive controls and a Light/Dark toggle. */
+function ExportScene() {
+  const DW = 248;
+  const DH = 188;
+  const DX = (W - DW) / 2; // centred horizontally
+  const DY = (H - DH) / 2; // centred vertically
+  const PAD = 16;
+  const menuRow = (y: number, label: string, on = false) => (
+    <g>
+      {on && <rect x={DX + PAD} y={y - 9.5} width={DW - PAD * 2} height="14" rx="3.5" fill={INK} fillOpacity="0.07" />}
+      <text x={DX + PAD + 8} y={y} fontSize="6.4" fill={INK} fillOpacity={on ? 0.95 : 0.5} style={on ? SERIF : undefined}>
+        {label}
+      </text>
+      {on && (
+        <path
+          d={`M${DX + DW - PAD - 10} ${y - 2.6} l2.2 2.6 l4.6 -5.6`}
+          fill="none"
+          stroke={INK}
+          strokeOpacity="0.8"
+          strokeWidth="1.3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      )}
+    </g>
+  );
+  return (
+    <svg {...svgProps} aria-label="Exporting a process brief for a client from the Export dialog">
+      {/* plain surface — the modal is the whole subject now */}
+      <rect x="0" y="0" width={W} height={H} fill={CANVAS} />
+      <rect x="0" y="0" width={W} height={H} fill="url(#tc-dots)" />
+
+      {/* Export dialog */}
+      <g className="tc-fx-b tc-rise-modal">
+        {/* soft drop shadow */}
+        <rect x={DX} y={DY + 4} width={DW} height={DH} rx="12" fill={INK} fillOpacity="0.08" />
+        <rect x={DX} y={DY} width={DW} height={DH} rx="12" fill={BAR} stroke={INK} strokeOpacity="0.14" />
+
+        <text x={DX + PAD} y={DY + 22} fontSize="10.5" fill={INK} style={SERIF}>Export</text>
+        <path d={`M${DX + DW - 22} ${DY + 14} l8 8 m0 -8 l-8 8`} stroke={INK} strokeOpacity="0.35" strokeWidth="1.1" strokeLinecap="round" />
+
+        <text x={DX + PAD} y={DY + 42} fontSize="6" fill={INK} fillOpacity="0.5">What to export</text>
+
+        {/* the field (open) */}
+        <rect x={DX + PAD} y={DY + 47} width={DW - PAD * 2} height="17" rx="5" fill={INK} fillOpacity="0.03" stroke={INK} strokeOpacity="0.14" />
+        <text x={DX + PAD + 8} y={DY + 59} fontSize="7" fill={INK} style={SERIF}>Process Brief</text>
+        <path d={`M${DX + DW - PAD - 10} ${DY + 59} l3.4 -3.8 l3.4 3.8`} fill="none" stroke={INK} strokeOpacity="0.5" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+
+        {/* open menu */}
+        <rect x={DX + PAD - 4} y={DY + 68} width={DW - (PAD - 4) * 2} height="49" rx="6" fill={BAR} stroke={INK} strokeOpacity="0.1" />
+        {menuRow(DY + 82, "Dump Board")}
+        {menuRow(DY + 97, "Focus Board")}
+        {menuRow(DY + 112, "Process Brief", true)}
+
+        {/* Light / Dark output toggle */}
+        <text x={DX + PAD} y={DY + 140} fontSize="6" fill={INK} fillOpacity="0.5">Output</text>
+        <g>
+          <rect x={DX + DW - PAD - 100} y={DY + 131} width={100} height="15" rx="7.5" fill={INK} fillOpacity="0.05" stroke={INK} strokeOpacity="0.12" />
+          <text x={DX + DW - PAD - 75} y={DY + 141} fontSize="6" textAnchor="middle" fill={INK} fillOpacity="0.55">Light</text>
+          <rect x={DX + DW - PAD - 50} y={DY + 131} width={50} height="15" rx="7.5" fill={INK} />
+          <text x={DX + DW - PAD - 25} y={DY + 141} fontSize="6" textAnchor="middle" fill={CANVAS}>Dark</text>
+        </g>
+
+        {/* Export button */}
+        <g className="tc-fx tc-btn-pulse">
+          <rect x={DX + DW - PAD - 62} y={DY + 158} width={62} height="17" rx="8.5" fill={INK} />
+          <text x={DX + DW - PAD - 31} y={DY + 169} fontSize="6.6" textAnchor="middle" fill={CANVAS}>Export</text>
+        </g>
+      </g>
+    </svg>
+  );
+}
+
 const scenes: Record<ToolId, () => React.ReactElement> = {
   dump: DumpScene,
   comments: CommentsScene,
   "video-to-shot": VideoShotScene,
   focus: FocusScene,
   scratchpad: ScratchpadScene,
+  export: ExportScene,
 };
 
 export function ToolCaricature({ id }: { id: ToolId }) {

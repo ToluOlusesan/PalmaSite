@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { PalmaMark } from "./PalmaMark";
 
 const links = [
+  { href: "#how", label: "How it works" },
   { href: "#tools", label: "Tools" },
   { href: "#why", label: "Why Palma" },
 ];

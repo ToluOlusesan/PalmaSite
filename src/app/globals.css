@@ -605,6 +605,137 @@ em {
   animation: tc-check 5.4s var(--ease-out-soft) infinite both;
 }
 
+/* Paper annotation tag — inks itself in and holds for the cycle, re-drawing each
+   loop (a gentle hand-lettered blink). */
+@keyframes tc-anno {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  16%,
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+.tc-anno {
+  animation: tc-anno 5s var(--ease-out-soft) infinite both;
+}
+
+/* 1.1.5 — the "Send to Focus" hover pill rising onto an image */
+@keyframes tc-pill {
+  0%,
+  26% {
+    opacity: 0;
+    transform: translateY(3px) scale(0.9);
+  }
+  40% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+.tc-pill {
+  animation: tc-pill 5s var(--ease-out-soft) infinite both;
+}
+
+/* Focus zones nudge aside so they never overlap (cascade) */
+@keyframes tc-cascade {
+  0%,
+  22% {
+    transform: translateX(0);
+  }
+  46% {
+    transform: translateX(5px);
+  }
+  74%,
+  100% {
+    transform: translateX(0);
+  }
+}
+.tc-cascade {
+  animation: tc-cascade 5.4s var(--ease-out-soft) infinite both;
+}
+
+/* a placed reference fading out of the Queue as it lands in a zone */
+@keyframes tc-qout {
+  0%,
+  30% {
+    opacity: 0.5;
+  }
+  46%,
+  84% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+.tc-qout {
+  animation: tc-qout 5.4s var(--ease-out-soft) infinite both;
+}
+
+/* Export dialog rises in; the finished brief slides out; the button pulses */
+@keyframes tc-rise-modal {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+  10%,
+  92% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+}
+.tc-rise-modal {
+  animation: tc-rise-modal 5s var(--ease-out-soft) infinite both;
+}
+@keyframes tc-export {
+  0%,
+  42% {
+    opacity: 0;
+    transform: translate(-30px, 8px) scale(0.72);
+  }
+  56% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1.04);
+  }
+  64%,
+  92% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-30px, 8px) scale(0.72);
+  }
+}
+.tc-export {
+  animation: tc-export 5s var(--ease-out-soft) infinite both;
+  will-change: transform, opacity;
+}
+@keyframes tc-btn-pulse {
+  0%,
+  30%,
+  46%,
+  100% {
+    transform: scale(1);
+  }
+  38% {
+    transform: scale(1.06);
+  }
+}
+.tc-btn-pulse {
+  animation: tc-btn-pulse 5s var(--ease-out-soft) infinite both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .tc-drop,
   .tc-cursor,
@@ -618,7 +749,14 @@ em {
   .tc-check,
   .tc-rise,
   .tc-pulse,
-  .tc-caret {
+  .tc-caret,
+  .tc-anno,
+  .tc-pill,
+  .tc-cascade,
+  .tc-qout,
+  .tc-rise-modal,
+  .tc-export,
+  .tc-btn-pulse {
     animation: none;
   }
 }
