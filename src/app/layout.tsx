@@ -58,6 +58,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Spatial Foundry" }],
   creator: "Spatial Foundry",
+  // OG/Twitter images come from the file-convention `opengraph-image.png` /
+  // `twitter-image.png` in this folder (with matching `.alt.txt`), so they stay
+  // the single source of truth — no `images` array needed here.
   openGraph: {
     type: "website",
     url: SITE_URL,

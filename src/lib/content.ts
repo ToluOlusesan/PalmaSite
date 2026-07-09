@@ -87,7 +87,7 @@ export const steps: Step[] = [
     n: "02",
     title: "Curate in Focus mode",
     blurb:
-      "Sort the keepers into named zones — colour, texture, motion. Zones tidy themselves, and placed refs leave the queue. What survives is the direction.",
+      "Sort the keepers into named zones: colour, texture, motion. Zones tidy themselves, and placed refs leave the queue. What survives is the direction.",
   },
   {
     id: "export",

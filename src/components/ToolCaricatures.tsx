@@ -589,8 +589,10 @@ function ExportScene() {
       <rect x="0" y="0" width={W} height={H} fill={CANVAS} />
       <rect x="0" y="0" width={W} height={H} fill="url(#tc-dots)" />
 
-      {/* Export dialog */}
-      <g className="tc-fx-b tc-rise-modal">
+      {/* Export dialog — scaled up about the frame centre so it fills the card
+          (it's already centred, so a uniform scale keeps it put) */}
+      <g transform={`translate(${W / 2} ${H / 2}) scale(1.32) translate(${-W / 2} ${-H / 2})`}>
+        <g className="tc-fx-b tc-rise-modal">
         {/* soft drop shadow */}
         <rect x={DX} y={DY + 4} width={DW} height={DH} rx="12" fill={INK} fillOpacity="0.08" />
         <rect x={DX} y={DY} width={DW} height={DH} rx="12" fill={BAR} stroke={INK} strokeOpacity="0.14" />
@@ -625,6 +627,7 @@ function ExportScene() {
           <rect x={DX + DW - PAD - 62} y={DY + 158} width={62} height="17" rx="8.5" fill={INK} />
           <text x={DX + DW - PAD - 31} y={DY + 169} fontSize="6.6" textAnchor="middle" fill={CANVAS}>Export</text>
         </g>
+      </g>
       </g>
     </svg>
   );

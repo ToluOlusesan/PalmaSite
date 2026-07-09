@@ -1,205 +1,92 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-import { tools } from "@/lib/content";
+import { Camera, MessageSquareText, NotebookPen, type LucideIcon } from "lucide-react";
+import { tools, type ToolId } from "@/lib/content";
 import { Reveal } from "./Reveal";
 import { ToolCaricature } from "./ToolCaricatures";
 
+/** One icon per tool, shown as a badge beside the heading. Partial — only the
+ *  three tools that appear in this rail need an entry. */
+const toolIcons: Partial<Record<ToolId, LucideIcon>> = {
+  comments: MessageSquareText,
+  "video-to-shot": Camera,
+  scratchpad: NotebookPen,
+};
+
 /**
- * The tools rail behaves two different ways:
- *
- * - Mobile / reduced-motion: a plain horizontal swipe (native overflow scroll).
- * - Desktop: the section pins to the viewport and the cards translate sideways
- *   as you scroll. There's a lead-in dwell (it pins and holds before anything
- *   moves) and a settle at the end, so it doesn't grab the scroll instantly.
+ * The tools, told as a stack of full-width feature rows on plain vertical scroll
+ * — copy on one side, an animated caricature screen on the other, sides
+ * alternating down the page. (Replaces the old pinned/scroll-jacked rail, which
+ * hijacked the scroll; this reads at the reader's own pace.) Stays monochrome:
+ * charcoal cards on a grain-textured black, each framing a light app still like
+ * a lit screen that pushes and tilts toward you on hover.
  */
 export function ToolsShowcase() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const railRef = useRef<HTMLDivElement>(null);
-
-  const [pinned, setPinned] = useState(false);
-  const [sectionHeight, setSectionHeight] = useState<number>();
-  const [atStart, setAtStart] = useState(true);
-  const [atEnd, setAtEnd] = useState(false);
-
-  // Decide which mode we're in (desktop + motion allowed → pinned).
-  useEffect(() => {
-    const desktop = window.matchMedia("(min-width: 1024px)");
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const apply = () => setPinned(desktop.matches && !reduce.matches);
-    apply();
-    desktop.addEventListener("change", apply);
-    reduce.addEventListener("change", apply);
-    return () => {
-      desktop.removeEventListener("change", apply);
-      reduce.removeEventListener("change", apply);
-    };
-  }, []);
-
-  // Pinned mode: map vertical scroll → horizontal translate, with buffers.
-  useEffect(() => {
-    const section = sectionRef.current;
-    const rail = railRef.current;
-    if (!pinned || !section || !rail) {
-      if (rail) rail.style.transform = "";
-      setSectionHeight(undefined);
-      return;
-    }
-
-    // How much vertical scroll it takes to advance the cards. >1 slows them
-    // down so a single wheel/trackpad flick can't blow past everything before
-    // you've read it. Bump it up for an even slower, more readable pace.
-    const SPEED = 2.4;
-
-    let move = 0; // horizontal distance the cards travel
-    let travel = 0; // vertical scroll distance mapped onto that movement
-    let lead = 0; // dwell before the cards start moving
-    let tail = 0; // dwell after they finish, before releasing
-
-    const onScroll = () => {
-      if (travel <= 0) return;
-      const { top } = section.getBoundingClientRect();
-      const p = Math.min(1, Math.max(0, (-top - lead) / travel));
-      rail.style.transform = `translate3d(${(-p * move).toFixed(2)}px, 0, 0)`;
-      setAtStart(p <= 0.001);
-      setAtEnd(p >= 0.999);
-    };
-
-    const measure = () => {
-      rail.style.transform = "";
-      move = Math.max(0, rail.scrollWidth - window.innerWidth);
-      travel = move * SPEED;
-      lead = move > 0 ? window.innerHeight * 0.5 : 0;
-      tail = move > 0 ? window.innerHeight * 0.4 : 0;
-      setSectionHeight(window.innerHeight + lead + travel + tail);
-      if (move <= 0) {
-        setAtStart(true);
-        setAtEnd(true);
-      }
-      onScroll();
-    };
-
-    measure();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", measure);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", measure);
-    };
-  }, [pinned]);
-
-  // Swipe mode: track scroll position for the edge fades.
-  useEffect(() => {
-    const rail = railRef.current;
-    if (pinned || !rail) return;
-    const update = () => {
-      const max = rail.scrollWidth - rail.clientWidth;
-      setAtStart(rail.scrollLeft <= 4);
-      setAtEnd(rail.scrollLeft >= max - 4);
-    };
-    update();
-    rail.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    return () => {
-      rail.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-    };
-  }, [pinned]);
-
-  const heading = (
-    <Reveal className="max-w-[680px]">
-      <h2 className="font-serif text-[clamp(2.1rem,5vw,3.5rem)] leading-[1.04] tracking-[-0.5px] text-ink">
-        Curate your references.
-      </h2>
-      <p className="mt-5 max-w-[520px] text-pretty text-[1.02rem] leading-[1.65] text-muted">
-        Everything you need to turn a scattered pile of references into a clear
-        creative direction. Arrange on an infinite canvas, mark refs up where it
-        matters, pull clean stills from video, draft the brief right beside the
-        board, and so much more.
-      </p>
-    </Reveal>
-  );
-
   return (
     <section
-      ref={sectionRef}
       id="tools"
-      className="section-invert relative"
-      style={pinned ? { height: sectionHeight } : undefined}
+      className="section-invert relative overflow-hidden py-16 sm:py-28"
     >
-      <div
-        className={
-          pinned
-            ? "sticky top-0 flex h-screen flex-col overflow-hidden"
-            : "py-14 sm:py-24"
-        }
-      >
-        {/* heading — full-bleed gutter when pinned so the first card lines up */}
-        <div
-          className={
-            pinned
-              ? // clear the fixed nav (~62px) that's opaque once this pins, plus a little air
-                "w-full shrink-0 px-6 pb-2 pt-[calc(62px+3vh)] sm:px-10 lg:px-[6vw]"
-              : "mx-auto w-full max-w-[1200px] px-6 sm:px-10"
-          }
-        >
-          {heading}
-        </div>
+      <div className="grain-invert" aria-hidden />
 
-        {/* rail region — generous top/bottom space so the cards sit in a band */}
-        <div
-          className={
-            pinned
-              ? "relative flex min-h-0 flex-1 items-center overflow-hidden py-[2vh]"
-              : "relative mx-auto mt-8 w-full max-w-[1200px]"
-          }
-        >
-          <div
-            aria-hidden
-            className={`pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-paper to-transparent transition-opacity duration-300 ${atStart ? "opacity-0" : "opacity-100"}`}
-          />
-          <div
-            aria-hidden
-            className={`pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-paper to-transparent transition-opacity duration-300 ${atEnd ? "opacity-0" : "opacity-100"}`}
-          />
+      <div className="relative z-[1] mx-auto max-w-[1120px] px-6 sm:px-10">
+        <Reveal className="mx-auto max-w-[680px] text-center">
+          <span className="text-[11.5px] font-medium uppercase tracking-[0.16em] text-faint">
+            The tools
+          </span>
+          <h2 className="mt-4 font-serif text-[clamp(2.1rem,5vw,3.5rem)] leading-[1.04] tracking-[-0.5px] text-ink">
+            Curate your references.
+          </h2>
+          <p className="mx-auto mt-5 max-w-[560px] text-pretty text-[1.02rem] leading-[1.65] text-muted">
+            Everything you need to turn a scattered pile of references into a
+            clear creative direction. Arrange on an infinite canvas, mark refs
+            up where it matters, pull clean stills from video, and draft the
+            brief right beside the board.
+          </p>
+        </Reveal>
 
-          <div
-            ref={railRef}
-            className={`flex gap-5 ${
-              pinned
-                ? "w-max items-stretch px-6 will-change-transform sm:px-10 lg:px-[6vw]"
-                : "no-scrollbar snap-x snap-mandatory items-stretch overflow-x-auto scroll-smooth px-6 pb-2 sm:px-10"
-            }`}
-          >
-            {tools.map((tool) => (
-              <article
-                key={tool.id}
-                className="group flex w-[82vw] shrink-0 snap-start flex-col overflow-hidden rounded-[22px] border border-line bg-panel transition-colors hover:border-line-2 sm:w-[460px] lg:w-[40vw]"
-              >
-                {/* animated caricature screen — always its true 16:10 ratio so
-                    the scene is never stretched, zoomed, or letterboxed */}
-                <div className="relative aspect-[16/9] shrink-0 overflow-hidden border-b border-line bg-paper">
-                  <ToolCaricature id={tool.id} />
-                </div>
+        <div className="mt-16 flex flex-col gap-6 sm:gap-8">
+          {tools.map((tool, i) => {
+            // Alternate which side the screen sits on, row by row — and tilt it
+            // the opposite way on hover so the two rows mirror each other.
+            const flip = i % 2 === 1;
+            const Icon = toolIcons[tool.id];
+            return (
+              <Reveal key={tool.id}>
+                <article className="group grid items-center gap-8 rounded-[28px] border border-line bg-panel p-6 transition-[border-color,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-line-2 hover:shadow-lift sm:p-8 lg:grid-cols-2 lg:gap-12 lg:p-12">
+                  {/* animated caricature screen — kept at its true 16:10 frame so
+                      the scene is never stretched, and pushed + tilted on hover */}
+                  <div
+                    className={`relative aspect-[16/10] self-center overflow-hidden rounded-2xl border border-line bg-paper shadow-soft transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform group-hover:-translate-y-2 group-hover:scale-[1.03] group-hover:shadow-lift ${
+                      flip
+                        ? "lg:order-2 group-hover:rotate-[1.6deg]"
+                        : "group-hover:-rotate-[1.6deg]"
+                    }`}
+                  >
+                    <ToolCaricature id={tool.id} />
+                  </div>
 
-                {/* label — flex-1 so every card fills to the tallest, keeping
-                    the caricature screens the same size and top-aligned */}
-                <div className="flex flex-1 items-start gap-4 p-7">
-                  <span className="mt-0.5 font-serif text-[15px] text-faint tabular-nums">
-                    {tool.index}
-                  </span>
-                  <div>
-                    <h3 className="font-serif text-[1.5rem] leading-[1.1] tracking-[-0.3px] text-ink">
+                  {/* copy */}
+                  <div className="flex flex-col justify-center gap-4 lg:px-2">
+                    <div className="flex items-center gap-3">
+                      {Icon && (
+                        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-line-2 text-ink transition-colors group-hover:border-ink">
+                          <Icon className="h-[22px] w-[22px]" strokeWidth={1.5} aria-hidden />
+                        </span>
+                      )}
+                      <span className="font-serif text-[15px] text-faint tabular-nums">
+                        {tool.index}
+                      </span>
+                    </div>
+                    <h3 className="font-serif text-[clamp(1.6rem,2.6vw,2.15rem)] leading-[1.1] tracking-[-0.4px] text-ink">
                       {tool.name}
                     </h3>
-                    <p className="mt-2 text-pretty text-[0.95rem] leading-[1.6] text-muted">
+                    <p className="max-w-[46ch] text-pretty text-[1rem] leading-[1.65] text-muted">
                       {tool.blurb}
                     </p>
                   </div>
-                </div>
-              </article>
-            ))}
-          </div>
+                </article>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>
