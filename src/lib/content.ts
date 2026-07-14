@@ -135,6 +135,7 @@ export const releases: ReleaseNote[] = [
         items: [
           "Notes (renamed from Scratchpad) now do checklists — tick tasks off as you go.",
           "Pick exactly which Focus zones go into an export, instead of the whole board.",
+          "The Focus board PDF is now a polished, one-zone-per-page document — with your pinned notes and comments — in light or dark.",
           "Pin notes to a Focus zone: a per-zone button, or drag any note onto a zone to attach it.",
           "Preview a project's images right from the Trash before you restore or purge it.",
           "Copy and paste on the canvas right-click menu — including screenshots from the clipboard.",
