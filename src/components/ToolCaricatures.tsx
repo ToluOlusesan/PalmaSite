@@ -156,7 +156,7 @@ function TopBar() {
 const TAB_DEFS: Record<"dump" | "focus" | "scratchpad", { x: number; label: string; w: number }> = {
   dump: { x: CX0 + 10, label: "Dump Board", w: 36 },
   focus: { x: CX0 + 54, label: "Focus", w: 19 },
-  scratchpad: { x: CX0 + 81, label: "Scratchpad", w: 35 },
+  scratchpad: { x: CX0 + 81, label: "Notes", w: 19 },
 };
 
 function Tabs({ active }: { active: "dump" | "focus" | "scratchpad" }) {
@@ -526,7 +526,7 @@ function ScratchpadScene() {
     ["list", CX0 + 120],
   ];
   return (
-    <svg {...svgProps} aria-label="Writing a brief in the Scratchpad rich-text editor">
+    <svg {...svgProps} aria-label="Writing a brief in the Notes rich-text editor">
       <Sidebar />
       <rect x={CX0} y="33" width={CW} height={H - 33} fill={BAR} />
       <TopBar />

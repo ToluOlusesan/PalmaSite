@@ -56,7 +56,7 @@ export const tools: Tool[] = [
   {
     id: "scratchpad",
     index: "03",
-    name: "Scratchpad",
+    name: "Notes",
     blurb:
       "A writing space that lives beside the board. Draft briefs and treatments right where the references are.",
   },
@@ -133,7 +133,7 @@ export const releases: ReleaseNote[] = [
       {
         kind: "new",
         items: [
-          "Notes (renamed from Scratchpad) now do checklists — tick tasks off as you go.",
+          "Notes now do checklists — tick tasks off as you go.",
           "Pick exactly which Focus zones go into an export, instead of the whole board.",
           "The Focus board PDF is now a polished, one-zone-per-page document — with your pinned notes and comments — in light or dark.",
           "Pin notes to a Focus zone: a per-zone button, or drag any note onto a zone to attach it.",

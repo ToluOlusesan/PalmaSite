@@ -21,9 +21,10 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close the mobile menu on resize up to desktop.
+  // Close the mobile menu on resize up to desktop (matches the md: breakpoint
+  // where the inline nav links reappear).
   useEffect(() => {
-    const mq = window.matchMedia("(min-width: 640px)");
+    const mq = window.matchMedia("(min-width: 768px)");
     const close = () => mq.matches && setOpen(false);
     mq.addEventListener("change", close);
     return () => mq.removeEventListener("change", close);
@@ -57,7 +58,7 @@ export function Nav() {
             <a
               key={l.href}
               href={l.href}
-              className="hidden rounded-full px-3.5 py-2 text-[13.5px] text-muted transition-colors hover:text-ink sm:inline-block"
+              className="hidden rounded-full px-3.5 py-2 text-[13.5px] text-muted transition-colors hover:text-ink md:inline-block"
             >
               {l.label}
             </a>
@@ -76,7 +77,7 @@ export function Nav() {
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            className="-mr-1.5 ml-0.5 grid h-9 w-9 place-items-center rounded-full text-ink transition-colors hover:bg-line sm:hidden"
+            className="-mr-1.5 ml-0.5 grid h-9 w-9 place-items-center rounded-full text-ink transition-colors hover:bg-line md:hidden"
           >
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden>
               {open ? (
@@ -92,7 +93,7 @@ export function Nav() {
       {/* mobile menu panel */}
       <div
         id="mobile-menu"
-        className={`overflow-hidden border-t border-line transition-[max-height,opacity] duration-300 sm:hidden ${
+        className={`overflow-hidden border-t border-line transition-[max-height,opacity] duration-300 md:hidden ${
           open ? "max-h-40 opacity-100" : "max-h-0 border-transparent opacity-0"
         }`}
       >
