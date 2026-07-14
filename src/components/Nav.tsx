@@ -7,6 +7,7 @@ const links = [
   { href: "#how", label: "How it works" },
   { href: "#tools", label: "Tools" },
   { href: "#why", label: "Why Palma" },
+  { href: "#whats-new", label: "What's new" },
 ];
 
 export function Nav() {

@@ -11,7 +11,7 @@ export const site = {
   year: new Date().getFullYear(),
   /** Current Windows release. Shown as the version label; the download URL below
    *  is a stable "latest release" permalink, so it never needs touching. */
-  version: "1.1.5",
+  version: "1.1.6",
   /** GitHub redirects this to the newest release's `Palma-Setup.exe` asset, so
    *  each new release is picked up automatically — no per-version edits. */
   downloadUrl:
@@ -111,6 +111,54 @@ export type Principle = {
   title: string;
   body: string;
 };
+
+/** Release notes shown in the "What's new" band. Newest first; the section
+ *  features the top entry. Keep items short and human — this is a changelog a
+ *  designer reads, not a commit log. */
+export type ReleaseGroupKind = "new" | "refined" | "fixed";
+
+export type ReleaseNote = {
+  version: string;
+  date: string;
+  headline: string;
+  groups: { kind: ReleaseGroupKind; items: string[] }[];
+};
+
+export const releases: ReleaseNote[] = [
+  {
+    version: "1.1.6",
+    date: "July 2026",
+    headline: "Sharper Focus, tidier Notes, and references that stay put.",
+    groups: [
+      {
+        kind: "new",
+        items: [
+          "Notes (renamed from Scratchpad) now do checklists — tick tasks off as you go.",
+          "Pick exactly which Focus zones go into an export, instead of the whole board.",
+          "Pin notes to a Focus zone: a per-zone button, or drag any note onto a zone to attach it.",
+          "Preview a project's images right from the Trash before you restore or purge it.",
+          "Copy and paste on the canvas right-click menu — including screenshots from the clipboard.",
+        ],
+      },
+      {
+        kind: "refined",
+        items: [
+          "Sending a reference to Focus now sweeps a rainbow rim around the card.",
+          "Connectors between references are curved, and read clearly in dark mode.",
+          "Focus zone comments can be recoloured and resized.",
+        ],
+      },
+      {
+        kind: "fixed",
+        items: [
+          "Images dragged in from a browser are now saved into the project, not a temporary folder that later clears.",
+          "On-canvas controls stay crisp and correctly sized at every zoom level.",
+          "Long notes scroll with the wheel, and the Library stays light no matter how much you've loaded.",
+        ],
+      },
+    ],
+  },
+];
 
 /** Five cards, arranged into a bento layout. */
 export const principles: Principle[] = [
