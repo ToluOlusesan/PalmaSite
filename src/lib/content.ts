@@ -18,7 +18,37 @@ export const site = {
     "https://github.com/ToluOlusesan/PalmaStudio/releases/latest/download/Palma-Setup.exe",
   /** The user guide PDF, served straight from /public. */
   guideUrl: "/Palma-User-Guide.pdf",
+  /** Feedback lands straight in the maker's inbox — no support desk, no form. */
+  feedbackEmail: "olusesantolu@gmail.com",
 };
+
+/** Icon keys map to the inline brand SVGs in Footer.tsx. */
+export type SocialId = "instagram" | "x" | "behance" | "linkedin";
+
+export type Social = {
+  id: SocialId;
+  label: string;
+  href: string;
+};
+
+export const socials: Social[] = [
+  {
+    id: "instagram",
+    label: "Instagram",
+    href: "https://www.instagram.com/sesan.3d/",
+  },
+  { id: "x", label: "X", href: "https://x.com/olusesan__tolu" },
+  {
+    id: "behance",
+    label: "Behance",
+    href: "https://www.behance.net/olusesanvictor",
+  },
+  {
+    id: "linkedin",
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/olusesan-tolulope-870203287/",
+  },
+];
 
 /** The four essential tools, each shown with an animated caricature screen.
  *  `export` is caricature-only (no tool-rail card) — it powers the third step
