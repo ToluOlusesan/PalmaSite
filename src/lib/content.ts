@@ -20,6 +20,8 @@ export const site = {
   guideUrl: "/Palma-User-Guide.pdf",
   /** Feedback lands straight in the maker's inbox — no support desk, no form. */
   feedbackEmail: "olusesantolu@gmail.com",
+  /** The maker's portfolio. */
+  portfolioUrl: "https://olusesantolu.com",
 };
 
 /** Icon keys map to the inline brand SVGs in Footer.tsx. */

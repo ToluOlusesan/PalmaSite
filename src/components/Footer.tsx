@@ -67,7 +67,19 @@ export function Footer() {
           ))}
         </nav>
 
-        <div className="mt-8 flex items-center gap-5">
+        <p className="mt-8 text-[12.5px] text-muted">
+          Reach out to me on my socials, or see my work at{" "}
+          <a
+            href={site.portfolioUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-ink underline decoration-line underline-offset-2 transition-colors hover:decoration-ink"
+          >
+            olusesantolu.com
+          </a>
+        </p>
+
+        <div className="mt-3 flex items-center gap-5">
           {socials.map(({ id, label, href }) => {
             const Icon = socialIcons[id];
             return (
