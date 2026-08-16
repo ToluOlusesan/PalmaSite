@@ -1,8 +1,6 @@
 import type { CSSProperties, SVGProps } from "react";
 import type { ToolId } from "@/lib/content";
-import { PalmaMarkPaths } from "./PalmaMark";
-import { ScratchpadDoc } from "./ScratchpadDoc";
-import { VideoShot } from "./VideoShot";
+import { CanvasMarkPaths } from "@/components/marks/CanvasMark";
 
 /* High-fidelity, monochrome caricatures of the Palma app performing each tool's
    action — each framed as a miniature of the real window (sidebar, breadcrumb
@@ -111,7 +109,7 @@ function Sidebar() {
 
       {/* brand */}
       <g transform="translate(7 5) scale(0.0103)" fill={INK} aria-hidden>
-        <PalmaMarkPaths />
+        <CanvasMarkPaths />
       </g>
       <text x={21} y={13} fontSize="7.5" fill={INK} style={SERIF}>Palma</text>
       <path d="M55 7 l-2.4 3 l2.4 3" fill="none" stroke={INK} strokeOpacity="0.28" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" />
@@ -411,51 +409,6 @@ function DumpScene() {
 }
 
 /* --------------------------------------------------------------- 2 Comments */
-function CommentsScene() {
-  return (
-    <svg {...svgProps} aria-label="A comment pinned to an item on the board">
-      <Sidebar />
-      <ContentCanvas top={48} />
-      <TopBar />
-      <Tabs active="dump" />
-      <BoardToolbar />
-
-      <Thumb x={150} y={62} w={186} h={126} src="/site/5.png" />
-
-      {/* composer popover rising in */}
-      <g className="tc-fx-b tc-rise">
-        <rect x={150} y={200} width={216} height={52} rx="9" fill={BAR} stroke={INK} strokeOpacity="0.14" />
-        <circle cx={170} cy={226} r="9" fill="#d1d1d1" stroke={INK} strokeOpacity="0.15" />
-        <rect className="tc-fx-l tc-type" x={186} y={218} width={158} height="5.4" rx="2.7" fill={INK} fillOpacity="0.55" />
-        <rect className="tc-fx-l tc-type" style={{ animationDelay: "0.18s" } as CSSProperties} x={186} y={231} width={104} height="5.4" rx="2.7" fill={INK} fillOpacity="0.3" />
-      </g>
-
-      {/* comment pin — coloured disc, solid black chat glyph */}
-      <g className="tc-fx tc-pop">
-        <circle cx={328} cy={70} r="10" fill={TOOL.comment} />
-        <PIcon d={IC.chatFill} x={321.5} y={63.5} size={13} op={1} fill={INK} />
-      </g>
-    </svg>
-  );
-}
-
-/* --------------------------------------------------------- 3 Video → Shot */
-function VideoShotScene() {
-  return (
-    <svg {...svgProps} aria-label="A still captured from a video reference in one click">
-      <Sidebar />
-      <ContentCanvas top={48} />
-      <TopBar />
-      <Tabs active="dump" />
-      <BoardToolbar />
-
-      <Arrow d="M276 126 C 296 126, 308 124, 329 124" />
-      <VideoShot />
-    </svg>
-  );
-}
-
-/* ------------------------------------------------------------------ 4 Focus */
 function FocusScene() {
   const zoneThumbs = (zx: number, srcs: string[]) =>
     srcs.map((src, i) => <Thumb key={i} x={zx + 8} y={62 + i * 63} w={92} h={56} src={src} />);
@@ -512,52 +465,6 @@ function FocusScene() {
 }
 
 /* ------------------------------------------------------------- 5 Scratchpad */
-function ScratchpadScene() {
-  const tools: Array<[keyof typeof IC, number] | "div"> = [
-    ["h1", CX0 + 10],
-    ["h2", CX0 + 24],
-    "div",
-    ["bold", CX0 + 44],
-    ["italic", CX0 + 58],
-    ["strike", CX0 + 72],
-    "div",
-    ["code", CX0 + 92],
-    ["quotes", CX0 + 106],
-    ["list", CX0 + 120],
-  ];
-  return (
-    <svg {...svgProps} aria-label="Writing a brief in the Notes rich-text editor">
-      <Sidebar />
-      <rect x={CX0} y="33" width={CW} height={H - 33} fill={BAR} />
-      <TopBar />
-      <Tabs active="scratchpad" />
-
-      {/* formatting toolbar */}
-      <rect x={CX0} y="33" width={CW} height="17" fill={BAR} />
-      <line x1={CX0} y1="50" x2={W} y2="50" stroke={INK} strokeOpacity="0.07" />
-      {tools.map((t, i) =>
-        t === "div" ? (
-          <line key={i} x1={(tools[i - 1] as [string, number])[1] + 11} y1="37" x2={(tools[i - 1] as [string, number])[1] + 11} y2="46" stroke={INK} strokeOpacity="0.1" />
-        ) : (
-          <PIcon key={i} d={IC[t[0]]} x={t[1]} y={37.5} size={9} op={0.6} />
-        ),
-      )}
-
-      {/* document — a title and a body that types itself out */}
-      <text x={CX0 + 18} y="66" fontSize="8" fontWeight="600" fill={INK}>On 3D and brand design</text>
-      <ScratchpadDoc x={CX0 + 18} y={82} lh={9.5} fontSize={5.6} />
-
-      {/* word count footer */}
-      <line x1={CX0} y1="255" x2={W} y2="255" stroke={INK} strokeOpacity="0.06" />
-      <text x={CX0 + 12} y="264" fontSize="5" fill={INK} fillOpacity="0.4">38 words · 240 chars</text>
-    </svg>
-  );
-}
-
-/* -------------------------------------------------------------- 6 Export */
-/* The 1.1.5 Export dialog on its own — no app chrome, just the modal centred on
-   a plain surface: one "What to export" dropdown (Process Brief chosen) with
-   adaptive controls and a Light/Dark toggle. */
 function ExportScene() {
   const DW = 248;
   const DH = 188;
@@ -635,10 +542,7 @@ function ExportScene() {
 
 const scenes: Record<ToolId, () => React.ReactElement> = {
   dump: DumpScene,
-  comments: CommentsScene,
-  "video-to-shot": VideoShotScene,
   focus: FocusScene,
-  scratchpad: ScratchpadScene,
   export: ExportScene,
 };
 

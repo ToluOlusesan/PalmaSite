@@ -1,11 +1,12 @@
 import type { MetadataRoute } from "next";
+import { family } from "@/lib/content";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Palma",
-    short_name: "Palma",
+    name: family.name,
+    short_name: family.name,
     description:
-      "A local-first creative workspace and moodboarding tool for designers.",
+      "Two local-first Windows apps: Palma Canvas for references and moodboards, PalmaNote for pages, notes and lists.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

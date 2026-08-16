@@ -1,14 +1,10 @@
-import type { ReactElement } from "react";
-import { site, socials, type SocialId } from "@/lib/content";
-import { PalmaMark } from "./PalmaMark";
+"use client";
 
-const footerLinks = [
-  { href: "#tools", label: "Tools" },
-  { href: "#why", label: "Why Palma" },
-  { href: "#download", label: "Download" },
-  { href: site.guideUrl, label: "User guide" },
-  { href: `mailto:${site.feedbackEmail}?subject=Palma%20feedback`, label: "Feedback" },
-];
+import type { ReactElement } from "react";
+import { usePathname } from "next/navigation";
+import { family, products, socials, type SocialId } from "@/lib/content";
+import { CanvasMark } from "@/components/marks/CanvasMark";
+import { NoteMark } from "@/components/marks/NoteMark";
 
 function InstagramIcon() {
   return (
@@ -49,14 +45,25 @@ const socialIcons: Record<SocialId, () => ReactElement> = {
   linkedin: LinkedInIcon,
 };
 
-export function Footer() {
+/**
+ * One footer for the whole family. It opens with the reach-out block rather
+ * than a sitemap because there is no support desk behind this — mail goes
+ * straight to the person who wrote the apps, and saying so is the useful
+ * thing to lead with.
+ */
+export function SiteFooter() {
+  // The watermark belongs to whichever app you are reading about — the page
+  // signs off with the mark it spent the last five sections describing.
+  const pathname = usePathname();
+  const Watermark = pathname.startsWith("/note") ? NoteMark : CanvasMark;
+
   return (
     <footer className="border-t border-line bg-paper">
-      <div className="mx-auto flex max-w-[1200px] flex-col items-center px-6 py-14 sm:px-10 sm:py-16">
+      <div className="mx-auto flex max-w-[70rem] flex-col items-center px-6 py-14 sm:px-10 sm:py-16">
         <p className="text-center text-[15px] text-ink">
           Reach out to me on my socials, or see my work at{" "}
           <a
-            href={site.portfolioUrl}
+            href={family.portfolioUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="underline decoration-line underline-offset-2 transition-colors hover:decoration-ink"
@@ -76,7 +83,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 aria-label={label}
                 title={label}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-line text-ink transition-colors hover:border-ink hover:bg-ink hover:text-paper"
+                className="pressable flex h-11 w-11 items-center justify-center rounded-full border border-line text-ink hover:border-ink hover:bg-ink hover:text-paper"
               >
                 <Icon />
               </a>
@@ -84,22 +91,34 @@ export function Footer() {
           })}
         </div>
 
-        <PalmaMark aria-hidden className="mt-14 h-40 w-auto text-ink/10 sm:h-64" />
+        <Watermark
+          aria-hidden
+          className="mt-14 h-24 w-auto text-ink/[0.07] sm:mt-16 sm:h-36"
+          title=""
+        />
 
-        <nav className="mt-12 flex flex-wrap items-center justify-center gap-x-7 gap-y-3" aria-label="Footer">
-          {footerLinks.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="text-[13.5px] text-muted transition-colors hover:text-ink"
-            >
-              {l.label}
-            </a>
-          ))}
+        <nav
+          className="mt-12 flex flex-wrap items-center justify-center gap-x-7 gap-y-3"
+          aria-label="Footer"
+        >
+          <a
+            href={products.canvas.guideUrl}
+            target="_blank"
+            rel="noopener"
+            className="text-[13.5px] text-muted transition-colors hover:text-ink"
+          >
+            Canvas guide
+          </a>
+          <a
+            href={`mailto:${family.feedbackEmail}?subject=Palmaboard%20feedback`}
+            className="text-[13.5px] text-muted transition-colors hover:text-ink"
+          >
+            Feedback
+          </a>
         </nav>
 
-        <p className="mt-8 text-[12.5px] text-faint">
-          © {site.year} {site.maker} · Free, forever.
+        <p className="mt-8 text-center text-[12.5px] text-faint">
+          © {family.year} {family.maker} · Free, forever · Nothing on this page tracks you.
         </p>
       </div>
     </footer>

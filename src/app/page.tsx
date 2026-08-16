@@ -1,27 +1,23 @@
-import { Nav } from "@/components/Nav";
-import { Hero } from "@/components/Hero";
-import { HowItWorks } from "@/components/HowItWorks";
-import { ToolsShowcase } from "@/components/ToolsShowcase";
-import { Principles } from "@/components/Principles";
-import { WhatsNew } from "@/components/WhatsNew";
-import { CTA } from "@/components/CTA";
-import { Footer } from "@/components/Footer";
-import { CaricatureDefs } from "@/components/ToolCaricatures";
+import { FamilyHero } from "@/components/family/FamilyHero";
+import { CompareBand } from "@/components/family/CompareBand";
+import { SharedPrinciples } from "@/components/family/SharedPrinciples";
+import { FamilyGet } from "@/components/family/FamilyGet";
 
+/**
+ * The family page. Name the family, present the choice, answer "which one",
+ * state what they share, hand over a download.
+ *
+ * The chooser lives inside the hero rather than in a band below it, because a
+ * page whose only job is a two-way choice should not make you scroll to find
+ * the choice.
+ */
 export default function Home() {
   return (
     <>
-      <CaricatureDefs />
-      <Nav />
-      <main>
-        <Hero />
-        <HowItWorks />
-        <ToolsShowcase />
-        <Principles />
-        <WhatsNew />
-        <CTA />
-      </main>
-      <Footer />
+      <FamilyHero />
+      <CompareBand />
+      <SharedPrinciples />
+      <FamilyGet />
     </>
   );
 }

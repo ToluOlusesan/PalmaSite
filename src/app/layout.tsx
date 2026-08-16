@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, DM_Serif_Display, Pinyon_Script } from "next/font/google";
+import { SiteNav } from "@/components/shell/SiteNav";
+import { SiteFooter } from "@/components/shell/SiteFooter";
+import { family } from "@/lib/content";
 import "./globals.css";
 
 const inter = Inter({
@@ -37,43 +40,47 @@ const SITE_URL =
       ? `https://${process.env.VERCEL_URL}`
       : "https://palma.design");
 
+const DESCRIPTION =
+  "Palmaboard is two local-first Windows apps: Palma Canvas for references, moodboards and video stills, and PalmaNote for pages, notes and lists. No cloud, no account, no AI. Free, forever.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Palma: Your reference board, finally alive.",
-    template: "%s · Palma",
+    // The family page says the family's name; every product page appends it,
+    // so a shared tab or search result always shows which house it belongs to.
+    default: `${family.name}: ${family.tagline}`,
+    template: `%s · ${family.name}`,
   },
-  description:
-    "Palma is a local-first creative workspace for motion and 3D designers. Drop your references, mark them up, then sort them into focus zones and export a brief, all on your machine. No cloud. No account. Free, forever.",
-  applicationName: "Palma",
+  description: DESCRIPTION,
+  applicationName: family.name,
   keywords: [
-    "Palma",
+    "Palmaboard",
+    "Palma Canvas",
+    "PalmaNote",
     "moodboard",
     "reference board",
+    "note taking",
     "motion design",
-    "3D design",
     "local-first",
     "creative workspace",
     "Spatial Foundry",
   ],
-  authors: [{ name: "Spatial Foundry" }],
-  creator: "Spatial Foundry",
+  authors: [{ name: family.maker }],
+  creator: family.maker,
   // OG/Twitter images come from the file-convention `opengraph-image.png` /
   // `twitter-image.png` in this folder (with matching `.alt.txt`), so they stay
   // the single source of truth — no `images` array needed here.
   openGraph: {
     type: "website",
     url: SITE_URL,
-    siteName: "Palma",
-    title: "Palma: Your reference board, finally alive.",
-    description:
-      "A local-first creative workspace for motion and 3D designers. No cloud. No clutter. Just your work.",
+    siteName: family.name,
+    title: `${family.name}: ${family.tagline}`,
+    description: DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Palma: Your reference board, finally alive.",
-    description:
-      "A local-first creative workspace for motion and 3D designers. No cloud. No clutter. Just your work.",
+    title: `${family.name}: ${family.tagline}`,
+    description: DESCRIPTION,
   },
 };
 
@@ -90,7 +97,17 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${dmSerif.variable} ${pinyon.variable}`}
     >
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <a
+          href="#top"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-[14px] focus:text-paper"
+        >
+          Skip to content
+        </a>
+        <SiteNav />
+        <main>{children}</main>
+        <SiteFooter />
+      </body>
     </html>
   );
 }

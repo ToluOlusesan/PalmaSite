@@ -2,25 +2,39 @@
 
 /* ============================================================ Design tokens */
 @theme {
-  /* Monochrome, light, editorial. Pure white page; light greys for surfaces. */
+  /* The family shell is monochrome, light and editorial: near-white paper,
+     near-black ink. `#0a0a0a` rather than pure black because that is the ink
+     both apps actually render with — the site and the windows are one
+     material. Colour is never a shell decision; it belongs to a product
+     (see the `[data-product]` blocks below). */
   --color-paper: #ffffff;
-  --color-panel: #f2f2f2;
-  --color-panel-2: #e6e6e6;
-  --color-ink: #000000;
+  --color-panel: #f7f7f6;
+  --color-panel-2: #eeeeec;
+  --color-ink: #0a0a0a;
   --color-ink-2: #141414;
 
-  /* Text reads pitch black; body copy only a hair softer for long paragraphs. */
-  --color-muted: rgba(0, 0, 0, 0.88);
-  --color-faint: rgba(0, 0, 0, 0.5);
-  --color-line: rgba(0, 0, 0, 0.12);
-  --color-line-2: rgba(0, 0, 0, 0.2);
+  /* Body copy sits only a hair off the ink so long paragraphs stay readable;
+     `faint` is for chrome that must recede (eyebrows, meta, captions). */
+  --color-muted: rgba(10, 10, 10, 0.66);
+  --color-strong: rgba(10, 10, 10, 0.88);
+  --color-faint: rgba(10, 10, 10, 0.46);
+  --color-line: rgba(10, 10, 10, 0.1);
+  --color-line-2: rgba(10, 10, 10, 0.18);
 
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
   --font-serif: var(--font-dm-serif), Georgia, serif;
   --font-script: var(--font-pinyon), "DM Serif Display", cursive;
 
-  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.05), 0 12px 32px rgba(0, 0, 0, 0.08);
-  --shadow-lift: 0 2px 8px rgba(0, 0, 0, 0.06), 0 28px 60px rgba(0, 0, 0, 0.12);
+  --shadow-soft: 0 1px 2px rgba(10, 10, 10, 0.05), 0 12px 32px rgba(10, 10, 10, 0.07);
+  --shadow-lift: 0 2px 8px rgba(10, 10, 10, 0.06), 0 28px 60px rgba(10, 10, 10, 0.11);
+  --shadow-float: 0 3px 10px rgba(10, 10, 10, 0.07), 0 40px 80px rgba(10, 10, 10, 0.15);
+
+  /* Surfaces that aren't a flat colour, so they can't ride --color-*:
+     the dot grid, the glow behind a hero, and the translucent nav. */
+  --dot: rgba(10, 10, 10, 0.11);
+  --glow: rgba(10, 10, 10, 0.07);
+  --glass: rgba(255, 255, 255, 0.72);
+  --glass-edge: rgba(255, 255, 255, 0.7);
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
   /* Emil's curves — the built-in CSS easings lack the punch that makes motion
@@ -29,6 +43,62 @@
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* ========================================================= Product accents
+   Neutral shell, per-product accent. The chrome — nav, footer, family page
+   frame — never picks a colour; a product does, and only inside its own
+   scope. Anything that should take on the current product's identity reads
+   `var(--accent)` rather than naming a hue, so one wrapper attribute retints
+   a whole page.
+
+   Canvas is monochrome on purpose: the app is a place you look at *other
+   people's* colour, so the tool brings none of its own. PalmaNote gets the
+   Cobalt→Violet the app already reserves for its identity layer (icon,
+   installer, marketing) and nowhere else. */
+:root,
+[data-product="canvas"] {
+  --accent: #0a0a0a;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(10, 10, 10, 0.05);
+  --accent-line: rgba(10, 10, 10, 0.16);
+  --accent-grad: linear-gradient(135deg, #0a0a0a 0%, #3d3d3d 100%);
+  --accent-glow: rgba(10, 10, 10, 0.07);
+}
+
+[data-product="note"] {
+  --accent: #1d5fff;
+  --accent-2: #7c5cff;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(29, 95, 255, 0.07);
+  --accent-line: rgba(29, 95, 255, 0.24);
+  /* Cobalt and Violet are neighbours in hue, so every step between them stays
+     saturated. A Cobalt→Amber run would go grey through the middle. */
+  --accent-grad: linear-gradient(135deg, #1d5fff 0%, #7c5cff 100%);
+  --accent-glow: rgba(45, 90, 255, 0.14);
+}
+
+/* The app icons. Kept separate from `--accent-grad` because an icon is the
+   icon — it is the object a launcher shows you, and it should not drift with
+   whatever the accent happens to be doing. */
+[data-product="canvas"] {
+  --tile-grad: linear-gradient(135deg, #0a0a0a 0%, #3d3d3d 100%);
+}
+[data-product="note"] {
+  --tile-grad: linear-gradient(135deg, #1d5fff 0%, #7c5cff 100%);
+}
+/* The writing chart's five steps: the accent mixed toward the page. Step zero
+   is a neutral, because a day with no writing is the absence of the scale, not
+   its floor — tinting it would imply that not writing is a small amount of
+   writing. */
+[data-product="note"] {
+  --heat-0: #e8e6e1;
+  --heat-1: #cddcff;
+  --heat-2: #9cb9ff;
+  --heat-3: #618fff;
+  --heat-4: #1d5fff;
+  --heat-ink-lo: rgba(10, 10, 10, 0.62);
+  --heat-ink-hi: #ffffff;
 }
 
 /* ===================================================================== Base */
@@ -58,20 +128,78 @@ body {
   overflow-x: hidden;
 }
 
-/* Paper tooth — a faint fibrous grain, scoped to the landing and faded out at
-   the bottom so the textured hero dissolves into the clean white sections below
-   instead of ending on a hard edge. Pure CSS noise (SVG fractalNoise), no asset
-   to ship. */
-.paper-grain {
+/* Tracking is size-specific — one letter-spacing value is wrong somewhere.
+   Large display type reads too loose as it grows, so it tightens; body copy
+   sits near zero; small uppercase chrome opens up to stay legible. These are
+   applied via the `.display` / `.eyebrow` classes rather than per-component
+   arbitrary values, so the scale stays defensible in one place. */
+.display {
+  font-family: var(--display-face, var(--font-serif));
+  font-weight: var(--display-weight, 400);
+  line-height: 1.03;
+  letter-spacing: var(--display-track, -0.022em);
+  font-optical-sizing: auto;
+  text-wrap: balance;
+}
+
+.display-sm {
+  font-family: var(--display-face, var(--font-serif));
+  font-weight: var(--display-weight, 400);
+  line-height: 1.12;
+  letter-spacing: var(--display-track-sm, -0.014em);
+  font-optical-sizing: auto;
+}
+
+/* PalmaNote ships no fonts, because it promises to fetch nothing — its display
+   voice is made from size, weight and tracking rather than from a face. Its
+   page keeps that promise, so the serif stops at the door.
+
+   Driven by inherited custom properties rather than
+   `[data-product="note"] .display`, because a Canvas card rendered *inside*
+   the Note page (the sibling band at the foot) has to get its serif back, and
+   a descendant selector can't be un-matched by a nested scope. A variable can:
+   the nearest `[data-product]` ancestor wins, which is exactly the rule we
+   want. */
+[data-product="canvas"] {
+  --display-face: var(--font-serif);
+  --display-weight: 400;
+  --display-track: -0.022em;
+  --display-track-sm: -0.014em;
+}
+
+[data-product="note"] {
+  --display-face: var(--font-sans);
+  --display-weight: 600;
+  --display-track: -0.035em;
+  --display-track-sm: -0.024em;
+}
+
+.eyebrow {
+  font-size: 0.71rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-faint);
+}
+
+/* The hero ground — a faint dot grid, scoped to the hero and faded out at the
+   bottom so it dissolves into the clean white sections below instead of ending
+   on a hard edge.
+
+   The dot pitch here (28px) is deliberately looser and paler than the 22px
+   grid inside the app mockups. They are two different surfaces — one is the
+   page, one is a board being shown *on* the page — and matching them would
+   make the mock's canvas disappear into the background behind it. */
+.dot-field {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.5;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 50%, transparent 92%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 50%, transparent 92%);
+  background-image: radial-gradient(var(--dot) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 46%, transparent 92%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 46%, transparent 92%);
 }
 
 ::selection {
@@ -86,12 +214,164 @@ em {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-ink);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 4px;
 }
 
+/* ====================================================== View transitions
+   Choosing a product on the family page is a hand-off, not a page swap: the
+   chosen tile keeps its identity and grows into that product's hero, so the
+   thing you pressed is visibly the thing you arrived at. Everything else
+   slides in the direction you travelled — forward into a product, back out to
+   the family page.
+
+   The blur mid-flight is doing real work: without it you see two distinct
+   rectangles crossfading through each other. Blur bridges them so the eye
+   reads one object changing shape. Keep it well under 20px; heavy blur is
+   expensive, especially in Safari. */
+::view-transition-group(.morph) {
+  animation-duration: 460ms;
+  animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+}
+::view-transition-image-pair(.morph) {
+  animation-name: vt-blur;
+  animation-duration: 460ms;
+}
+@keyframes vt-blur {
+  40% {
+    filter: blur(4px);
+  }
+}
+
+/* Old content leaves fast so it stops competing for attention; new content
+   arrives more gently, and waits for the exit before it starts. */
+::view-transition-old(.nav-forward) {
+  --slide: -56px;
+  animation:
+    140ms ease-out both vt-fade reverse,
+    420ms var(--ease-in-out) both vt-slide reverse;
+}
+::view-transition-new(.nav-forward) {
+  --slide: 56px;
+  animation:
+    220ms var(--ease-out) 140ms both vt-fade,
+    420ms var(--ease-in-out) both vt-slide;
+}
+::view-transition-old(.nav-back) {
+  --slide: 56px;
+  animation:
+    140ms ease-out both vt-fade reverse,
+    420ms var(--ease-in-out) both vt-slide reverse;
+}
+::view-transition-new(.nav-back) {
+  --slide: -56px;
+  animation:
+    220ms var(--ease-out) 140ms both vt-fade,
+    420ms var(--ease-in-out) both vt-slide;
+}
+
+@keyframes vt-fade {
+  from {
+    opacity: 0;
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+@keyframes vt-slide {
+  from {
+    translate: var(--slide);
+  }
+  to {
+    translate: 0;
+  }
+}
+
+/* The nav is the one fixed reference point during a directional slide. If it
+   travels with the content, the user loses their anchor and the whole viewport
+   appears to move. `display: none` on the old snapshot avoids a one-frame
+   flash of two navs stacked. */
+::view-transition-group(site-nav) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-nav) {
+  display: none;
+}
+::view-transition-new(site-nav) {
+  animation: none;
+}
+
+/* Directional slides move a large surface across the viewport, which is the
+   most common trigger for motion sensitivity. Drop the animation and let the
+   browser do its instant swap. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 1ms !important;
+    animation-delay: 0s !important;
+  }
+}
+
 /* =============================================================== Utilities */
+
+/* Floating chrome. A translucent layer that content scrolls *under*, rather
+   than an opaque bar that eats a fixed strip of the page. The bright top edge
+   is light catching the material. */
+.material {
+  background: var(--glass);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .material {
+    background: var(--color-paper);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* A scroll edge instead of a 1px rule: content dissolves where it meets the
+   floating nav rather than sliding under a hard line. */
+.scroll-edge::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 100%;
+  height: 22px;
+  pointer-events: none;
+  background: linear-gradient(to bottom, var(--glass-edge), transparent);
+  -webkit-mask-image: linear-gradient(to bottom, #000, transparent);
+  mask-image: linear-gradient(to bottom, #000, transparent);
+}
+
+/* Anything pressable answers on pointer-down, not on release.
+   The press is faster than the release: the system responding should never
+   take longer than the user deciding. */
+.pressable {
+  transition:
+    transform 200ms var(--ease-out),
+    box-shadow 260ms var(--ease-out),
+    border-color 200ms ease,
+    background-color 200ms ease,
+    color 200ms ease;
+}
+.pressable:active {
+  transform: scale(0.97);
+  transition-duration: 100ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pressable,
+  .pressable:active {
+    transform: none;
+  }
+}
 
 /* Shimmer CTA — a soft light sweep glides across the button on a loop. The
    pseudo-element sits above the fill but below the label (which is z-[1]) and
@@ -137,8 +417,8 @@ em {
   z-index: 0;
   background: radial-gradient(
     circle,
-    rgba(10, 10, 10, 0.07) 0%,
-    rgba(10, 10, 10, 0.025) 36%,
+    var(--glow) 0%,
+    color-mix(in srgb, var(--glow) 38%, transparent) 36%,
     transparent 64%
   );
 }
@@ -227,8 +507,310 @@ em {
 
 /* Faint dot-grid used inside mock canvases */
 .dotgrid {
-  background-image: radial-gradient(rgba(10, 10, 10, 0.09) 1px, transparent 1px);
+  background-image: radial-gradient(var(--dot) 1px, transparent 1px);
   background-size: 22px 22px;
+}
+
+/* ================================================= PalmaNote window mockup
+   The app has no screenshots to ship yet, so its hero is the window itself,
+   rebuilt in markup. That is not a compromise: because it is real DOM it
+   stays crisp at any zoom, restyles with the tokens, and costs nothing to
+   download. The measurements come from the app's own chrome.
+
+   These live here rather than as Tailwind utilities because the mockup is one
+   dense drawing — thirty elements that only ever appear together — and reading
+   it as CSS is far easier than reading it as forty class strings.
+
+   `@layer components` is load-bearing, not tidiness. Unlayered CSS beats
+   *every* layered rule in the cascade, so an unlayered `.nw-tool { display:
+   grid }` silently overrides Tailwind's `hidden` — and the mockup's responsive
+   chrome leaks onto phones with no warning and no error. Inside the layer,
+   utilities win, which is the whole contract of using them alongside this. */
+@layer components {
+  .nw {
+    --nw-hair: rgba(10, 10, 10, 0.1);
+    --nw-line: rgba(10, 10, 10, 0.16);
+    --nw-faint: rgba(10, 10, 10, 0.42);
+    --nw-muted: rgba(10, 10, 10, 0.6);
+    /* The writer's own highlighter — a mark the writer made, not part of the
+       interface, which is why it is the one colour in the mockup that is not
+       the accent. */
+    --nw-mark: rgba(216, 245, 51, 0.55);
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--color-ink);
+    container-type: inline-size;
+  }
+
+  .nw-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--nw-hair);
+    background: var(--color-panel);
+  }
+
+  .nw-icon {
+    display: grid;
+    place-items: center;
+    width: 1.55rem;
+    height: 1.55rem;
+    border-radius: 0.4rem;
+    color: var(--nw-muted);
+    flex: none;
+  }
+
+  .nw-tabs {
+    display: flex;
+    gap: 0.3rem;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .nw-tab {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 0.45rem;
+    font-size: 0.8125rem;
+    color: var(--nw-muted);
+    white-space: nowrap;
+  }
+
+  .nw-tab[data-active] {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    box-shadow: 0 1px 2px rgba(10, 10, 10, 0.06);
+  }
+
+  .nw-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+    margin-left: auto;
+  }
+
+  .nw-tool {
+    display: grid;
+    place-items: center;
+    min-width: 1.6rem;
+    height: 1.6rem;
+    padding: 0 0.3rem;
+    border-radius: 0.35rem;
+    font-size: 0.8125rem;
+    color: var(--nw-muted);
+  }
+
+  .nw-tool[data-on] {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .nw-rule {
+    width: 1px;
+    height: 0.9rem;
+    margin: 0 0.28rem;
+    background: var(--nw-hair);
+    flex: none;
+  }
+
+  /* Three panes, added back as the window earns the width. Container queries
+     rather than viewport ones: the mockup is inside a padded, max-width shell,
+     so its own width is what decides whether a sidebar fits — the viewport's
+     width is only a rough proxy and gets it wrong at the edges. */
+  .nw-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+
+  .nw-side,
+  .nw-rail {
+    display: none;
+  }
+
+  @container (min-width: 34rem) {
+    .nw-body {
+      grid-template-columns: 10.5rem minmax(0, 1fr);
+    }
+    .nw-side {
+      display: flex;
+    }
+  }
+
+  @container (min-width: 52rem) {
+    .nw-body {
+      grid-template-columns: 10.5rem minmax(0, 1fr) 11rem;
+    }
+    .nw-rail {
+      display: flex;
+    }
+  }
+
+  .nw-side {
+    flex-direction: column;
+    gap: 0.1rem;
+    padding: 0.75rem 0.6rem;
+    border-right: 1px solid var(--nw-hair);
+  }
+
+  .nw-rail {
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 0.75rem;
+    border-left: 1px solid var(--nw-hair);
+    background: color-mix(in srgb, var(--color-panel) 60%, transparent);
+  }
+
+  .nw-side-label {
+    padding: 0 0.4rem 0.4rem;
+    font-size: 0.6875rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--nw-faint);
+  }
+
+  .nw-row {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.32rem 0.4rem;
+    border-radius: 0.4rem;
+    font-size: 0.8125rem;
+    color: var(--nw-muted);
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .nw-row[data-active] {
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .nw-doc {
+    padding: 1.5rem 1.6rem 1rem;
+    min-width: 0;
+  }
+
+  .nw-doc-title {
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .nw-doc p {
+    margin: 0.7rem 0 0;
+    color: var(--color-strong);
+    text-wrap: pretty;
+  }
+
+  /* A highlight the writer left on their own sentence. */
+  .nw-mark {
+    border-radius: 0.2rem;
+    background: var(--nw-mark);
+    box-shadow: 0 0 0 0.15rem var(--nw-mark);
+  }
+
+  /* The caret in the miniature PalmaNote page. The one looping thing on the
+     family page, and it earns it: a blinking caret is the universal sign for
+     "you can type here", which is the entire pitch of that tile. */
+  @keyframes mini-caret {
+    0%,
+    49% {
+      opacity: 1;
+    }
+    50%,
+    100% {
+      opacity: 0;
+    }
+  }
+  .mini-caret {
+    animation: mini-caret 1.06s steps(1, end) infinite;
+  }
+  /* The hero caret. It does *not* blink while text is being typed — a caret
+     that blinks mid-word reads as a fault, because a real one only rests once
+     the typing stops. So the blink attaches to the resting state alone. */
+  .type-caret-resting {
+    animation: mini-caret 1.06s steps(1, end) infinite;
+  }
+
+  /* ── PalmaNote's own motion, on the page ─────────────────────────────────
+     The app's spec (FEATURES.md §Motion) is three rules, and they are the
+     rules here too:
+
+     - Anything that appears out of nothing **rises four pixels while it
+       fades**, so it reads as having come from somewhere.
+     - **Ease-out only, no spring.** The Palmaboard spec rules overshoot out
+       across the family — a bounce in one app of three reads as a bug in the
+       other two.
+     - Three durations and almost nothing outside them: `--quick` is a hover,
+       `--settle` is something arriving, `--unfold` is the longest thing and is
+       still under a third of a second.
+
+     These fire once, when the section is scrolled into view, via `.is-visible`
+     on the parent Reveal — not on a loop. */
+  .nw-unfold {
+    opacity: 0;
+    transform: translateY(4px);
+    transition:
+      opacity 280ms var(--ease-out),
+      transform 280ms var(--ease-out);
+    /* Offset so the control arrives *after* its card has, rather than the two
+       fading through each other. */
+    transition-delay: 150ms;
+  }
+  .is-visible .nw-unfold {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* The selection bar is the one exception in the app: its controls arrive in
+     sequence rather than together, and that stagger is what makes it read as a
+     thing that came to *you* rather than a bar that was always there. 26ms
+     apart — enough to be a sequence, short enough that the last control is in
+     place before the eye reaches it. */
+  .nw-seq > * {
+    opacity: 0;
+    transform: translateY(4px);
+    transition:
+      opacity 190ms var(--ease-out),
+      transform 190ms var(--ease-out);
+    transition-delay: calc(230ms + var(--i, 0) * 26ms);
+  }
+  .is-visible .nw-seq > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nw-unfold,
+    .nw-seq > * {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mini-caret,
+    .type-caret-resting {
+      animation: none;
+    }
+  }
+
+  @container (max-width: 34rem) {
+    .nw-doc {
+      padding: 1.1rem 1.1rem 0.75rem;
+    }
+    .nw-status {
+      padding-inline: 1.1rem;
+    }
+  }
+
 }
 
 /* ===================================== Canvas spotlight (a card being dragged) */
