@@ -1,1 +1,1 @@
-PalmaNote: the headline "Write it down. That's the whole app." above a Still being built badge, on a faint dot grid.
+PalmaNote: the headline "A simple app to write freely." above a Still being built badge, on a faint dot grid.
