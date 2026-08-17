@@ -21,11 +21,14 @@ export function ProductGet({ product: p }: { product: Product }) {
           <span className="inline-flex items-center gap-2 rounded-full border border-line-2 px-3 py-1 text-[11.5px] font-medium uppercase tracking-[0.14em] text-muted">
             {available ? `Windows · v${p.version}` : "Windows · coming soon"}
           </span>
-          <p className="display-sm mx-auto mt-6 max-w-[36rem] text-balance text-[clamp(1.6rem,3.6vw,2.4rem)] text-ink">
+          {/* This line *is* the band's heading — it was a <p> carrying display
+              type, which looks right and outlines wrong: the download section
+              then had no name at all for anyone navigating by heading. */}
+          <h2 className="display-sm mx-auto mt-6 max-w-[36rem] text-balance text-[clamp(1.6rem,3.6vw,2.4rem)] text-ink">
             {available
               ? `Download ${p.name}. It's free, forever.`
               : `${p.name} isn't finished. It will also be free, forever.`}
-          </p>
+          </h2>
         </Reveal>
 
         <Reveal delay={120}>
@@ -79,7 +82,9 @@ export function SiblingBand({ current }: { current: ProductId }) {
             <ProductTile id={other.id} size={56} className="shadow-soft" />
             <div className="min-w-0 flex-1">
               <span className="eyebrow">The other one</span>
-              <h3 className="display-sm mt-2 text-[1.375rem] text-ink">{other.name}</h3>
+              {/* A top-level band, so a top-level heading — the eyebrow above
+                  it is decoration, not the rank. */}
+              <h2 className="display-sm mt-2 text-[1.375rem] text-ink">{other.name}</h2>
               <p className="mt-1.5 text-pretty text-[0.95rem] leading-[1.55] text-muted">
                 {other.blurb}
               </p>

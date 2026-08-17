@@ -15,6 +15,11 @@ type Props = SVGProps<SVGSVGElement> & {
 export function CanvasMark({ className, title = "Palma Canvas", ...rest }: Props) {
   return (
     <svg
+      // Intrinsic dimensions, not render size — every call site overrides these
+      // with CSS. They exist so the mark occupies its true aspect ratio before
+      // the stylesheet arrives, rather than the 300×150 an SVG defaults to.
+      width="1072.85"
+      height="860.96"
       {...rest}
       viewBox="0 0 1072.85 860.96"
       className={className}

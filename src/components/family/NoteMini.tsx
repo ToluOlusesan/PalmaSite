@@ -81,7 +81,14 @@ export function NoteMini() {
                 }`}
               >
                 {done ? (
-                  <svg viewBox="0 0 10 10" className="h-[7px] w-[7px]" fill="none">
+                  <svg
+                    viewBox="0 0 10 10"
+                    width="7"
+                    height="7"
+                    className="h-[7px] w-[7px]"
+                    fill="none"
+                    aria-hidden
+                  >
                     <path
                       d="M2 5.2 4 7.2 8 2.8"
                       stroke="currentColor"

@@ -89,7 +89,14 @@ export function ActionPending({
 
 export function DownloadGlyph() {
   return (
-    <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" aria-hidden>
+    <svg
+      viewBox="0 0 24 24"
+      width="18"
+      height="18"
+      className="h-[18px] w-[18px]"
+      fill="none"
+      aria-hidden
+    >
       <path
         d="M12 3v11m0 0l-4-4m4 4l4-4"
         stroke="currentColor"
@@ -109,7 +116,14 @@ export function DownloadGlyph() {
 
 export function ArrowGlyph({ className = "" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" className={`h-4 w-4 ${className}`} fill="none" aria-hidden>
+    <svg
+      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      className={`h-4 w-4 ${className}`}
+      fill="none"
+      aria-hidden
+    >
       <path
         d="M5 12h13m0 0-5-5m5 5-5 5"
         stroke="currentColor"

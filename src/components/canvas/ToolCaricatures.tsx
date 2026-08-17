@@ -91,9 +91,15 @@ function PIcon({
   return <path d={d} transform={`translate(${x} ${y}) scale(${size / 256})`} fill={fill} fillOpacity={op} />;
 }
 
+/* `width`/`height` alongside the viewBox, then `h-auto w-full` to override
+   them. The attributes are never what renders — CSS wins — but they give the
+   element intrinsic dimensions, so the card reserves its 16:9 box before the
+   stylesheet lands instead of collapsing to the 300×150 default. */
 const svgProps = {
   viewBox: `0 0 ${W} ${H}`,
-  className: "text-ink",
+  width: W,
+  height: H,
+  className: "h-auto w-full text-ink",
   role: "img" as const,
 } satisfies SVGProps<SVGSVGElement>;
 

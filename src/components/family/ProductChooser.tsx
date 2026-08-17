@@ -72,7 +72,10 @@ function ProductCard({ product: p }: { product: Product }) {
             <ProductTile id={p.id} size={44} className="shadow-soft" />
           </ViewTransition>
           <div className="min-w-0">
-            <h3 className="display-sm text-[1.375rem] text-ink">{p.name}</h3>
+            {/* h2, not h3. The two product names are the only headings between
+                the page's h1 and the first band, so an h3 here leaves a hole in
+                the outline that assistive tech reads as a missing level. */}
+            <h2 className="display-sm text-[1.375rem] text-ink">{p.name}</h2>
             <p className="text-[13px] text-faint">{p.kicker}</p>
           </div>
         </div>

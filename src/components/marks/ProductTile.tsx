@@ -15,9 +15,12 @@ const marks = {
  * where the two tiles look like the same weight of ink beside each other,
  * which is what "the same size" actually means here.
  */
+// The free axis is pinned to `auto` rather than left unset: the marks now carry
+// intrinsic width/height attributes, and an unset axis would fall back to those
+// (861px of Canvas island inside a 44px tile) instead of following the ratio.
 const fill: Record<ProductId, string> = {
-  canvas: "w-[68%]",
-  note: "h-[56%]",
+  canvas: "h-auto w-[68%]",
+  note: "h-[56%] w-auto",
 };
 
 /**

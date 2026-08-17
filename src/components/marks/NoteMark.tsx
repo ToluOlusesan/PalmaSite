@@ -18,6 +18,9 @@ type Props = SVGProps<SVGSVGElement> & {
 export function NoteMark({ className, title = "PalmaNote", ...rest }: Props) {
   return (
     <svg
+      // Intrinsic dimensions, not render size — see CanvasMark.
+      width="1139.19"
+      height="1183.17"
       {...rest}
       viewBox="0 0 1139.19 1183.17"
       className={className}
