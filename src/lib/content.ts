@@ -106,21 +106,23 @@ export const products: Record<ProductId, Product> = {
     href: "/note",
     kicker: "For writing",
     headline: {
-      lead: "Write it down. That's the",
-      accent: "whole",
-      tail: " app.",
+      lead: "A simple app to write",
+      accent: "freely",
+      tail: ".",
       typed: [
-        { text: "Write it down." },
+        { text: "A simple app" },
         { text: "\n" },
-        { text: "That's the " },
-        { text: "whole" },
-        { text: " app." },
+        // No `script: true` anywhere in here. The Note page's display voice is
+        // size and weight, never a fetched face — see globals.css.
+        { text: "to write " },
+        { text: "freely" },
+        { text: "." },
       ],
     },
     lede:
-      "A small, local place to keep pages, notes and lists. Blocks you can move, pages that link to each other, and stickies that live beside the writing instead of in it. One file, on your own disk.",
+      "Pages, notes and lists, kept in one file on your disk. Blocks you can move, pages that link to each other, and stickies that sit beside the writing instead of inside it.",
     blurb:
-      "A quiet writing app for pages, notes and lists — one file on your disk, and nothing else.",
+      "A writing app for pages, notes and lists. One file on your disk, and nothing else.",
     status: "coming-soon",
     chip: "Windows · Coming soon",
   },
@@ -173,7 +175,7 @@ export type CompareRow = {
 export const compare: CompareRow[] = [
   {
     label: "Reach for it when",
-    canvas: "You're gathering the look of a thing and don't know what it is yet",
+    canvas: "You're collecting the look of something before you make it",
     note: "You need the words, the plan or the list out of your head",
   },
   {
@@ -213,22 +215,22 @@ export const principles: Principle[] = [
   {
     icon: "hard-drive",
     title: "Local-first, by design",
-    body: "Everything lives on your machine. On a plane, in a basement, offline for a week — neither app notices, and neither cares. They just open.",
+    body: "Everything is stored on your machine. Offline on a plane or off the grid for a week, both apps open exactly the same as they did yesterday.",
   },
   {
     icon: "cloud-off",
     title: "No cloud, no account, no AI",
-    body: "Nothing to sign up for. Nothing uploaded. Your unreleased work and half-formed sentences never leave your disk, because there is nowhere for them to go.",
+    body: "Nothing to sign up for and nothing uploaded. There's no server on the other end, so your work stays where you put it.",
   },
   {
     icon: "infinity",
     title: "Free, forever",
-    body: "Not a subscription waiting to happen. No seats, no tiers, no upsell. They're tools. You own them. That's the whole deal.",
+    body: "No subscription, no seats, no tiers, no paid version coming later. You download them once and they're yours.",
   },
   {
     icon: "user",
     title: "Built for one person first",
-    body: "Both apps started as something their maker needed on a Tuesday. Nothing is in here to widen a market — only because the work asked for it.",
+    body: "I made both of these for my own work, and I use them every week. Things get added when I need them, not to reach more people.",
   },
 ];
 
@@ -260,7 +262,7 @@ export const steps: Step[] = [
     n: "02",
     title: "Curate in Focus mode",
     blurb:
-      "Sort the keepers into named zones: colour, texture, motion. Zones tidy themselves, and placed refs leave the queue. What survives is the direction.",
+      "Sort the keepers into named zones: colour, texture, motion. Zones tidy themselves up, and anything you place drops out of the queue.",
   },
   {
     id: "export",

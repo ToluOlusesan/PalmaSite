@@ -536,7 +536,10 @@ em {
        interface, which is why it is the one colour in the mockup that is not
        the accent. */
     --nw-mark: rgba(216, 245, 51, 0.55);
-    font-size: 13px;
+    /* The window is a real app drawn in DOM, so this is its UI scale, not a
+       label size. At 13px it rendered smaller than the body copy beside it and
+       the whole hero read as a shrunken screenshot. */
+    font-size: 14.5px;
     line-height: 1.55;
     color: var(--color-ink);
     container-type: inline-size;
@@ -642,7 +645,11 @@ em {
 
   @container (min-width: 52rem) {
     .nw-body {
-      grid-template-columns: 10.5rem minmax(0, 1fr) 11rem;
+      grid-template-columns: 11rem minmax(0, 1fr) 13.5rem;
+      /* The hero sat ~440px tall next to Canvas's 659px screenshot, which is
+         what made it read as squat rather than as the same object. Floor the
+         document so the two heroes carry the same weight. */
+      min-height: 31rem;
     }
     .nw-rail {
       display: flex;
@@ -715,6 +722,63 @@ em {
     box-shadow: 0 0 0 0.15rem var(--nw-mark);
   }
 
+  /* A mention of another page. */
+  .nw-link {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+    text-underline-offset: 2px;
+  }
+
+  /* Tasks in the document body. The box is drawn rather than an <input> —
+     nothing here is operable, and a real checkbox invites a click that does
+     nothing. */
+  .nw-task {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.2rem 0;
+    color: var(--color-strong);
+  }
+
+  .nw-box {
+    flex: none;
+    width: 0.85rem;
+    height: 0.85rem;
+    margin-top: 0.28rem;
+    border: 1.5px solid var(--nw-line);
+    border-radius: 0.22rem;
+  }
+
+  /* The window's status bar. It runs the full width of the window rather than
+     sitting under the document column: a status bar that stops short of the
+     rail leaves a ragged bottom edge, which is what made this corner look
+     broken. */
+  .nw-status {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1rem;
+    border-top: 1px solid var(--nw-hair);
+    background: var(--color-panel);
+    font-size: 0.75rem;
+    color: var(--nw-faint);
+    white-space: nowrap;
+  }
+
+  /* A sticky parked in the rail. Ink is fixed near-black rather than a token:
+     these two colours are the paper, and the text on them has to stay legible
+     when the rest of the site flips to dark. */
+  .nw-sticky {
+    padding: 0.6rem 0.65rem;
+    border-radius: 0.25rem;
+    font-size: 0.78rem;
+    line-height: 1.4;
+    color: #1a1a1a;
+    box-shadow: 0 1px 3px rgba(10, 10, 10, 0.16);
+    text-wrap: pretty;
+  }
+
   /* The caret in the miniature PalmaNote page. The one looping thing on the
      family page, and it earns it: a blinking caret is the universal sign for
      "you can type here", which is the entire pitch of that tile. */
@@ -751,21 +815,45 @@ em {
        `--settle` is something arriving, `--unfold` is the longest thing and is
        still under a third of a second.
 
-     These fire once, when the section is scrolled into view, via `.is-visible`
-     on the parent Reveal — not on a loop. */
-  .nw-unfold {
+     These replay on a loop, but only once the section is on screen —
+     `.is-visible` on the parent Reveal starts the animation, so nothing is
+     burning frames above or below the fold, and the cycle always begins from
+     the top when you arrive rather than mid-fade.
+
+     One period for everything (`--nw-cycle`), so the menu and the selection bar
+     breathe together instead of drifting apart over a minute of watching. The
+     hold is deliberately long: this is a piece of interface being demonstrated,
+     and a fast blink would read as a glitch rather than as a menu opening. */
+  .nw-unfold,
+  .nw-seq > * {
+    --nw-cycle: 7s;
     opacity: 0;
     transform: translateY(4px);
-    transition:
-      opacity 280ms var(--ease-out),
-      transform 280ms var(--ease-out);
+  }
+
+  /* 0–4%: the rise. 4–86%: held open, ~5.7s to actually read it.
+     86–92%: away again. 92–100%: a beat of empty before it repeats. */
+  @keyframes nw-unfold-loop {
+    0% {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    4%,
+    86% {
+      opacity: 1;
+      transform: none;
+    }
+    92%,
+    100% {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+  }
+
+  .is-visible .nw-unfold {
     /* Offset so the control arrives *after* its card has, rather than the two
        fading through each other. */
-    transition-delay: 150ms;
-  }
-  .is-visible .nw-unfold {
-    opacity: 1;
-    transform: none;
+    animation: nw-unfold-loop var(--nw-cycle) var(--ease-out) 150ms infinite;
   }
 
   /* The selection bar is the one exception in the app: its controls arrive in
@@ -773,25 +861,22 @@ em {
      thing that came to *you* rather than a bar that was always there. 26ms
      apart — enough to be a sequence, short enough that the last control is in
      place before the eye reaches it. */
-  .nw-seq > * {
-    opacity: 0;
-    transform: translateY(4px);
-    transition:
-      opacity 190ms var(--ease-out),
-      transform 190ms var(--ease-out);
-    transition-delay: calc(230ms + var(--i, 0) * 26ms);
-  }
   .is-visible .nw-seq > * {
-    opacity: 1;
-    transform: none;
+    /* Same period, staggered start — so the stagger survives every repeat, and
+       the bar leaves in the order it arrived instead of blinking out as one
+       block. */
+    animation: nw-unfold-loop var(--nw-cycle) var(--ease-out) infinite;
+    animation-delay: calc(230ms + var(--i, 0) * 26ms);
   }
 
   @media (prefers-reduced-motion: reduce) {
     .nw-unfold,
-    .nw-seq > * {
+    .nw-seq > *,
+    .is-visible .nw-unfold,
+    .is-visible .nw-seq > * {
       opacity: 1;
       transform: none;
-      transition: none;
+      animation: none;
     }
   }
 

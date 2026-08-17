@@ -7,8 +7,8 @@ import { IconCalendar, IconChevronDown, IconPen, IconTrend } from "./NoteIcons";
  *
  * The section exists to make one distinction the app cares about: it counts
  * words *touched*, so a day spent cutting forty words still reads as work. No
- * streak, no personal best, nothing that breaks if you take a Sunday off — the
- * chart notices you wrote, and declines to score you for it.
+ * streak and no personal best, because the moment a chart can be broken it
+ * starts deciding what you write.
  *
  * The four heat steps are the accent mixed toward the page. Step zero is a
  * neutral grey rather than the palest blue, because a day with no writing is
@@ -50,12 +50,10 @@ export function WritingChart() {
   return (
     <section className="py-16 sm:py-24">
       <Shell>
-        <SectionHead
-          title="It notices that you wrote. It doesn't score you."
-        >
-          A square is a day, and it counts words <em>touched</em> — so cutting
-          forty words still counts as work. No streaks, no personal bests,
-          nothing that breaks if you take a Sunday off.
+        <SectionHead title="It notices that you wrote.">
+          A square is a day, and it counts the words you <em>touched</em>, so an
+          afternoon spent cutting still shows up. There are no streaks to keep
+          and nothing to lose by skipping a week.
         </SectionHead>
 
         <Reveal className="mt-12 sm:mt-14">

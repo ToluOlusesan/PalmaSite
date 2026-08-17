@@ -15,13 +15,18 @@ import {
  * opens, and the bar that comes to a selection.
  *
  * Both arrive exactly the way they do in the app — four pixels of rise while
- * they fade, ease-out, no spring — fired once when the section scrolls into
- * view rather than on a loop. The point is to show what using it feels like,
- * and a loop would turn a piece of interface into a screensaver.
+ * they fade, ease-out, no spring — and then replay on a seven-second loop, so
+ * the demonstration is still running whenever a reader's eye reaches it rather
+ * than having played to an empty room on the way past. The loop only turns
+ * over while the section is on screen (see `.nw-unfold` in globals.css).
  *
  * The selection bar's controls arrive **in sequence**, which is the app's one
  * documented exception to everything-together, and the reason it reads as a
  * bar that came to your words rather than one that was always sitting there.
+ *
+ * The two cards are stretched to a common height. They hold different amounts
+ * of content, and a ragged bottom edge across a two-card row is the first thing
+ * that reads as unfinished.
  */
 
 /** The control's place in the arrival order, read by `.nw-seq` in globals.css. */
@@ -48,9 +53,13 @@ export function InsertDemo() {
         </SectionHead>
 
         <div className="mt-12 grid gap-5 sm:mt-14 lg:grid-cols-2">
-          <Reveal>
+          <Reveal className="flex flex-col">
             <h3 className="text-[0.9375rem] font-semibold text-ink">The insert menu</h3>
-            <div className="relative mt-3.5 overflow-hidden rounded-[1rem] border border-line bg-paper p-6 pb-0">
+            {/* `grow`, not `flex-1`. `flex-1` sets `flex-basis: 0`, which drops
+                the card's real content out of the row-height calculation — the
+                grid then sizes to the other column and the menu gets clipped
+                away entirely. */}
+            <div className="relative mt-3.5 flex grow flex-col overflow-hidden rounded-[1rem] border border-line bg-paper p-6 pb-0">
               <p className="text-[0.9375rem] leading-[1.6] text-strong">
                 It was interesting, how different our lives were.
               </p>
@@ -59,7 +68,9 @@ export function InsertDemo() {
                 <span className="mini-caret ml-px inline-block h-[1.05em] w-[1.5px] translate-y-[0.2em] bg-[var(--accent)] align-baseline" />
               </p>
 
-              <div className="nw-unfold mt-3 rounded-t-xl border border-b-0 border-line bg-paper p-1.5 shadow-lift">
+              {/* `mt-auto` so the menu stays welded to the bottom edge it
+                  bleeds off, at whatever height the row settles on. */}
+              <div className="nw-unfold mt-auto rounded-t-xl border border-b-0 border-line bg-paper p-1.5 pt-1.5 shadow-lift">
                 <div className="px-2.5 py-1.5 text-[0.6875rem] uppercase tracking-[0.09em] text-faint">
                   Blocks
                 </div>
@@ -90,9 +101,9 @@ export function InsertDemo() {
             </div>
           </Reveal>
 
-          <Reveal delay={80}>
+          <Reveal delay={80} className="flex flex-col">
             <h3 className="text-[0.9375rem] font-semibold text-ink">The selection bar</h3>
-            <div className="mt-3.5 rounded-[1rem] border border-line bg-paper p-6">
+            <div className="mt-3.5 grow rounded-[1rem] border border-line bg-paper p-6">
               {/* `--i` on each control drives its own delay from CSS, so the
                   sequence is one transition rule rather than ten keyframes —
                   and the controls stay direct flex children, which the rules

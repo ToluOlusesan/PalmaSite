@@ -17,12 +17,12 @@ import { IconHistory } from "./NoteIcons";
 
 const points = [
   {
-    title: "It saves while you think",
-    body: "Half a second after you stop typing, and again the moment you navigate away, switch tabs, or close the window. A database write never blocks a keystroke.",
+    title: "It saves as you type",
+    body: "Half a second after you stop typing, and again when you navigate away, switch tabs or close the window. Saving never blocks a keystroke.",
   },
   {
     title: "Every page keeps its own history",
-    body: "One snapshot per two minutes of actual writing, plus one each time you leave the page. Not one per keystroke — that writes hundreds of near-identical copies of a chapter and throws them all away again.",
+    body: "One snapshot per two minutes of actual writing, plus one each time you leave the page. Not one per keystroke, which would just fill your disk with hundreds of near-identical copies of the same chapter.",
   },
 ];
 
@@ -40,18 +40,22 @@ export function HistoryBand() {
     <section className="py-16 sm:py-24">
       <Shell>
         <SectionHead title="Nothing you wrote is gone.">
-          The manuscript lives in one file on your disk, and every page
-          remembers its own past. There is no sync indicator here because there
-          is nothing to sync.
+          It&rsquo;s all in one file on your disk, and every page keeps its own
+          revisions. There&rsquo;s no sync indicator because there&rsquo;s
+          nothing to sync.
         </SectionHead>
 
-        <div className="mt-12 grid gap-10 sm:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:gap-14">
+        {/* `items-center`, so the two prose blocks sit against the middle of the
+            history card rather than hanging off its top edge — the columns are
+            different heights by nature and top-aligning them leaves the left
+            one floating in the band. */}
+        <div className="mt-12 grid gap-10 sm:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:items-center lg:gap-14">
           <div className="flex flex-col">
             {points.map((p, i) => (
               <Reveal
                 key={p.title}
                 delay={i * 60}
-                className="border-b border-line py-5 first:pt-0"
+                className="border-b border-line py-5 first:pt-0 last:border-b-0 last:pb-0"
               >
                 <h3 className="text-[1.0125rem] font-semibold tracking-[-0.012em] text-ink">
                   {p.title}

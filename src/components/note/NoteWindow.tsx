@@ -155,54 +155,50 @@ export function NoteWindow() {
               <IconPlusPage size={15} />
               Add page
             </span>
+            {/* The word count used to live here too. Two different word counts
+                in one window read as two different numbers — the status bar is
+                where it belongs, so this says how many pages instead. */}
             <span className="mt-auto flex items-center justify-between px-1.5 pt-4 text-[0.6875rem] text-[color:var(--nw-faint)]">
               <span>Archive</span>
-              <span>1,284 words</span>
+              <span>5 pages</span>
             </span>
           </aside>
 
-          <div className="flex min-w-0 flex-col">
-            <div className="nw-doc flex-1">
-              <span className="mb-3 inline-flex items-center gap-1.5 text-[0.75rem] text-[color:var(--nw-faint)]">
-                <IconImage size={14} />
-                Add cover
-              </span>
-              <div className="nw-doc-title">Chapter One</div>
+          <div className="nw-doc">
+            <span className="mb-3 inline-flex items-center gap-1.5 text-[0.75rem] text-[color:var(--nw-faint)]">
+              <IconImage size={14} />
+              Add cover
+            </span>
+            <div className="nw-doc-title">Chapter One</div>
 
-              <p>
-                The tide went out further than anyone could remember, and the
-                boats leaned over in the mud like animals asleep.{" "}
-                <span className="nw-mark">Check the tide tables for October</span>{" "}
-                — it matters more than it sounds, because everything after this
-                depends on how long the flats stayed dry.
-              </p>
-              <p>
-                Ada had walked out there twice before, once as a child with her
-                father and once alone. Both times are written down in{" "}
-                <span className="nw-link">The harbour</span>, which is where the
-                names of the boats are kept.
-              </p>
+            <p>
+              The tide went out further than anyone could remember, and the
+              boats leaned over in the mud like animals asleep.{" "}
+              <span className="nw-mark">Check the tide tables for October</span>{" "}
+              — it matters more than it sounds, because everything after this
+              depends on how long the flats stayed dry.
+            </p>
+            <p>
+              Ada had walked out there twice before, once as a child with her
+              father and once alone. Both times are written down in{" "}
+              <span className="nw-link">The harbour</span>, which is where the
+              names of the boats are kept.
+            </p>
+            <p>
+              She went back for the tide tables and found them where she had
+              left them, under the tin on the second shelf, still folded to the
+              page her father had marked.
+            </p>
 
-              <div className="mt-4">
-                <div className="nw-task">
-                  <span className="nw-box" />
-                  <span>Name the second boat</span>
-                </div>
-                <div className="nw-task">
-                  <span className="nw-box" />
-                  <span>Decide whether the father is alive in chapter four</span>
-                </div>
+            <div className="mt-4">
+              <div className="nw-task">
+                <span className="nw-box" />
+                <span>Name the second boat</span>
               </div>
-            </div>
-
-            <div className="nw-status">
-              <span>1,284 words</span>
-              <span aria-hidden>·</span>
-              <span className="hidden sm:inline">7,041 chars</span>
-              <span className="hidden sm:inline" aria-hidden>
-                ·
-              </span>
-              <span>+312 this session</span>
+              <div className="nw-task">
+                <span className="nw-box" />
+                <span>Decide whether the father is alive in chapter four</span>
+              </div>
             </div>
           </div>
 
@@ -217,7 +213,23 @@ export function NoteWindow() {
             <div className="nw-sticky bg-[#ffa32e]" style={{ rotate: "1deg" }}>
               Ada&rsquo;s mother hasn&rsquo;t been mentioned once. Deliberate?
             </div>
+            <div className="nw-sticky bg-[#9ec8ff]" style={{ rotate: "-0.6deg" }}>
+              Check the boat names against the harbour page before the next
+              pass.
+            </div>
           </aside>
+        </div>
+
+        {/* Full width, outside the body grid. Under the document column alone
+            it stopped short of the rail and left a ragged bottom edge. */}
+        <div className="nw-status">
+          <span>1,284 words</span>
+          <span aria-hidden>·</span>
+          <span className="hidden sm:inline">7,041 chars</span>
+          <span className="hidden sm:inline" aria-hidden>
+            ·
+          </span>
+          <span>+312 this session</span>
         </div>
       </div>
     </div>

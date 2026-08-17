@@ -21,8 +21,8 @@ export function CompareBand() {
     <section id="compare" className="scroll-mt-24 py-16 sm:py-24">
       <Shell>
         <SectionHead title="You probably came for one of them.">
-          They overlap less than the shared name suggests. One is where a
-          project&rsquo;s look gets decided; the other is where its words do.
+          They share a name and not much else. One holds the pictures you&rsquo;re
+          working from, the other holds the words you&rsquo;re writing.
         </SectionHead>
 
         <Reveal className="mt-12 overflow-hidden rounded-[1.25rem] border border-line sm:mt-14">

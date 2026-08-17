@@ -42,9 +42,9 @@ export function FamilyHero() {
 
           <Reveal delay={200}>
             <p className="mx-auto mt-7 max-w-[34rem] text-pretty text-[1.0625rem] leading-[1.65] text-muted">
-              One is for looking — references, images, video, the shape of a
-              thing before you know what it is. One is for writing — pages,
-              notes, lists, the words. Both keep everything on your machine.
+              One is for looking: references, images and video, collected while
+              you work out what you&rsquo;re making. One is for writing: pages,
+              notes and lists. Both keep everything on your machine.
             </p>
           </Reveal>
 

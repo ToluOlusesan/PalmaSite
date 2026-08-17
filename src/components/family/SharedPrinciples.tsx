@@ -23,9 +23,9 @@ export function SharedPrinciples() {
   return (
     <section id="why" className="scroll-mt-24 border-y border-line bg-panel/60 py-16 sm:py-24">
       <Shell>
-        <SectionHead title="The same spine, both times.">
-          Two apps, one set of promises. Neither of them has an account screen,
-          a sync indicator, or a plan to grow one.
+        <SectionHead title="Both apps work the same way.">
+          They&rsquo;re built on the same handful of rules. Neither one has an
+          account screen, a sync indicator, or plans to grow one.
         </SectionHead>
 
         <div className="mt-12 grid gap-4 sm:mt-14 sm:grid-cols-2">
