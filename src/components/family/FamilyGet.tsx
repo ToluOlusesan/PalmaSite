@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { productList, type Product } from "@/lib/content";
 import { ProductTile } from "@/components/marks/ProductTile";
-import { ActionLink, ArrowGlyph, DownloadGlyph } from "@/components/ui/Action";
+import { ActionLink, ArrowGlyph, BrowserGlyph, DownloadGlyph } from "@/components/ui/Action";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHead, Shell } from "@/components/ui/SectionHead";
 
@@ -19,8 +19,8 @@ export function FamilyGet() {
     <section id="get" className="scroll-mt-24 py-16 sm:py-24">
       <Shell>
         <SectionHead title="Take whichever one you need.">
-          Both are Windows apps. Both are free, forever. Neither will ask you
-          for an email address.
+          One is a Windows app, the other opens in a tab. Both are free,
+          forever. Neither will ask you for an email address.
         </SectionHead>
 
         <div className="mt-12 grid gap-4 sm:mt-14 lg:grid-cols-2">
@@ -48,7 +48,11 @@ function GetCard({ product: p }: { product: Product }) {
         <div>
           <h3 className="display-sm text-[1.3rem] text-ink">{p.name}</h3>
           <p className="text-[12.5px] text-faint">
-            {available ? `Windows · v${p.version}` : "Windows · in the workshop"}
+            {available
+              ? `Windows · v${p.version}`
+              : p.webUrl
+                ? "In your browser · Windows in the workshop"
+                : "Windows · in the workshop"}
           </p>
         </div>
       </div>
@@ -63,6 +67,11 @@ function GetCard({ product: p }: { product: Product }) {
             <DownloadGlyph />
             Download
           </ActionLink>
+        ) : p.webUrl ? (
+          <ActionLink href={p.webUrl} target="_blank" rel="noopener" variant="solid">
+            <BrowserGlyph />
+            Open in your browser
+          </ActionLink>
         ) : (
           <span className="inline-flex h-12 cursor-default items-center justify-center rounded-full border border-dashed border-line-2 px-6 text-[15px] font-medium text-faint">
             Not out yet
@@ -74,7 +83,7 @@ function GetCard({ product: p }: { product: Product }) {
           transitionTypes={["nav-forward"]}
           className="pressable inline-flex h-12 items-center gap-2 rounded-full px-4 text-[15px] font-medium text-[var(--accent)] hover:bg-[var(--accent-soft)]"
         >
-          {available ? "See what it does" : "See what it will do"}
+          {available || p.webUrl ? "See what it does" : "See what it will do"}
           <ArrowGlyph />
         </Link>
       </div>

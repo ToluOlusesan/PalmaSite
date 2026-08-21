@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { family, productList, products, type ProductId } from "@/lib/content";
 import { CanvasMark } from "@/components/marks/CanvasMark";
-import { DownloadGlyph } from "@/components/ui/Action";
+import { BrowserGlyph, DownloadGlyph } from "@/components/ui/Action";
 
 /**
  * The family chrome. One bar, on every page, whose middle is the whole idea of
@@ -220,6 +220,26 @@ function NavAction({ active }: { active: ProductId | null }) {
   }
 
   const product = products[active];
+
+  // No installer, but a browser build — so the bar offers the app itself. The
+  // slot's job is the next step from wherever you are, and "coming soon" is
+  // not a next step when there is one press between here and writing.
+  if (product.status === "coming-soon" && product.webUrl) {
+    return (
+      <a
+        href={product.webUrl}
+        target="_blank"
+        rel="noopener"
+        data-product={active}
+        className={`${shared} pressable text-[var(--accent-ink)] hover:opacity-90`}
+        style={{ background: "var(--accent-grad)" }}
+      >
+        <BrowserGlyph />
+        <span className="hidden sm:inline">Open in browser</span>
+        <span className="sm:hidden">Open</span>
+      </a>
+    );
+  }
 
   if (product.status === "coming-soon") {
     return (

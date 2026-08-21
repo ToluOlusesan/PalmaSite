@@ -69,11 +69,22 @@ export type Product = {
   lede: string;
   /** One sentence for the family tile. Shorter than the lede. */
   blurb: string;
+  /** The *installer's* status. A product can have no installer and still be usable — see `webUrl`. */
   status: ProductStatus;
   /** Shown as the version label next to the download. */
   version?: string;
   /** A stable "latest release" permalink, so it never needs touching. */
   downloadUrl?: string;
+  /**
+   * The same app, built for a browser, at a permalink of its own.
+   *
+   * Not a demo and not a cut-down preview: it is the identical source with
+   * IndexedDB where the desktop build has SQLite, so it is a real way to use
+   * the thing rather than a way to look at it. Where a product has one it is
+   * offered first, because an app you can be inside in one press beats an
+   * installer you have to trust with an unsigned certificate.
+   */
+  webUrl?: string;
   /** A PDF guide served straight from /public. */
   guideUrl?: string;
   /** What the status chip says. */
@@ -120,11 +131,12 @@ export const products: Record<ProductId, Product> = {
       ],
     },
     lede:
-      "Pages, notes and lists, kept in one file on your disk. Blocks you can move, pages that link to each other, and stickies that sit beside the writing instead of inside it.",
+      "Pages, notes and lists, kept on your own machine. Blocks you can move, pages that link to each other, and stickies that sit beside the writing instead of inside it. Open it in a tab and start — there is nothing to install.",
     blurb:
-      "A writing app for pages, notes and lists. One file on your disk, and nothing else.",
+      "A writing app for pages, notes and lists. Open it in your browser, or wait for the Windows app.",
     status: "coming-soon",
-    chip: "Windows · Coming soon",
+    webUrl: "https://toluolusesan.github.io/palmanote/",
+    chip: "In your browser · Free, forever",
   },
 };
 

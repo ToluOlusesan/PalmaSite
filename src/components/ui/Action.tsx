@@ -114,6 +114,38 @@ export function DownloadGlyph() {
   );
 }
 
+/**
+ * A browser window: a frame and the bar across the top of it.
+ *
+ * Deliberately not the diagonal arrow that usually means "external link" —
+ * that glyph says *you are leaving*, and this one is the app opening. Kept to
+ * two strokes because the three dots a real chrome bar has turn to mush at
+ * 18px, which is the only size this is ever drawn at.
+ */
+export function BrowserGlyph() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="18"
+      height="18"
+      className="h-[18px] w-[18px]"
+      fill="none"
+      aria-hidden
+    >
+      <rect
+        x="3"
+        y="4.75"
+        width="18"
+        height="14.5"
+        rx="2.5"
+        stroke="currentColor"
+        strokeWidth="1.8"
+      />
+      <path d="M3 9.5h18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function ArrowGlyph({ className = "" }: { className?: string }) {
   return (
     <svg

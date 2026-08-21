@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { products, type Product, type ProductId } from "@/lib/content";
 import { ProductTile } from "@/components/marks/ProductTile";
-import { ActionLink, ArrowGlyph, DownloadGlyph } from "@/components/ui/Action";
+import { ActionLink, ArrowGlyph, BrowserGlyph, DownloadGlyph } from "@/components/ui/Action";
 import { Reveal } from "@/components/ui/Reveal";
 import { Shell } from "@/components/ui/SectionHead";
 
@@ -19,7 +19,11 @@ export function ProductGet({ product: p }: { product: Product }) {
       <Shell className="relative z-[1]">
         <Reveal>
           <span className="inline-flex items-center gap-2 rounded-full border border-line-2 px-3 py-1 text-[11.5px] font-medium uppercase tracking-[0.14em] text-muted">
-            {available ? `Windows · v${p.version}` : "Windows · coming soon"}
+            {available
+              ? `Windows · v${p.version}`
+              : p.webUrl
+                ? "In your browser · nothing to install"
+                : "Windows · coming soon"}
           </span>
           {/* This line *is* the band's heading — it was a <p> carrying display
               type, which looks right and outlines wrong: the download section
@@ -27,7 +31,9 @@ export function ProductGet({ product: p }: { product: Product }) {
           <h2 className="display-sm mx-auto mt-6 max-w-[36rem] text-balance text-[clamp(1.6rem,3.6vw,2.4rem)] text-ink">
             {available
               ? `Download ${p.name}. It's free, forever.`
-              : `${p.name} isn't finished. It will also be free, forever.`}
+              : p.webUrl
+                ? `Open ${p.name} in a tab. It's free, forever.`
+                : `${p.name} isn't finished. It will also be free, forever.`}
           </h2>
         </Reveal>
 
@@ -45,6 +51,11 @@ export function ProductGet({ product: p }: { product: Product }) {
                   </ActionLink>
                 ) : null}
               </>
+            ) : p.webUrl ? (
+              <ActionLink href={p.webUrl} target="_blank" rel="noopener" variant="solid">
+                <BrowserGlyph />
+                Open in your browser
+              </ActionLink>
             ) : (
               <span className="inline-flex h-12 cursor-default items-center justify-center rounded-full border border-dashed border-line-2 px-6 text-[15px] font-medium text-faint">
                 No installer yet
@@ -54,6 +65,15 @@ export function ProductGet({ product: p }: { product: Product }) {
           <p className="mt-6 text-[13px] text-faint">
             No account required · Nothing uploaded · Runs entirely on your machine.
           </p>
+          {/* Said here as well as in the band above, because this is the last
+              line before somebody presses the button, and the one thing they
+              should know before they start writing is where it will be kept. */}
+          {!available && p.webUrl ? (
+            <p className="mx-auto mt-2 max-w-[32rem] text-pretty text-[13px] text-faint">
+              Your pages are saved in that browser, on this machine. Export whenever you
+              like — the Windows app is still being built.
+            </p>
+          ) : null}
         </Reveal>
       </Shell>
     </section>

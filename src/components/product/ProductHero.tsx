@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { ViewTransition } from "react";
 import type { Product } from "@/lib/content";
 import { ProductTile, outerRadius } from "@/components/marks/ProductTile";
-import { ActionLink, DownloadGlyph } from "@/components/ui/Action";
+import { ActionLink, BrowserGlyph, DownloadGlyph } from "@/components/ui/Action";
 import { Reveal } from "@/components/ui/Reveal";
 import { Shell } from "@/components/ui/SectionHead";
 import { TypedHeadline } from "./TypedHeadline";
@@ -10,6 +10,16 @@ import { TypedHeadline } from "./TypedHeadline";
 /** The badge's tile and the gap around it — `py-1.5 pl-1.5` is 6px. */
 const BADGE_TILE = 32;
 const BADGE_PAD = 6;
+
+/** The "being worked on" dot: a ring that leaves, and a dot that stays. */
+function Pulse() {
+  return (
+    <span className="relative flex h-1.5 w-1.5" aria-hidden>
+      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-current opacity-60" />
+      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
+    </span>
+  );
+}
 
 /**
  * One hero shape, both products.
@@ -64,7 +74,7 @@ export function ProductHero({
               <span className="text-[13.5px] font-medium text-ink">{p.name}</span>
               <span className="h-1 w-1 rounded-full bg-line-2" aria-hidden />
               <span className="text-[12.5px] text-faint">
-                {available ? `v${p.version}` : "Coming soon"}
+                {available ? `v${p.version}` : p.webUrl ? "In your browser" : "Coming soon"}
               </span>
             </div>
           </Reveal>
@@ -112,16 +122,31 @@ export function ProductHero({
                       </ActionLink>
                     ) : null}
                   </>
+                ) : p.webUrl ? (
+                  // No installer, but the app itself is one press away — so the
+                  // press is the hero's action and the pulsing "still being
+                  // built" chip steps down beside it. An app you can be inside
+                  // immediately is a better first offer than a promise.
+                  <>
+                    <ActionLink href={p.webUrl} target="_blank" rel="noopener" variant="solid">
+                      <BrowserGlyph />
+                      Open in your browser
+                    </ActionLink>
+                    <span className="inline-flex h-12 cursor-default items-center gap-2.5 rounded-full border border-dashed border-line-2 px-6 text-[15px] font-medium text-faint">
+                      <Pulse />
+                      Windows app still being built
+                    </span>
+                  </>
                 ) : (
                   <span className="inline-flex h-12 cursor-default items-center gap-2.5 rounded-full border border-dashed border-line-2 px-6 text-[15px] font-medium text-faint">
-                    <span className="relative flex h-1.5 w-1.5" aria-hidden>
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-current opacity-60" />
-                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
-                    </span>
+                    <Pulse />
                     Still being built
                   </span>
                 )}
               </div>
+              {/* True of both routes in, which is the point: the browser build
+                  keeps its pages in the browser's own storage on this machine,
+                  and posts none of it anywhere. */}
               <p className="text-[13px] text-faint">{p.chip} · Runs entirely on your machine</p>
             </div>
           </Reveal>

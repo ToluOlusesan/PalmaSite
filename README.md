@@ -5,8 +5,10 @@ that share a spine.
 
 - **Palma Canvas** — an infinite board for references, moodboards and video
   stills. Shipping; downloads from a stable GitHub permalink.
-- **PalmaNote** — a small, local place for pages, notes and lists. Not out yet;
-  the site says so rather than collecting emails.
+- **PalmaNote** — a small, local place for pages, notes and lists. The Windows
+  installer is still being built, but the app itself runs in a browser and the
+  site opens it: `products.note.webUrl` points at the Pages deployment of the
+  app's own repository, published the same way Canvas's installer is.
 
 Both are free, forever — no pricing, no accounts, no paid tier — so the site
 never needs commerce pages.
@@ -35,6 +37,12 @@ npm run lint     # eslint
 | `/`       | The family page: name the family, present the choice, compare them |
 | `/canvas` | Palma Canvas                                                       |
 | `/note`   | PalmaNote                                                          |
+
+`/note` carries one band the Canvas page has no equivalent of — `WebBand`,
+which explains the browser build: what it is, where it keeps your pages, and
+the one thing worth knowing before you start (a browser's storage is yours, and
+also something a browser is entitled to clear). It renders only when the
+product has a `webUrl`, so Canvas gaining one later needs no new component.
 
 `/api/notify` is an unused host-agnostic waitlist endpoint, kept for whenever
 PalmaNote wants a launch list. Nothing on the site posts to it today.
@@ -127,8 +135,25 @@ each route at 1200×630 with the fixed nav and any `nextjs-portal` removed and
 
 ## Status
 
-Palma Canvas ships from a stable `Palma-Setup.exe` permalink. PalmaNote is
-pre-launch: its page shows a "Still being built" state and no installer link.
-When it ships, set `status: "available"` plus `version` and `downloadUrl` on
-`products.note` in `lib/content.ts` — every button, chip and nav action on the
-site reads from there.
+Palma Canvas ships from a stable `Palma-Setup.exe` permalink.
+
+PalmaNote has **no installer yet and is usable anyway**: `webUrl` on
+`products.note` points at
+<https://toluolusesan.github.io/palmanote/>, which the app's own repository
+publishes from a workflow on every push to `main`. Both permalinks are stable
+by design — neither carries a version — so shipping a new build never touches
+this site.
+
+Those two fields are the whole switchboard, and the components read them
+rather than a page-by-page condition:
+
+| `status` | `webUrl` | What the site offers |
+| --- | --- | --- |
+| `available` | — | Download, and the guide beside it |
+| `coming-soon` | set | **Open in your browser**, with "still being built" beside it |
+| `coming-soon` | — | A dashed, inert "Still being built" |
+
+So when the Windows app lands, set `status: "available"` plus `version` and
+`downloadUrl` and leave `webUrl` where it is: the hero, the get band, the
+family card and the nav action all pick up the download and keep the browser
+route as the second door.
