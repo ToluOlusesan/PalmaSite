@@ -15,7 +15,7 @@ export type ProductId = "canvas" | "note";
 
 export const family = {
   name: "Palmaboard",
-  domain: "palma.design",
+  domain: "palmaboard.com",
   maker: "Spatial Foundry",
   /** Said in the nav, the OG card and the hero. Keep them agreeing. */
   tagline: "Two apps. One way of working.",
@@ -135,7 +135,12 @@ export const products: Record<ProductId, Product> = {
     blurb:
       "A writing app for pages, notes and lists. Open it in your browser, or wait for the Windows app.",
     status: "coming-soon",
-    webUrl: "https://toluolusesan.github.io/palmanote/",
+    /**
+     * This site's own address, not the one the build is published at — see the
+     * proxy in next.config.ts. The trailing slash is required: the app's paths
+     * are relative, so without it the assets resolve one directory too high.
+     */
+    webUrl: "https://palmaboard.com/note/app/",
     chip: "In your browser · Free, forever",
   },
 };

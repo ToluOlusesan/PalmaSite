@@ -31,14 +31,14 @@ const pinyon = Pinyon_Script({
 // previews resolve to the right domain (og:image must be absolute). Vercel
 // exposes the production domain as `VERCEL_PROJECT_PRODUCTION_URL` and the
 // per-deployment host as `VERCEL_URL`. Set `NEXT_PUBLIC_SITE_URL` to pin a
-// custom domain (e.g. https://palma.design) once it's live.
+// custom domain (e.g. https://palmaboard.com) once it's live.
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ??
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}`
-      : "https://palma.design");
+      : "https://palmaboard.com");
 
 const DESCRIPTION =
   "Palmaboard is two local-first Windows apps: Palma Canvas for references, moodboards and video stills, and PalmaNote for pages, notes and lists. No cloud, no account, no AI. Free, forever.";
