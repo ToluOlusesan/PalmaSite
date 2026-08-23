@@ -373,6 +373,50 @@ em {
   }
 }
 
+/* The download glyph's two arrows — see DownloadGlyph in ui/Action.tsx.
+   Unlayered, like `.pressable` above, because it is the same primitive: the
+   button owns the hover and the glyph inside it answers.
+
+   The whole effect sits behind one query. A touch device fires hover on tap,
+   where a loop that plays after the press is noise; and somebody who has asked
+   for less motion is asking not to have an icon animate at them, so the arrow
+   simply holds still rather than crossfading with an identical copy of itself,
+   which would be a no-op that still paints. */
+.dl-arrow {
+  transition:
+    transform 240ms var(--ease-out),
+    opacity 140ms var(--ease-out);
+}
+/* The second arrow waits 60ms. Without the beat the two are on screen
+   together around a third of the way through, and a glyph that briefly has two
+   arrows in it reads as a rendering fault rather than as one arrow being
+   replaced. */
+.dl-arrow-next {
+  opacity: 0;
+  transform: translateY(-13px);
+  transition:
+    transform 260ms var(--ease-out) 60ms,
+    opacity 180ms var(--ease-out) 60ms;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .pressable:hover .dl-arrow {
+    opacity: 0;
+    transform: translateY(13px);
+  }
+  .pressable:hover .dl-arrow-next {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* The solid button already brightens its shadow on hover, and a shadow that
+     deepens under something that has not moved reads as a mistake rather than
+     as a lift. One pixel, dropped again while the button is held, because a
+     press goes the other way. */
+  .pressable:has(.dl-arrow):hover:not(:active) {
+    transform: translateY(-1px);
+  }
+}
+
 /* Shimmer CTA — a soft light sweep glides across the button on a loop. The
    pseudo-element sits above the fill but below the label (which is z-[1]) and
    never eats pointer events. */

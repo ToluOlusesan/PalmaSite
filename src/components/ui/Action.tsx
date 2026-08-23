@@ -87,6 +87,20 @@ export function ActionPending({
   );
 }
 
+/**
+ * A download: an arrow, and the tray it lands in.
+ *
+ * Hovering sends the arrow down out of the glyph while a second one arrives
+ * from above to take its place, so the button spends the hover demonstrating
+ * what pressing it does. Two arrows are drawn and only their transforms
+ * differ — transitions rather than keyframes, so a pointer that leaves halfway
+ * retargets from where the arrow is instead of snapping back and starting
+ * again. The travel is in the SVG's own units, which makes it proportional to
+ * the glyph rather than to a pixel guess. Motion lives in globals.css beside
+ * `.pressable`, since this is that primitive's other half.
+ */
+const ARROW = "M12 3v11m0 0l-4-4m4 4l4-4";
+
 export function DownloadGlyph() {
   return (
     <svg
@@ -98,7 +112,16 @@ export function DownloadGlyph() {
       aria-hidden
     >
       <path
-        d="M12 3v11m0 0l-4-4m4 4l4-4"
+        className="dl-arrow"
+        d={ARROW}
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        className="dl-arrow dl-arrow-next"
+        d={ARROW}
         stroke="currentColor"
         strokeWidth="1.8"
         strokeLinecap="round"
