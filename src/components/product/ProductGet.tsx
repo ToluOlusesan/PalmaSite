@@ -20,7 +20,7 @@ export function ProductGet({ product: p }: { product: Product }) {
         <Reveal>
           <span className="inline-flex items-center gap-2 rounded-full border border-line-2 px-3 py-1 text-[11.5px] font-medium uppercase tracking-[0.14em] text-muted">
             {available
-              ? `Windows · v${p.version}`
+              ? `Windows · v${p.version}${p.webUrl ? " · or your browser" : ""}`
               : p.webUrl
                 ? "In your browser · nothing to install"
                 : "Windows · coming soon"}
@@ -45,6 +45,13 @@ export function ProductGet({ product: p }: { product: Product }) {
                   <DownloadGlyph />
                   Download for Windows
                 </ActionLink>
+                {/* The second door, kept open — see the note in ProductHero. */}
+                {p.webUrl ? (
+                  <ActionLink href={p.webUrl} target="_blank" rel="noopener" variant="outline">
+                    <BrowserGlyph />
+                    Open in your browser
+                  </ActionLink>
+                ) : null}
                 {p.guideUrl ? (
                   <ActionLink href={p.guideUrl} target="_blank" rel="noopener" variant="outline">
                     Read the guide

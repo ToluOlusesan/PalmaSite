@@ -49,7 +49,7 @@ function GetCard({ product: p }: { product: Product }) {
           <h3 className="display-sm text-[1.3rem] text-ink">{p.name}</h3>
           <p className="text-[12.5px] text-faint">
             {available
-              ? `Windows · v${p.version}`
+              ? `Windows · v${p.version}${p.webUrl ? " · or your browser" : ""}`
               : p.webUrl
                 ? "In your browser · Windows in the workshop"
                 : "Windows · in the workshop"}

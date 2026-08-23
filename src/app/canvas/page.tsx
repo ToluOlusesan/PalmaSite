@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { products } from "@/lib/content";
+import { canvasReleases, products } from "@/lib/content";
 import { ProductHero } from "@/components/product/ProductHero";
 import { CaptionBand } from "@/components/product/CaptionBand";
 import { ProductGet, SiblingBand } from "@/components/product/ProductGet";
@@ -8,7 +8,7 @@ import { CanvasShot } from "@/components/canvas/CanvasShot";
 import { CaricatureDefs } from "@/components/canvas/ToolCaricatures";
 import { StepBand } from "@/components/canvas/StepBand";
 import { CloseUpBand } from "@/components/canvas/CloseUpBand";
-import { WhatsNew } from "@/components/canvas/WhatsNew";
+import { WhatsNew } from "@/components/product/WhatsNew";
 
 const p = products.canvas;
 
@@ -57,7 +57,7 @@ export default function CanvasPage() {
       <StepBand />
       <CloseUpBand />
       <SharedPrinciples />
-      <WhatsNew />
+      <WhatsNew release={canvasReleases[0]} />
       <ProductGet product={p} />
       <SiblingBand current="canvas" />
     </div>

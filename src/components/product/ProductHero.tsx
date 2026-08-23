@@ -111,6 +111,22 @@ export function ProductHero({
                       <DownloadGlyph />
                       Download for Windows
                     </ActionLink>
+                    {/* Shipping an installer must not close the door the
+                        browser build opened. Somebody who arrived here from a
+                        tab they already had open should still find it, and it
+                        is a second door rather than the offer, so it is quiet
+                        beside the download. */}
+                    {p.webUrl ? (
+                      <ActionLink
+                        href={p.webUrl}
+                        target="_blank"
+                        rel="noopener"
+                        variant="outline"
+                      >
+                        <BrowserGlyph />
+                        Open in your browser
+                      </ActionLink>
+                    ) : null}
                     {p.guideUrl ? (
                       <ActionLink
                         href={p.guideUrl}

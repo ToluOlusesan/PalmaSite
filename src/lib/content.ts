@@ -131,17 +131,25 @@ export const products: Record<ProductId, Product> = {
       ],
     },
     lede:
-      "Pages, notes and lists, kept on your own machine. Blocks you can move, pages that link to each other, and stickies that sit beside the writing instead of inside it. Open it in a tab and start — there is nothing to install.",
+      "Pages, notes and lists, kept on your own machine. Blocks you can move, pages that link to each other, and stickies that sit beside the writing instead of inside it. Install it for Windows, or open it in a tab — either one is the whole app.",
     blurb:
-      "A writing app for pages, notes and lists. Open it in your browser, or wait for the Windows app.",
-    status: "coming-soon",
+      "A writing app for pages, notes and lists. Install it for Windows, or open it in your browser.",
+    status: "available",
+    version: "0.2.0",
+    /**
+     * The same shape as Canvas's, and stable for the same reason: the release
+     * carries an asset under this exact name every time, so shipping a build
+     * never means editing this file.
+     */
+    downloadUrl:
+      "https://github.com/ToluOlusesan/palmanote/releases/latest/download/PalmaNote-Setup.exe",
     /**
      * This site's own address, not the one the build is published at — see the
      * proxy in next.config.ts. The trailing slash is required: the app's paths
      * are relative, so without it the assets resolve one directory too high.
      */
     webUrl: "https://palmaboard.com/note/app/",
-    chip: "In your browser · Free, forever",
+    chip: "Windows or your browser · Free, forever",
   },
 };
 
@@ -290,9 +298,13 @@ export const steps: Step[] = [
   },
 ];
 
-/* --------------------------------------------------------- Canvas: releases
+/* ---------------------------------------------------------------- releases
    Newest first; the section features the top entry. Keep items short and
-   human — this is a changelog a designer reads, not a commit log. */
+   human — this is a changelog a designer reads, not a commit log.
+
+   Two products have one now, so neither gets the bare name: `WhatsNew` takes
+   the entry it renders as a prop rather than reaching for a module-level
+   `releases` that quietly means Canvas. */
 
 export type ReleaseGroupKind = "new" | "refined" | "fixed";
 
@@ -303,7 +315,7 @@ export type ReleaseNote = {
   groups: { kind: ReleaseGroupKind; items: string[] }[];
 };
 
-export const releases: ReleaseNote[] = [
+export const canvasReleases: ReleaseNote[] = [
   {
     version: "1.1.6",
     date: "July 2026",
@@ -334,6 +346,41 @@ export const releases: ReleaseNote[] = [
           "Images dragged in from a browser are now saved into the project, not a temporary folder that later clears.",
           "On-canvas controls stay crisp and correctly sized at every zoom level.",
           "Long notes scroll with the wheel, and the Library stays light no matter how much you've loaded.",
+        ],
+      },
+    ],
+  },
+];
+
+export const noteReleases: ReleaseNote[] = [
+  {
+    version: "0.2.0",
+    date: "August 2026",
+    headline:
+      "The Windows app, a first launch that shows you around, and comments that mark the words.",
+    groups: [
+      {
+        kind: "new",
+        items: [
+          "PalmaNote for Windows: a 2.8 MB installer, and your whole library in one file on your own disk.",
+          "A first launch walks you round the real window — the sidebar, the tabs, the page, the notes rail — then hands you the guide.",
+          "Comment on a selection: the bar that comes to your words now marks them instead of replacing them.",
+          "Put the notes rail away with Ctrl+Shift+Space, and bring it back from the page bar — which says how many notes are waiting.",
+        ],
+      },
+      {
+        kind: "refined",
+        items: [
+          "The launch field says what it is for: type a name for your project and start there.",
+          "A Word export is named after the page you are on, in a field you can correct before it saves.",
+          "The notes switch moved into the page bar, beside bold and the headings, where the page's own controls live.",
+        ],
+      },
+      {
+        kind: "fixed",
+        items: [
+          "Exporting a Word document from the browser now works — it asked for something only the desktop had.",
+          "Right-clicking words you selected with the keyboard offers cut and copy instead of greying them out.",
         ],
       },
     ],

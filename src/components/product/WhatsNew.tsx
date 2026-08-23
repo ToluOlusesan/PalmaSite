@@ -1,5 +1,5 @@
 import { Sparkles, Wand2, Wrench, type LucideIcon } from "lucide-react";
-import { releases, type ReleaseGroupKind } from "@/lib/content";
+import { type ReleaseGroupKind, type ReleaseNote } from "@/lib/content";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHead, Shell } from "@/components/ui/SectionHead";
 
@@ -10,16 +10,20 @@ const meta: Record<ReleaseGroupKind, { label: string; icon: LucideIcon }> = {
 };
 
 /**
- * The latest release, grouped into New / Refined / Fixed.
+ * One release, grouped into New / Refined / Fixed.
  *
  * The three groups used to be told apart by colour — a blue, a pink and a
  * green icon tile. They are told apart by icon and label now, because Canvas's
  * whole visual argument is that the app brings no colour of its own to a
  * screen full of somebody else's photographs, and a decorative hue in the
  * chrome quietly contradicts the screenshots two sections up.
+ *
+ * The entry arrives as a prop, and the component moved out of `canvas/` when
+ * PalmaNote shipped an installer of its own: a band that reached for a
+ * module-level `releases` would have meant one product's changelog wearing the
+ * generic name, and the second product copying the component to get its own.
  */
-export function WhatsNew() {
-  const r = releases[0];
+export function WhatsNew({ release: r }: { release: ReleaseNote | undefined }) {
   if (!r) return null;
 
   return (

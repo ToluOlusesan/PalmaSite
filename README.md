@@ -5,10 +5,10 @@ that share a spine.
 
 - **Palma Canvas** — an infinite board for references, moodboards and video
   stills. Shipping; downloads from a stable GitHub permalink.
-- **PalmaNote** — a small, local place for pages, notes and lists. The Windows
-  installer is still being built, but the app itself runs in a browser and the
-  site opens it: `products.note.webUrl` points at the Pages deployment of the
-  app's own repository, published the same way Canvas's installer is.
+- **PalmaNote** — a small, local place for pages, notes and lists. Shipping
+  too, from a permalink of its own; and it is the one product with two doors,
+  because `products.note.webUrl` also points at the browser build, published
+  from the app's own repository on every push.
 
 Both are free, forever — no pricing, no accounts, no paid tier — so the site
 never needs commerce pages.
@@ -62,8 +62,8 @@ src/
   components/
     shell/                SiteNav (with the product switcher), SiteFooter
     family/               hero, chooser + the two miniatures, compare, get
-    product/              hero, caption band, get band, sibling band
-    canvas/               screenshot frame, step band, tools, what's new
+    product/              hero, caption band, get band, what's new, sibling band
+    canvas/               screenshot frame, step band, tools, close-ups
     note/                 window mockup, writing chart, insert demo, keys
     marks/                PalmaboardMark, CanvasMark, NoteMark, ProductTile
     ui/                   Action, Reveal, SectionHead + Shell
@@ -135,25 +135,32 @@ each route at 1200×630 with the fixed nav and any `nextjs-portal` removed and
 
 ## Status
 
-Palma Canvas ships from a stable `Palma-Setup.exe` permalink.
+Both apps ship. Palma Canvas downloads from a stable `Palma-Setup.exe`
+permalink; PalmaNote from `PalmaNote-Setup.exe`, and it **also** runs in a
+browser — `webUrl` on `products.note` points at the build the app's own
+repository publishes on every push to `main`. No permalink on this site
+carries a version, so shipping a new build never touches these files.
 
-PalmaNote has **no installer yet and is usable anyway**: `webUrl` on
-`products.note` points at
-<https://toluolusesan.github.io/palmanote/>, which the app's own repository
-publishes from a workflow on every push to `main`. Both permalinks are stable
-by design — neither carries a version — so shipping a new build never touches
-this site.
-
-Those two fields are the whole switchboard, and the components read them
+`status` and `webUrl` are the whole switchboard, and the components read them
 rather than a page-by-page condition:
 
 | `status` | `webUrl` | What the site offers |
 | --- | --- | --- |
 | `available` | — | Download, and the guide beside it |
+| `available` | set | Download, with **Open in your browser** kept beside it |
 | `coming-soon` | set | **Open in your browser**, with "still being built" beside it |
 | `coming-soon` | — | A dashed, inert "Still being built" |
 
-So when the Windows app lands, set `status: "available"` plus `version` and
-`downloadUrl` and leave `webUrl` where it is: the hero, the get band, the
-family card and the nav action all pick up the download and keep the browser
-route as the second door.
+The second row is what shipping an installer for a product that already had a
+browser build looks like: set `status: "available"` plus `version` and
+`downloadUrl`, and leave `webUrl` alone. The hero, the get band, the family
+card and the nav action pick up the download; the hero and the get band keep
+the browser as the quiet second door, and the family card names it in the line
+under the product's name rather than growing a third button.
+
+## What's new
+
+Each product page ends with the newest entry from its own array in
+`lib/content.ts` — `canvasReleases`, `noteReleases` — rendered by the shared
+`product/WhatsNew` band. Newest first; the band shows `[0]` and nothing else,
+so an old entry is history rather than clutter.

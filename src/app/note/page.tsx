@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { noteCaptions, products } from "@/lib/content";
+import { noteCaptions, noteReleases, products } from "@/lib/content";
 import { ProductHero } from "@/components/product/ProductHero";
 import { CaptionBand } from "@/components/product/CaptionBand";
 import { ProductGet, SiblingBand } from "@/components/product/ProductGet";
 import { WebBand } from "@/components/product/WebBand";
+import { WhatsNew } from "@/components/product/WhatsNew";
 import { SharedPrinciples } from "@/components/family/SharedPrinciples";
 import { NoteWindow } from "@/components/note/NoteWindow";
 import { WritingChart } from "@/components/note/WritingChart";
@@ -38,6 +39,10 @@ export default function NotePage() {
           an easier promise to believe once the page has explained that nothing
           you write can go missing. */}
       <WebBand product={p} />
+      {/* Where Canvas keeps it: the last band before the download, so what
+          changed lately is read on the way to the button rather than instead
+          of it. */}
+      <WhatsNew release={noteReleases[0]} />
       <ProductGet product={p} />
       <SiblingBand current="note" />
     </div>
