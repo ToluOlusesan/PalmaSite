@@ -135,7 +135,7 @@ export const products: Record<ProductId, Product> = {
     blurb:
       "A writing app for pages, notes and lists. Install it for Windows, or open it in your browser.",
     status: "available",
-    version: "0.2.0",
+    version: "0.2.1",
     /**
      * The same shape as Canvas's, and stable for the same reason: the release
      * carries an asset under this exact name every time, so shipping a build
@@ -353,6 +353,21 @@ export const canvasReleases: ReleaseNote[] = [
 ];
 
 export const noteReleases: ReleaseNote[] = [
+  {
+    version: "0.2.1",
+    date: "August 2026",
+    headline: "A title bar you can take hold of.",
+    groups: [
+      {
+        kind: "fixed",
+        items: [
+          "The window drags by its whole top edge — the strip across the top and the sidebar's head, everywhere they are not a button.",
+          "With a few pages open, the one part that used to move the window had been squeezed to a sliver between two icons. It is held clear now, however many tabs are up.",
+          "The first launch no longer pins the window in place while it is showing you around.",
+        ],
+      },
+    ],
+  },
   {
     version: "0.2.0",
     date: "August 2026",
