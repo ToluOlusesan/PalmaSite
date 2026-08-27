@@ -13,9 +13,8 @@ export function StepBand() {
   return (
     <section id="how" className="scroll-mt-24 py-16 sm:py-24">
       <Shell wide>
-        <SectionHead title="Gather, curate, sequence, hand off.">
-          A scattered pile of references becomes a clear direction, a sequence
-          you can time, and a polished board your clients can actually read.
+        <SectionHead title="Gather, curate, sequence, export.">
+          Four boards in one project, in the order you tend to use them.
         </SectionHead>
 
         <div className="mt-12 flex flex-col gap-5 sm:mt-14 lg:flex-row lg:items-stretch">

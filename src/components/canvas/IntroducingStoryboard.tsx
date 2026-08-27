@@ -10,20 +10,20 @@ import { ToolCaricature } from "./ToolCaricatures";
  * The caricature runs full width here — it is the same art the step card uses,
  * but at this size the toolbar, the numbering and the fields under each panel
  * are all legible, so the picture carries the explanation and the copy beside
- * it can stay short.
+ * it stays to plain statements of what the thing does.
  */
 const points = [
   {
-    title: "Sent, not placed",
-    body: "Ctrl B on the Dump Board and the shot lands as the next panel. A sequence already knows where a new shot goes.",
+    title: "Sent from the board",
+    body: "Select references on the Dump Board and press Ctrl B. Each one is added to the end of the sequence.",
   },
   {
     title: "One frame shape",
-    body: "Pick 16:9, 2.39:1, 9:16 — once, for the board. Dropping a picture into a fixed frame is a framing decision, so Ctrl-drag slides it inside.",
+    body: "Set the board's frame once — 16:9, 2.39:1, 9:16. Every panel uses it, and Ctrl-drag moves the picture inside the frame.",
   },
   {
-    title: "It knows how long it runs",
-    body: "Action, camera move and duration under each panel. The durations add up to a runtime in the header.",
+    title: "Durations add up",
+    body: "Each panel takes an action, a camera move and a duration. The header shows the total.",
   },
 ];
 
@@ -32,9 +32,9 @@ export function IntroducingStoryboard() {
     <section id="storyboard" className="scroll-mt-24 py-16 sm:py-24">
       <Shell wide>
         <SectionHead eyebrow="New in 1.3.0" title="Now introducing Storyboard.">
-          Plan a motion project end to end. Go straight from brainstorming on
-          the board to a storyboard you can time — without your references ever
-          leaving the app they were gathered in.
+          Plan a motion project in one place. Go from brainstorming on the board
+          to a storyboard in the same project — the references you collected
+          become the panels.
         </SectionHead>
 
         <Reveal>

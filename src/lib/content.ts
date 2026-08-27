@@ -100,9 +100,9 @@ export const products: Record<ProductId, Product> = {
     kicker: "For looking",
     headline: { lead: "Your reference board, finally", accent: "alive", tail: "." },
     lede:
-      "Fling every image, clip and screenshot onto an infinite board. Mark them up, sort the keepers into focus zones, cut them into a storyboard, and hand a client a finished moodboard. All of it on your own machine.",
+      "Drop every image, clip and screenshot onto an infinite board. Mark them up, sort them into focus zones, cut them into a storyboard, and export a moodboard to send. It runs on your own machine.",
     blurb:
-      "An infinite board for references — images, video, screenshots — that ends in a moodboard, or a storyboard, you can hand over.",
+      "An infinite board for references — images, video, screenshots — that ends in a moodboard or a storyboard you can send.",
     status: "available",
     version: "1.3.0",
     downloadUrl:
@@ -280,28 +280,28 @@ export const steps: Step[] = [
     n: "01",
     title: "Gather your references",
     blurb:
-      "Fling images, video and screenshots onto an infinite Dump Board. Hover any image and send the keepers straight to Focus.",
+      "Drop images, video and screenshots onto an infinite board. Files already on your disk are referenced where they sit, not copied into a library.",
   },
   {
     id: "focus",
     n: "02",
-    title: "Curate in Focus mode",
+    title: "Sort what matters into Focus",
     blurb:
-      "Sort the keepers into named zones: colour, texture, motion. Zones tidy themselves up, and anything you place drops out of the queue.",
+      "Send the ones worth keeping into named zones — colour, texture, motion. Each zone packs its own grid, and a reference leaves the queue once you place it.",
   },
   {
     id: "storyboard",
     n: "03",
-    title: "Cut it into a sequence",
+    title: "Sequence it in the Storyboard",
     blurb:
-      "Send the shots to the Storyboard and they land in order — one frame shape, numbered, with the action, the camera move and how long it holds.",
+      "Send shots over and they land in order. One frame shape for the whole board, numbered, each with its action, camera move and duration.",
   },
   {
     id: "export",
     n: "04",
-    title: "Export a moodboard for your clients",
+    title: "Export it for a client",
     blurb:
-      "One dropdown, one click: a polished board or a full process brief, light or dark, ready to hand off. No account, nothing uploaded.",
+      "PNG or PDF, light or dark — the board as it stands, or a process brief carrying your notes and comments. No account, nothing uploaded.",
   },
 ];
 
@@ -326,7 +326,7 @@ export const canvasReleases: ReleaseNote[] = [
   {
     version: "1.3.0",
     date: "August 2026",
-    headline: "References become a sequence — plus GIFs that pause, and pictures at full size.",
+    headline: "A storyboard, GIFs you can pause, and images that save at full size.",
     groups: [
       {
         kind: "new",

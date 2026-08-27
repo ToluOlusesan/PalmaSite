@@ -750,7 +750,7 @@ function StoryboardScene() {
         y={SB_ROWS[0]}
         n="01"
         src="/site/1.png"
-        action="Hero lands, dust settles"
+        action="Shot 1"
         camera="slow push in"
         duration="3.5 s"
       />
@@ -759,7 +759,7 @@ function StoryboardScene() {
         y={SB_ROWS[0]}
         n="02"
         src="/site/2.png"
-        action="Wide of the valley"
+        action="Shot 2"
         camera="static"
         duration="2.0 s"
       />
@@ -768,7 +768,7 @@ function StoryboardScene() {
         y={SB_ROWS[0]}
         n="03"
         src="/site/3.png"
-        action="Close on the hands"
+        action="Shot 3"
         camera="pan left"
         duration="1.5 s"
       />
@@ -777,7 +777,7 @@ function StoryboardScene() {
         y={SB_ROWS[1]}
         n="04"
         src="/site/4.png"
-        action="Cut to the machine"
+        action="Shot 4"
         camera="whip pan"
         duration="2.0 s"
       />
@@ -789,7 +789,7 @@ function StoryboardScene() {
         y={SB_ROWS[1]}
         n="05"
         src="/site/5.png"
-        action="Logo resolves"
+        action="Shot 5"
         camera="hold"
         duration="3.0 s"
         className="tc-fx tc-slot"
