@@ -4,18 +4,18 @@ import { SectionHead, Shell } from "@/components/ui/SectionHead";
 import { ToolCaricature } from "./ToolCaricatures";
 
 /**
- * The three-step story (Gather, Curate, Export), each an animated caricature
- * card. The caricatures are reused rather than duplicated — the same art
- * powers the tools band below — and the "01 / 02 / 03" numbering carries the
- * sequence, so there is no connector art to break at a wrap.
+ * The four-step story (Gather, Curate, Sequence, Export), each an animated
+ * caricature card. The caricatures are reused rather than duplicated — the same
+ * art powers the tools band below — and the "01 / 02 / 03 / 04" numbering
+ * carries the sequence, so there is no connector art to break at a wrap.
  */
 export function StepBand() {
   return (
     <section id="how" className="scroll-mt-24 py-16 sm:py-24">
       <Shell wide>
-        <SectionHead title="Gather, curate, hand off.">
-          A scattered pile of references becomes a clear direction, and a
-          polished moodboard your clients can actually read, in three moves.
+        <SectionHead title="Gather, curate, sequence, hand off.">
+          A scattered pile of references becomes a clear direction, a sequence
+          you can time, and a polished board your clients can actually read.
         </SectionHead>
 
         <div className="mt-12 flex flex-col gap-5 sm:mt-14 lg:flex-row lg:items-stretch">

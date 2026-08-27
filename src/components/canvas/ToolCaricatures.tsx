@@ -32,6 +32,8 @@ const TOOL = {
 
 /* Phosphor (regular, plus two fill) icon paths, 256×256, inlined. */
 const IC = {
+  plus:
+    "M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z",
   cursor:
     "M168,132.69,214.08,115l.33-.13A16,16,0,0,0,213,85.07L52.92,32.8A15.95,15.95,0,0,0,32.8,52.92L85.07,213a15.82,15.82,0,0,0,14.41,11l.78,0a15.84,15.84,0,0,0,14.61-9.59l.13-.33L132.69,168,184,219.31a16,16,0,0,0,22.63,0l12.68-12.68a16,16,0,0,0,0-22.63ZM195.31,208,144,156.69a16,16,0,0,0-26,4.93c0,.11-.09.22-.13.32l-17.65,46L48,48l159.85,52.2-45.95,17.64-.32.13a16,16,0,0,0-4.93,26h0L208,195.31Z",
   hand:
@@ -157,13 +159,16 @@ function TopBar() {
   );
 }
 
-const TAB_DEFS: Record<"dump" | "focus" | "scratchpad", { x: number; label: string; w: number }> = {
+type TabId = "dump" | "focus" | "storyboard" | "scratchpad";
+
+const TAB_DEFS: Record<TabId, { x: number; label: string; w: number }> = {
   dump: { x: CX0 + 10, label: "Dump Board", w: 36 },
   focus: { x: CX0 + 54, label: "Focus", w: 19 },
-  scratchpad: { x: CX0 + 81, label: "Notes", w: 19 },
+  storyboard: { x: CX0 + 81, label: "Storyboard", w: 35 },
+  scratchpad: { x: CX0 + 124, label: "Notes", w: 19 },
 };
 
-function Tabs({ active }: { active: "dump" | "focus" | "scratchpad" }) {
+function Tabs({ active }: { active: TabId }) {
   return (
     <g>
       <rect x={CX0} y="18" width={CW} height="15" fill={BAR} />
@@ -227,6 +232,10 @@ export function CaricatureDefs() {
       <defs>
         <pattern id="tc-dots" width="15" height="15" patternUnits="userSpaceOnUse">
           <circle cx="1" cy="1" r="0.9" fill={INK} fillOpacity="0.05" />
+        </pattern>
+        {/* The diagonal hatch the app fills an empty storyboard panel with. */}
+        <pattern id="tc-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <rect width="3" height="6" fill={INK} fillOpacity="0.05" />
         </pattern>
       </defs>
     </svg>
@@ -546,9 +555,256 @@ function ExportScene() {
   );
 }
 
+/* ---------------------------------------------------------- 4 Storyboard */
+/* A miniature of the real Storyboard: the module's own toolbar (panel count,
+   runtime, the FRAME and SIZE segmented controls, Add panel), then the
+   reflowing grid of fixed-aspect panels — each numbered, each carrying its
+   action, camera move and duration, with an empty hatched slot waiting at the
+   end. The fifth panel drops into place on a loop: that is exactly what Ctrl B
+   does, since a shot sent from the Dump Board lands as the next in sequence. */
+
+const SB_PW = 124; // panel frame width
+const SB_PH = 70; // 16:9 of the above
+const SB_COLS = [72, 210, 348];
+const SB_ROWS = [58, 156];
+
+/** One segmented-control chip from the Storyboard toolbar. */
+function SbChip({ x, w, label, on = false }: { x: number; w: number; label: string; on?: boolean }) {
+  return (
+    <g>
+      <rect x={x} y="36.6" width={w} height="8.8" rx="2.6" fill={INK} fillOpacity={on ? 1 : 0} />
+      <text
+        x={x + w / 2}
+        y="41"
+        fontSize="4.2"
+        textAnchor="middle"
+        dominantBaseline="central"
+        fontWeight={on ? 500 : 400}
+        fill={on ? CANVAS : INK}
+        fillOpacity={on ? 1 : 0.55}
+      >
+        {label}
+      </text>
+    </g>
+  );
+}
+
+/** The Storyboard's own toolbar row, sitting where the Dump Board's tools do. */
+function StoryboardToolbar() {
+  // Frame chips are laid out left to right; widths track the label lengths so
+  // the row reads as the real control rather than evenly-cut boxes.
+  const frames: Array<[string, number]> = [
+    ["16:9", 16],
+    ["2.39:1", 21],
+    ["4:3", 13],
+    ["1:1", 11],
+    ["4:5", 13],
+    ["9:16", 16],
+  ];
+  let fx = 235;
+  const frameChips = frames.map(([label, w], i) => {
+    const el = <SbChip key={label} x={fx} w={w} label={label} on={i === 0} />;
+    fx += w + 2;
+    return el;
+  });
+  const sizes: Array<[string, number]> = [
+    ["S", 9],
+    ["M", 9],
+    ["L", 9],
+  ];
+  let sx = 365;
+  const sizeChips = sizes.map(([label, w], i) => {
+    const el = <SbChip key={label} x={sx} w={w} label={label} on={i === 1} />;
+    sx += w + 2;
+    return el;
+  });
+
+  return (
+    <g>
+      <rect x={CX0} y="33" width={CW} height="15" fill={BAR} />
+      <line x1={CX0} y1="48" x2={W} y2="48" stroke={INK} strokeOpacity="0.07" />
+
+      {/* count · runtime */}
+      <text x={CX0 + 10} y="42.6" fontSize="5" fill={INK} fillOpacity="0.42">
+        6 panels
+      </text>
+      <line x1={CX0 + 45} y1="37" x2={CX0 + 45} y2="44" stroke={INK} strokeOpacity="0.12" />
+      <text x={CX0 + 51} y="42.6" fontSize="5" fill={INK} fillOpacity="0.72">
+        0:12.5
+      </text>
+
+      {/* FRAME — the board-wide panel shape */}
+      <text x="214" y="42.4" fontSize="4" letterSpacing="0.5" fill={INK} fillOpacity="0.36">
+        FRAME
+      </text>
+      <rect x="233" y="35.6" width="104" height="10.8" rx="3.4" fill={INK} fillOpacity="0.04" />
+      {frameChips}
+
+      <line x1="343" y1="37" x2="343" y2="44" stroke={INK} strokeOpacity="0.12" />
+
+      {/* SIZE — panels are sized together, never one at a time */}
+      <text x="349" y="42.4" fontSize="4" letterSpacing="0.5" fill={INK} fillOpacity="0.36">
+        SIZE
+      </text>
+      <rect x="363" y="35.6" width="35" height="10.8" rx="3.4" fill={INK} fillOpacity="0.04" />
+      {sizeChips}
+
+      <line x1="404" y1="37" x2="404" y2="44" stroke={INK} strokeOpacity="0.12" />
+      <PIcon d={IC.plus} x={410} y={38} size={6} op={0.5} />
+      <text x="418" y="42.6" fontSize="5" fill={INK} fillOpacity="0.62">
+        Add panel
+      </text>
+    </g>
+  );
+}
+
+/** A single storyboard panel: numbered fixed-aspect frame + its three fields. */
+function SbPanel({
+  x,
+  y,
+  n,
+  src,
+  action,
+  camera,
+  duration,
+  empty = false,
+  ...g
+}: {
+  x: number;
+  y: number;
+  n: string;
+  src?: string;
+  action: string;
+  camera?: string;
+  duration: string;
+  empty?: boolean;
+} & GProps) {
+  const pat = `tc-sb-${n}`;
+  return (
+    <g {...g}>
+      {src && (
+        <pattern id={pat} patternUnits="userSpaceOnUse" x={x} y={y} width={SB_PW} height={SB_PH}>
+          <image href={src} x={0} y={0} width={SB_PW} height={SB_PH} preserveAspectRatio="xMidYMid slice" />
+        </pattern>
+      )}
+      <rect
+        x={x}
+        y={y}
+        width={SB_PW}
+        height={SB_PH}
+        rx="3"
+        fill={empty ? "url(#tc-hatch)" : src ? `url(#${pat})` : CARD}
+        stroke={INK}
+        strokeOpacity={empty ? 0.14 : 0.12}
+        strokeDasharray={empty ? "3 2.5" : undefined}
+      />
+
+      {empty ? (
+        <text
+          x={x + SB_PW / 2}
+          y={y + SB_PH / 2}
+          fontSize="4.4"
+          letterSpacing="0.8"
+          textAnchor="middle"
+          dominantBaseline="central"
+          fill={INK}
+          fillOpacity="0.3"
+        >
+          EMPTY
+        </text>
+      ) : null}
+
+      {/* shot number — always on, the way the app draws it */}
+      <rect x={x + 4} y={y + 4} width="13" height="7.6" rx="2" fill={INK} fillOpacity="0.66" />
+      <text x={x + 10.5} y={y + 7.9} fontSize="4.4" textAnchor="middle" dominantBaseline="central" fill={CANVAS}>
+        {n}
+      </text>
+
+      {/* action · camera · duration */}
+      <text x={x + 1} y={y + SB_PH + 9} fontSize="4.7" fontWeight="500" fill={INK} fillOpacity={empty ? 0.28 : 0.88}>
+        {action}
+      </text>
+      {camera && (
+        <text x={x + 1} y={y + SB_PH + 16.5} fontSize="4.4" fill={INK} fillOpacity="0.44">
+          {camera}
+        </text>
+      )}
+      <text x={x + 1} y={y + SB_PH + 24} fontSize="4.4" fill={INK} fillOpacity="0.5">
+        {duration}
+      </text>
+    </g>
+  );
+}
+
+function StoryboardScene() {
+  return (
+    <svg {...svgProps} aria-label="References arranged as a numbered sequence of shots on the Palma storyboard">
+      <Sidebar />
+      <ContentCanvas top={48} />
+      <TopBar />
+      <Tabs active="storyboard" />
+      <StoryboardToolbar />
+
+      <SbPanel
+        x={SB_COLS[0]}
+        y={SB_ROWS[0]}
+        n="01"
+        src="/site/1.png"
+        action="Hero lands, dust settles"
+        camera="slow push in"
+        duration="3.5 s"
+      />
+      <SbPanel
+        x={SB_COLS[1]}
+        y={SB_ROWS[0]}
+        n="02"
+        src="/site/2.png"
+        action="Wide of the valley"
+        camera="static"
+        duration="2.0 s"
+      />
+      <SbPanel
+        x={SB_COLS[2]}
+        y={SB_ROWS[0]}
+        n="03"
+        src="/site/3.png"
+        action="Close on the hands"
+        camera="pan left"
+        duration="1.5 s"
+      />
+      <SbPanel
+        x={SB_COLS[0]}
+        y={SB_ROWS[1]}
+        n="04"
+        src="/site/4.png"
+        action="Cut to the machine"
+        camera="whip pan"
+        duration="2.0 s"
+      />
+
+      {/* the incoming shot — Ctrl B on the Dump Board lands it as the next
+          panel, so it drops into the slot rather than fading in place */}
+      <SbPanel
+        x={SB_COLS[1]}
+        y={SB_ROWS[1]}
+        n="05"
+        src="/site/5.png"
+        action="Logo resolves"
+        camera="hold"
+        duration="3.0 s"
+        className="tc-fx tc-slot"
+      />
+
+      {/* and the empty slot waiting after it */}
+      <SbPanel x={SB_COLS[2]} y={SB_ROWS[1]} n="06" action="Action…" duration="2.0 s" empty />
+    </svg>
+  );
+}
+
 const scenes: Record<ToolId, () => React.ReactElement> = {
   dump: DumpScene,
   focus: FocusScene,
+  storyboard: StoryboardScene,
   export: ExportScene,
 };
 

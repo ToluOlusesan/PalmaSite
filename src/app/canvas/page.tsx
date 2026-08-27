@@ -7,6 +7,7 @@ import { SharedPrinciples } from "@/components/family/SharedPrinciples";
 import { CanvasShot } from "@/components/canvas/CanvasShot";
 import { CaricatureDefs } from "@/components/canvas/ToolCaricatures";
 import { StepBand } from "@/components/canvas/StepBand";
+import { IntroducingStoryboard } from "@/components/canvas/IntroducingStoryboard";
 import { CloseUpBand } from "@/components/canvas/CloseUpBand";
 import { WhatsNew } from "@/components/product/WhatsNew";
 
@@ -54,6 +55,7 @@ export default function CanvasPage() {
         <CanvasShot />
       </ProductHero>
       <CaptionBand items={captions} />
+      <IntroducingStoryboard />
       <StepBand />
       <CloseUpBand />
       <SharedPrinciples />

@@ -265,7 +265,7 @@ export const principles: Principle[] = [
    CloseUpBand shows real crops of the real screenshot instead. */
 
 /** Names a caricature scene in ToolCaricatures.tsx. */
-export type ToolId = "dump" | "focus" | "export";
+export type ToolId = "dump" | "focus" | "storyboard" | "export";
 
 export type Step = {
   id: ToolId;
@@ -290,8 +290,15 @@ export const steps: Step[] = [
       "Sort the keepers into named zones: colour, texture, motion. Zones tidy themselves up, and anything you place drops out of the queue.",
   },
   {
-    id: "export",
+    id: "storyboard",
     n: "03",
+    title: "Cut it into a sequence",
+    blurb:
+      "Send the shots to the Storyboard and they land in order — one frame shape, numbered, with the action, the camera move and how long it holds.",
+  },
+  {
+    id: "export",
+    n: "04",
     title: "Export a moodboard for your clients",
     blurb:
       "One dropdown, one click: a polished board or a full process brief, light or dark, ready to hand off. No account, nothing uploaded.",
@@ -325,9 +332,6 @@ export const canvasReleases: ReleaseNote[] = [
         kind: "new",
         items: [
           "Storyboard: a new board where references become an ordered sequence of shots. Send them over with Ctrl B and each one lands as the next panel.",
-          "Every panel is the same frame shape — 16:9, 2.39:1, 4:3, 1:1, 4:5 or 9:16 — so dropping a picture in is a framing decision, not a fit.",
-          "Action, camera and duration under each panel, adding up to a runtime. Your board says how long the piece runs, not just what it looks like.",
-          "Drag a panel between any two others to reorder; everything renumbers as you drop it.",
           "GIFs play on the board with a real transport — pause holds the exact frame you were looking at, and you can scrub to a frame and drop it onto the board as a still.",
         ],
       },
@@ -337,7 +341,6 @@ export const canvasReleases: ReleaseNote[] = [
           "Drag a corner to scale a reference (never stretched), Ctrl-drag to crop it, and Ctrl-drag the picture to choose what stays in frame.",
           "Six resize handles — four corners and both sides — each holding the opposite edge still, so you can size a card against its neighbour in one move.",
           "Zoom now runs 10% to 800%, with a menu for Zoom to fit and Zoom to selection, and Ctrl 0 / 1 / 2 to go there instantly.",
-          "Dark mode goes deeper, to a near-black #151515.",
         ],
       },
       {
