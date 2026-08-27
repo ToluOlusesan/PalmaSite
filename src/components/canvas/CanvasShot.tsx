@@ -20,8 +20,12 @@ export function CanvasShot() {
         className="overflow-hidden rounded-xl border border-line-2 bg-paper shadow-float will-change-transform sm:rounded-2xl"
         style={{ transformStyle: "preserve-3d" }}
       >
+        {/* The filename carries the release for a reason: next/image derives its
+            URL from this path, so replacing the file in place leaves every
+            returning visitor's cached copy of the old screenshot on screen.
+            Bump the name whenever the shot is retaken. */}
         <Image
-          src="/site/app-hero.png"
+          src="/site/app-hero-1.3.png"
           alt="Palma Canvas: a project's references spread across an infinite Dump Board"
           width={2550}
           height={1382}

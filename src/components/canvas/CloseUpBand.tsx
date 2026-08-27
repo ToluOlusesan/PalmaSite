@@ -11,12 +11,16 @@ import { SectionHead, Shell } from "@/components/ui/SectionHead";
  *
  * These are crops of the real screenshot already at the top of this page. Same
  * file, no new bytes to download, and every pixel is the actual application:
- * the connector line really does run from that note to that reference, the
- * video really is sitting on the canvas at 41% zoom. Nothing here had to be
- * drawn to be convincing, because none of it is a drawing.
+ * that note really is sitting between those two references, the board really
+ * does hold 36 items at 40% zoom. Nothing here had to be drawn to be
+ * convincing, because none of it is a drawing.
+ *
+ * The coordinates below are tied to that specific screenshot. Replace the hero
+ * and these crops silently point at whatever now occupies those fractions of
+ * the frame — so re-crop and re-caption whenever the source image changes.
  */
 
-const SRC = "/site/app-hero.png";
+const SRC = "/site/app-hero-1.3.png";
 /** Source is 2550×1382. */
 const SRC_RATIO = 2550 / 1382;
 /** Every frame is 16:10, so a crop's height follows from its width. */
@@ -34,28 +38,28 @@ type Crop = {
 
 const crops: Crop[] = [
   {
-    x: 0.088,
-    y: 0.425,
-    w: 0.255,
-    title: "Comments, tied to what they're about",
+    x: 0.098,
+    y: 0.239,
+    w: 0.243,
+    title: "Big references stay big",
     blurb:
-      "Pin a note to anything on the board. A line runs from the note to the reference it belongs to, so a comment never drifts away from its subject.",
+      "A card is the file at the size you gave it, not a thumbnail standing in for one. Zoom in and there is more of the picture, not less.",
   },
   {
-    x: 0.314,
-    y: 0.48,
-    w: 0.275,
-    title: "Video stays video",
-    blurb:
-      "Reference footage doesn't collapse to a thumbnail the moment it lands. Park it on the frame you want and lift that frame out as a clean still.",
-  },
-  {
-    x: 0.558,
-    y: 0.10,
-    w: 0.33,
+    x: 0.365,
+    y: 0.239,
+    w: 0.353,
     title: "As much as you can throw at it",
     blurb:
-      "Thirty-two items on one surface, at 41% zoom, still readable. The board grows with the project instead of asking you to file things first.",
+      "Thirty-six items on one surface, at 40% zoom, still readable. The board grows with the project instead of asking you to file things first.",
+  },
+  {
+    x: 0.549,
+    y: 0.405,
+    w: 0.275,
+    title: "A note is just another thing on the board",
+    blurb:
+      "Write the direction where the references are. It moves, resizes and exports alongside them, instead of living in a separate document.",
   },
 ];
 
