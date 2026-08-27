@@ -100,11 +100,11 @@ export const products: Record<ProductId, Product> = {
     kicker: "For looking",
     headline: { lead: "Your reference board, finally", accent: "alive", tail: "." },
     lede:
-      "Fling every image, clip and screenshot onto an infinite board. Mark them up, sort the keepers into focus zones, and hand a client a finished moodboard. All of it on your own machine.",
+      "Fling every image, clip and screenshot onto an infinite board. Mark them up, sort the keepers into focus zones, cut them into a storyboard, and hand a client a finished moodboard. All of it on your own machine.",
     blurb:
-      "An infinite board for references — images, video, screenshots — that ends in a moodboard you can hand over.",
+      "An infinite board for references — images, video, screenshots — that ends in a moodboard, or a storyboard, you can hand over.",
     status: "available",
-    version: "1.1.6",
+    version: "1.3.0",
     downloadUrl:
       "https://github.com/ToluOlusesan/PalmaStudio/releases/latest/download/Palma-Setup.exe",
     guideUrl: "/Palma-User-Guide.pdf",
@@ -316,6 +316,39 @@ export type ReleaseNote = {
 };
 
 export const canvasReleases: ReleaseNote[] = [
+  {
+    version: "1.3.0",
+    date: "August 2026",
+    headline: "References become a sequence — plus GIFs that pause, and pictures at full size.",
+    groups: [
+      {
+        kind: "new",
+        items: [
+          "Storyboard: a new board where references become an ordered sequence of shots. Send them over with Ctrl B and each one lands as the next panel.",
+          "Every panel is the same frame shape — 16:9, 2.39:1, 4:3, 1:1, 4:5 or 9:16 — so dropping a picture in is a framing decision, not a fit.",
+          "Action, camera and duration under each panel, adding up to a runtime. Your board says how long the piece runs, not just what it looks like.",
+          "Drag a panel between any two others to reorder; everything renumbers as you drop it.",
+          "GIFs play on the board with a real transport — pause holds the exact frame you were looking at, and you can scrub to a frame and drop it onto the board as a still.",
+        ],
+      },
+      {
+        kind: "refined",
+        items: [
+          "Drag a corner to scale a reference (never stretched), Ctrl-drag to crop it, and Ctrl-drag the picture to choose what stays in frame.",
+          "Six resize handles — four corners and both sides — each holding the opposite edge still, so you can size a card against its neighbour in one move.",
+          "Zoom now runs 10% to 800%, with a menu for Zoom to fit and Zoom to selection, and Ctrl 0 / 1 / 2 to go there instantly.",
+          "Dark mode goes deeper, to a near-black #151515.",
+        ],
+      },
+      {
+        kind: "fixed",
+        items: [
+          "Images saved from Pinterest and the rest of the web now arrive at full resolution instead of the small version the page happened to be showing — and clips that used to fail outright now save.",
+          "Ctrl 0 and Ctrl +/− zoom the board, not the whole app. An accidental Ctrl-scroll can no longer leave the interface stuck at the wrong size.",
+        ],
+      },
+    ],
+  },
   {
     version: "1.1.6",
     date: "July 2026",
