@@ -50,10 +50,10 @@ export function WritingChart() {
   return (
     <section className="py-16 sm:py-24">
       <Shell>
-        <SectionHead title="It notices that you wrote.">
-          A square is a day, and it counts the words you <em>touched</em>, so an
-          afternoon spent cutting still shows up. There are no streaks to keep
-          and nothing to lose by skipping a week.
+        <SectionHead title="Progress without pressure.">
+          Every square is a day, measured by the words you <em>touched</em> rather
+          than only the words you added. Editing counts. There are no streaks to
+          protect and nothing to lose by taking a week away.
         </SectionHead>
 
         <Reveal className="mt-12 sm:mt-14">
@@ -69,7 +69,7 @@ export function WritingChart() {
                     Your writing
                   </h3>
                   <p className="text-[0.8125rem] text-faint">
-                    A quick look at your writing activity.
+                    A quiet record of your writing activity.
                   </p>
                 </div>
               </div>

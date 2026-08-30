@@ -14,10 +14,28 @@ import { WhatsNew } from "@/components/product/WhatsNew";
 const p = products.canvas;
 
 export const metadata: Metadata = {
-  title: p.name,
+  title: `${p.name} — Free offline reference board for designers`,
   description: p.lede,
-  openGraph: { title: `${p.name} — ${p.kicker}`, description: p.lede },
-  twitter: { title: `${p.name} — ${p.kicker}`, description: p.lede },
+  openGraph: {
+    title: `${p.name} — Free offline reference board for designers`,
+    description: p.lede,
+  },
+  twitter: {
+    title: `${p.name} — Free offline reference board for designers`,
+    description: p.lede,
+  },
+};
+
+const softwareSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: p.name,
+  applicationCategory: "MultimediaApplication",
+  operatingSystem: "Windows",
+  description: p.lede,
+  url: "https://palmaboard.com/canvas",
+  downloadUrl: p.downloadUrl,
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
 };
 
 /** Three details visible in the hero shot, named so the screenshot becomes
@@ -25,21 +43,21 @@ export const metadata: Metadata = {
 const captions = [
   {
     n: "01",
-    title: "One infinite surface",
+    title: "One surface, no filing system",
     blurb:
-      "Images, video and screenshots all live on the same board. Pan, zoom, and drop a new reference anywhere.",
+      "Images, video and screenshots can land wherever the thought makes sense. Pan, zoom and rearrange as the direction emerges.",
   },
   {
     n: "02",
-    title: "Video stays playable",
+    title: "Video stays useful",
     blurb:
-      "Reference footage doesn't become a thumbnail. Park it on the frame you want and lift the still out in place.",
+      "Play reference footage on the board, stop on the frame you need, and lift that moment out as a still.",
   },
   {
     n: "03",
-    title: "Notes sit beside the board",
+    title: "Notes stay in context",
     blurb:
-      "Draft the brief where the references are, instead of in a document that forgets what it was about.",
+      "Write the thought where the reference is, instead of moving to a document that has lost the visual context.",
   },
 ];
 
@@ -50,6 +68,10 @@ export default function CanvasPage() {
     // Canvas resolves it to ink, because the colour on this page belongs to
     // the references, not to the tool holding them.
     <div data-product="canvas">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
+      />
       <CaricatureDefs />
       <ProductHero product={p}>
         <CanvasShot />

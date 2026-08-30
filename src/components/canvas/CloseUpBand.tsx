@@ -41,25 +41,25 @@ const crops: Crop[] = [
     x: 0.098,
     y: 0.239,
     w: 0.243,
-    title: "Big references stay big",
+    title: "Keep the detail",
     blurb:
-      "A card is the file at the size you gave it, not a thumbnail standing in for one. Zoom in and there is more of the picture, not less.",
+      "A card keeps the image behind it rather than shrinking it into a disposable thumbnail. Zoom in and the detail is still there.",
   },
   {
     x: 0.365,
     y: 0.239,
     w: 0.353,
-    title: "As much as you can throw at it",
+    title: "Let the board grow",
     blurb:
-      "Thirty-six items on one surface, at 40% zoom, still readable. The board grows with the project instead of asking you to file things first.",
+      "Thirty-six items at 40% zoom are still readable. The surface grows with the project instead of forcing an organisation system too early.",
   },
   {
     x: 0.549,
     y: 0.405,
     w: 0.275,
-    title: "A note is just another thing on the board",
+    title: "Keep notes in context",
     blurb:
-      "Write the direction where the references are. It moves, resizes and exports alongside them, instead of living in a separate document.",
+      "Write beside the reference that prompted the thought. The note moves, resizes and exports with the rest of the board.",
   },
 ];
 
@@ -86,10 +86,9 @@ export function CloseUpBand() {
   return (
     <section id="tools" className="scroll-mt-24 py-16 sm:py-24">
       <Shell wide>
-        <SectionHead title="Everything lands on one surface.">
-          Images, video, screenshots and notes share a single board — the same
-          board at the top of this page. These three are cropped straight out
-          of it.
+        <SectionHead title="Built for the messy middle.">
+          Images, video, screenshots and notes can coexist while the project is
+          still finding its shape. These details come from the real board above.
         </SectionHead>
 
         <div className="mt-12 grid gap-x-8 gap-y-10 sm:mt-14 lg:grid-cols-3">

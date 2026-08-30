@@ -115,16 +115,7 @@ export function TypedHeadline({
           // otherwise line two is reserved before anything is written on it.
           return visible ? <br key={si} /> : null;
         }
-        return seg.script ? (
-          <span
-            key={si}
-            className="font-script text-[1.45em] leading-[0.6] tracking-normal"
-          >
-            {visible}
-          </span>
-        ) : (
-          <span key={si}>{visible}</span>
-        );
+        return <span key={si}>{visible}</span>;
       })}
 
       {/* Zero-*width*, so it never affects the line box it is measuring — but

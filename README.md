@@ -1,7 +1,7 @@
 # Palmaboard — marketing site
 
-The site for **Palmaboard**, by Spatial Foundry: two local-first Windows apps
-that share a spine.
+The site for **Palmaboard**, built independently by Tolu Olusesan: two
+local-first creative apps that share a spine.
 
 - **Palma Canvas** — an infinite board for references, moodboards and video
   stills. Shipping; downloads from a stable GitHub permalink.
@@ -10,15 +10,15 @@ that share a spine.
   because `products.note.webUrl` also points at the browser build, published
   from the app's own repository on every push.
 
-Both are free, forever — no pricing, no accounts, no paid tier — so the site
-never needs commerce pages.
+Both are free to use with no account or subscription. Because they run locally
+without a paid cloud service behind them, the site does not need commerce or
+account pages.
 
 ## Stack
 
 - **Next.js 16** (App Router) + **React 19** + **TypeScript**
 - **Tailwind CSS v4** (tokens in `src/app/globals.css` via `@theme`)
-- Fonts: Inter (UI), DM Serif Display (display), Pinyon Script (one accent word
-  per product headline) via `next/font`
+- Fonts: Inter (UI) and DM Serif Display (display) via `next/font`
 - `experimental.viewTransition` — see [Route transitions](#route-transitions)
 
 ## Develop

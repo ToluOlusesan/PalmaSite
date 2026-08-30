@@ -14,16 +14,16 @@ import { ToolCaricature } from "./ToolCaricatures";
  */
 const points = [
   {
-    title: "Sent from the board",
-    body: "Select references on the Dump Board and press Ctrl B. Each one is added to the end of the sequence.",
+    title: "Send references straight across",
+    body: "Select references on the Dump Board and press Ctrl B. Each one lands at the end of the sequence.",
   },
   {
-    title: "One frame shape",
-    body: "Set the board's frame once — 16:9, 2.39:1, 9:16. Every panel uses it, and Ctrl-drag moves the picture inside the frame.",
+    title: "Set the frame once",
+    body: "Choose 16:9, 2.39:1, 9:16 or another project ratio. Every panel follows it while each image stays repositionable inside.",
   },
   {
-    title: "Durations add up",
-    body: "Each panel takes an action, a camera move and a duration. The header shows the total.",
+    title: "See the timing at a glance",
+    body: "Add an action, camera move and duration to each panel. The running time adds up in the header.",
   },
 ];
 
@@ -31,10 +31,9 @@ export function IntroducingStoryboard() {
   return (
     <section id="storyboard" className="scroll-mt-24 py-16 sm:py-24">
       <Shell wide>
-        <SectionHead eyebrow="New in 1.3.0" title="Now introducing Storyboard.">
-          Plan a motion project in one place. Go from brainstorming on the board
-          to a storyboard in the same project — the references you collected
-          become the panels.
+        <SectionHead eyebrow="Storyboard" title="Turn the direction into a sequence.">
+          When order and timing matter, arrange the references you already
+          collected into panels without rebuilding the project somewhere else.
         </SectionHead>
 
         <Reveal>

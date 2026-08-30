@@ -16,31 +16,22 @@ export type ProductId = "canvas" | "note";
 export const family = {
   name: "Palmaboard",
   domain: "palmaboard.com",
-  maker: "Spatial Foundry",
+  maker: "Tolu Olusesan",
   /** Said in the nav, the OG card and the hero. Keep them agreeing. */
   tagline: "Two apps. One way of working.",
   year: new Date().getFullYear(),
-  /** Feedback lands straight in the maker's inbox — no support desk, no form. */
-  feedbackEmail: "olusesantolu@gmail.com",
   /** The maker's portfolio. */
   portfolioUrl: "https://olusesantolu.com",
 };
-
-/**
- * Kept as `site` because a dozen call sites already read `site.feedbackEmail`
- * and `site.portfolioUrl`, and the family *is* the site.
- */
-export const site = family;
 
 /* ---------------------------------------------------------------- products */
 
 export type ProductStatus = "available" | "coming-soon";
 
 /**
- * A display headline, rendered `lead` → `accent` → `tail`. `accent` is set in
- * the script face — one flourished word per headline, and it has to be short,
- * because Pinyon Script stops being readable past about six letters at display
- * size.
+ * A display headline, rendered `lead` → `accent` → `tail`. The three fields
+ * keep the copy flexible without changing the product page's single serif
+ * voice.
  *
  * `typed` is the same sentence cut into segments, for the product whose
  * headline writes itself in. `"\n"` is a line break. Only PalmaNote sets it:
@@ -51,7 +42,7 @@ export type Headline = {
   lead: string;
   accent: string;
   tail: string;
-  typed?: { text: string; script?: boolean }[];
+  typed?: { text: string }[];
 };
 
 export type Product = {
@@ -97,43 +88,45 @@ export const products: Record<ProductId, Product> = {
     name: "Palma Canvas",
     short: "Canvas",
     href: "/canvas",
-    kicker: "For looking",
-    headline: { lead: "Your reference board, finally", accent: "alive", tail: "." },
+    kicker: "For visual thinking",
+    headline: {
+      lead: "From scattered references to a",
+      accent: "clear",
+      tail: " direction.",
+    },
     lede:
-      "Drop every image, clip and screenshot onto an infinite board. Mark them up, sort them into focus zones, cut them into a storyboard, and export a moodboard to send. It runs on your own machine.",
+      "Palma Canvas is a free, offline workspace for designers to collect references, find the thread between them, and shape that thinking into moodboards, storyboards and briefs. Add images, video and screenshots; nothing is uploaded.",
     blurb:
-      "An infinite board for references — images, video, screenshots — that ends in a moodboard or a storyboard you can send.",
+      "Collect the references, find the pattern, and shape a moodboard, storyboard or brief.",
     status: "available",
     version: "1.3.0",
     downloadUrl:
       "https://github.com/ToluOlusesan/PalmaStudio/releases/latest/download/Palma-Setup.exe",
     guideUrl: "/Palma-User-Guide.pdf",
-    chip: "Windows · Free, forever",
+    chip: "Windows · Free to use · No account",
   },
   note: {
     id: "note",
     name: "PalmaNote",
     short: "Note",
     href: "/note",
-    kicker: "For writing",
+    kicker: "For thinking in words",
     headline: {
-      lead: "A simple app to write",
-      accent: "freely",
+      lead: "A quieter place to",
+      accent: "think",
       tail: ".",
       typed: [
-        { text: "A simple app" },
+        { text: "A quieter place" },
         { text: "\n" },
-        // No `script: true` anywhere in here. The Note page's display voice is
-        // size and weight, never a fetched face — see globals.css.
-        { text: "to write " },
-        { text: "freely" },
+        { text: "to " },
+        { text: "think" },
         { text: "." },
       ],
     },
     lede:
-      "Pages, notes and lists, kept on your own machine. Blocks you can move, pages that link to each other, and stickies that sit beside the writing instead of inside it. Install it for Windows, or open it in a tab — either one is the whole app.",
+      "Write notes, plan projects, build linked pages and keep loose thoughts beside the work. Blocks move when the structure changes, and page history keeps earlier versions close. Install it on Windows or use the full app in your browser; either way, your writing stays on your machine.",
     blurb:
-      "A writing app for pages, notes and lists. Install it for Windows, or open it in your browser.",
+      "A calm writing space for notes, plans, lists and linked pages — on Windows or in your browser.",
     status: "available",
     version: "0.2.1",
     /**
@@ -149,7 +142,7 @@ export const products: Record<ProductId, Product> = {
      * are relative, so without it the assets resolve one directory too high.
      */
     webUrl: "https://palmaboard.com/note/app/",
-    chip: "Windows or your browser · Free, forever",
+    chip: "Windows or your browser · Free to use · No account",
   },
 };
 
@@ -200,13 +193,13 @@ export type CompareRow = {
 export const compare: CompareRow[] = [
   {
     label: "Reach for it when",
-    canvas: "You're collecting the look of something before you make it",
-    note: "You need the words, the plan or the list out of your head",
+    canvas: "You need to see what a project should look, feel or become",
+    note: "You need to think through what it should say, do or become",
   },
   {
     label: "The unit of work",
-    canvas: "A board — infinite, zoomable, spatial",
-    note: "A page — nested, linkable, one thing at a time",
+    canvas: "A freeform board — infinite, zoomable and spatial",
+    note: "A linked page — focused, structured and easy to rearrange",
   },
   {
     label: "What it holds",
@@ -215,13 +208,13 @@ export const compare: CompareRow[] = [
   },
   {
     label: "You leave with",
-    canvas: "An exported moodboard or a full process brief, as a PDF",
-    note: "A page you can read back, and a count of what you wrote",
+    canvas: "A visual direction, moodboard, storyboard or process brief",
+    note: "A clearer thought, plan, draft or list",
   },
   {
     label: "Where it keeps things",
-    canvas: "A project folder you can see, full of your actual files",
-    note: "One file on your disk, and nothing else",
+    canvas: "A project folder on your disk that you can open and inspect",
+    note: "A library file on your disk — or local browser storage on the web",
   },
 ];
 
@@ -239,23 +232,23 @@ export type Principle = {
 export const principles: Principle[] = [
   {
     icon: "hard-drive",
-    title: "Local-first, by design",
-    body: "Everything is stored on your machine. Offline on a plane or off the grid for a week, both apps open exactly the same as they did yesterday.",
+    title: "Your work stays with you",
+    body: "Both apps are designed around local storage. You can work without a connection, and what you make stays on the machine in front of you.",
   },
   {
     icon: "cloud-off",
-    title: "No cloud, no account, no AI",
-    body: "Nothing to sign up for and nothing uploaded. There's no server on the other end, so your work stays where you put it.",
+    title: "No account. No cloud. No AI.",
+    body: "Open the app and begin. There is no login, sync service, user profile or AI layer between you and the work.",
   },
   {
     icon: "infinity",
-    title: "Free, forever",
-    body: "No subscription, no seats, no tiers, no paid version coming later. You download them once and they're yours.",
+    title: "Free because they stay small",
+    body: "These apps began as tools for my own work. Without accounts or paid cloud infrastructure to run, there is no recurring service bill to turn into your subscription.",
   },
   {
     icon: "user",
-    title: "Built for one person first",
-    body: "I made both of these for my own work, and I use them every week. Things get added when I need them, not to reach more people.",
+    title: "Made by one designer",
+    body: "I design, build and use both apps. That keeps the decisions practical, development direct and the product focused on real work.",
   },
 ];
 
@@ -278,30 +271,30 @@ export const steps: Step[] = [
   {
     id: "dump",
     n: "01",
-    title: "Gather your references",
+    title: "Collect without organising first",
     blurb:
-      "Drop images, video and screenshots onto an infinite board. Files already on your disk are referenced where they sit, not copied into a library.",
+      "Drop images, video and screenshots onto an infinite board. Start messy; give the project structure only when the pattern begins to appear.",
   },
   {
     id: "focus",
     n: "02",
-    title: "Sort what matters into Focus",
+    title: "Find the thread in Focus",
     blurb:
-      "Send the ones worth keeping into named zones — colour, texture, motion. Each zone packs its own grid, and a reference leaves the queue once you place it.",
+      "Move the strongest references into named zones — colour, type, material, motion, composition, or whatever the project needs.",
   },
   {
     id: "storyboard",
     n: "03",
-    title: "Sequence it in the Storyboard",
+    title: "Build the sequence",
     blurb:
-      "Send shots over and they land in order. One frame shape for the whole board, numbered, each with its action, camera move and duration.",
+      "When order matters, send references into Storyboard. Each panel can carry an action, camera move and duration.",
   },
   {
     id: "export",
     n: "04",
-    title: "Export it for a client",
+    title: "Share the thinking",
     blurb:
-      "PNG or PDF, light or dark — the board as it stands, or a process brief carrying your notes and comments. No account, nothing uploaded.",
+      "Export a PNG or PDF, light or dark — the board as it stands, or a process brief with your notes and comments.",
   },
 ];
 
@@ -326,28 +319,28 @@ export const canvasReleases: ReleaseNote[] = [
   {
     version: "1.3.0",
     date: "August 2026",
-    headline: "A storyboard, GIFs you can pause, and images that save at full size.",
+    headline: "Storyboards, frame-accurate GIFs and full-resolution saves.",
     groups: [
       {
         kind: "new",
         items: [
-          "Storyboard: a new board where references become an ordered sequence of shots. Send them over with Ctrl B and each one lands as the next panel.",
-          "GIFs play on the board with a real transport — pause holds the exact frame you were looking at, and you can scrub to a frame and drop it onto the board as a still.",
+          "Storyboard turns references into an ordered sequence of panels. Press Ctrl B and each selected reference lands at the end.",
+          "GIFs now play on the board with pause and scrubbing. Stop on the exact frame you need and place it back on the board as a still.",
         ],
       },
       {
         kind: "refined",
         items: [
-          "Drag a corner to scale a reference (never stretched), Ctrl-drag to crop it, and Ctrl-drag the picture to choose what stays in frame.",
-          "Six resize handles — four corners and both sides — each holding the opposite edge still, so you can size a card against its neighbour in one move.",
-          "Zoom now runs 10% to 800%, with a menu for Zoom to fit and Zoom to selection, and Ctrl 0 / 1 / 2 to go there instantly.",
+          "Resize without distortion, Ctrl-drag to crop, then reposition the image inside its frame.",
+          "Six resize handles keep the opposite edge fixed, making it easier to align one card with another.",
+          "Zoom now runs from 10% to 800%, with shortcuts for fit, selection and actual size.",
         ],
       },
       {
         kind: "fixed",
         items: [
-          "Images saved from Pinterest and the rest of the web now arrive at full resolution instead of the small version the page happened to be showing — and clips that used to fail outright now save.",
-          "Ctrl 0 and Ctrl +/− zoom the board, not the whole app. An accidental Ctrl-scroll can no longer leave the interface stuck at the wrong size.",
+          "Images saved from Pinterest and other websites now arrive at full resolution, and previously unreliable clips save correctly.",
+          "Ctrl 0 and Ctrl +/− now zoom the board instead of the interface. Ctrl-scroll can no longer leave the app at the wrong scale.",
         ],
       },
     ],
@@ -355,33 +348,33 @@ export const canvasReleases: ReleaseNote[] = [
   {
     version: "1.1.6",
     date: "July 2026",
-    headline: "Sharper Focus, tidier Notes, and references that stay put.",
+    headline: "More control over Focus, notes and imported references.",
     groups: [
       {
         kind: "new",
         items: [
-          "Notes now do checklists — tick tasks off as you go.",
-          "Pick exactly which Focus zones go into an export, instead of the whole board.",
-          "The Focus board PDF is now a polished, one-zone-per-page document — with your pinned notes and comments — in light or dark.",
-          "Pin notes to a Focus zone: a per-zone button, or drag any note onto a zone to attach it.",
-          "Preview a project's images right from the Trash before you restore or purge it.",
-          "Copy and paste on the canvas right-click menu — including screenshots from the clipboard.",
+          "Notes can now hold checklists, so small tasks stay beside the work.",
+          "Choose exactly which Focus zones appear in an export.",
+          "Focus exports can use one zone per PDF page, including pinned notes and comments, in light or dark.",
+          "Pin a note to a Focus zone from its button or by dragging the note onto it.",
+          "Preview project images from the Trash before restoring or removing them.",
+          "Copy and paste from the canvas menu, including screenshots from the clipboard.",
         ],
       },
       {
         kind: "refined",
         items: [
-          "Sending a reference to Focus now sweeps a rainbow rim around the card.",
-          "Connectors between references are curved, and read clearly in dark mode.",
-          "Focus zone comments can be recoloured and resized.",
+          "Sending a reference to Focus now gives the card a clearer visual confirmation.",
+          "Connectors are curved and easier to read in dark mode.",
+          "Focus-zone comments can be recoloured and resized.",
         ],
       },
       {
         kind: "fixed",
         items: [
-          "Images dragged in from a browser are now saved into the project, not a temporary folder that later clears.",
+          "Images dragged from a browser are now saved into the project instead of a temporary folder.",
           "On-canvas controls stay crisp and correctly sized at every zoom level.",
-          "Long notes scroll with the wheel, and the Library stays light no matter how much you've loaded.",
+          "Long notes scroll correctly, and the Library remains responsive with larger projects.",
         ],
       },
     ],
@@ -392,14 +385,14 @@ export const noteReleases: ReleaseNote[] = [
   {
     version: "0.2.1",
     date: "August 2026",
-    headline: "A title bar you can take hold of.",
+    headline: "A title bar that is easier to grab.",
     groups: [
       {
         kind: "fixed",
         items: [
-          "The window drags by its whole top edge — the strip across the top and the sidebar's head, everywhere they are not a button.",
-          "With a few pages open, the one part that used to move the window had been squeezed to a sliver between two icons. It is held clear now, however many tabs are up.",
-          "The first launch no longer pins the window in place while it is showing you around.",
+          "Drag the window from almost anywhere along its top edge, including the space above the sidebar.",
+          "The draggable area stays clear even with several page tabs open.",
+          "The first-run tour no longer prevents the window from moving.",
         ],
       },
     ],
@@ -408,30 +401,30 @@ export const noteReleases: ReleaseNote[] = [
     version: "0.2.0",
     date: "August 2026",
     headline:
-      "The Windows app, a first launch that shows you around, and comments that mark the words.",
+      "The Windows app, a clearer first run and comments that stay with the words.",
     groups: [
       {
         kind: "new",
         items: [
-          "PalmaNote for Windows: a 2.8 MB installer, and your whole library in one file on your own disk.",
-          "A first launch walks you round the real window — the sidebar, the tabs, the page, the notes rail — then hands you the guide.",
-          "Comment on a selection: the bar that comes to your words now marks them instead of replacing them.",
-          "Put the notes rail away with Ctrl+Shift+Space, and bring it back from the page bar — which says how many notes are waiting.",
+          "PalmaNote for Windows arrives in a 2.8 MB installer and keeps the whole library in one file on disk.",
+          "The first launch walks through the real window — sidebar, tabs, page and notes rail — before opening the guide.",
+          "Comments now attach to selected words instead of replacing them.",
+          "Hide the notes rail with Ctrl+Shift+Space and restore it from the page bar, which also shows the note count.",
         ],
       },
       {
         kind: "refined",
         items: [
-          "The launch field says what it is for: type a name for your project and start there.",
-          "A Word export is named after the page you are on, in a field you can correct before it saves.",
-          "The notes switch moved into the page bar, beside bold and the headings, where the page's own controls live.",
+          "The launch field now clearly asks for a project name.",
+          "Word exports start with the current page name and can be renamed before saving.",
+          "The notes switch now sits in the page bar beside the page’s other controls.",
         ],
       },
       {
         kind: "fixed",
         items: [
-          "Exporting a Word document from the browser now works — it asked for something only the desktop had.",
-          "Right-clicking words you selected with the keyboard offers cut and copy instead of greying them out.",
+          "Word export now works correctly in the browser build.",
+          "Keyboard-selected text now offers cut and copy in the context menu.",
         ],
       },
     ],
@@ -452,20 +445,20 @@ export type NoteFeature = {
 export const noteCaptions: NoteFeature[] = [
   {
     n: "01",
-    title: "Pages nest, and link to each other",
+    title: "Pages connect as your thinking grows",
     blurb:
-      "Type @ to mention another page. Rename it later and every mention follows.",
+      "Type @ to link another page. Rename it later and every reference follows.",
   },
   {
     n: "02",
-    title: "Every block is an object",
+    title: "Move the structure, not the sentence",
     blurb:
-      "Reach into the margin for a handle and a +, or move a block with Alt Shift ↑.",
+      "Drag a block from the margin or move it with the keyboard when the order changes.",
   },
   {
     n: "03",
-    title: "Stickies live beside the page, not in it",
+    title: "Keep the side thought on the side",
     blurb:
-      "Ctrl Space parks a note in the rail. It never exports and never counts toward your words.",
+      "Park a sticky in the notes rail. It stays beside the page without entering the export or word count.",
   },
 ];

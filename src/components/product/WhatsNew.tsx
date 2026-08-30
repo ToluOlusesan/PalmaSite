@@ -31,7 +31,7 @@ export function WhatsNew({ release: r }: { release: ReleaseNote | undefined }) {
       <Shell>
         <SectionHead
           eyebrow={`v${r.version} · ${r.date}`}
-          title={<>What&rsquo;s new</>}
+          title={<>Latest changes</>}
         >
           {r.headline}
         </SectionHead>

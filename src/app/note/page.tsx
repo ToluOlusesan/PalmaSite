@@ -14,10 +14,28 @@ import { HistoryBand } from "@/components/note/HistoryBand";
 const p = products.note;
 
 export const metadata: Metadata = {
-  title: p.name,
+  title: `${p.name} — Free local-first notes app`,
   description: p.lede,
-  openGraph: { title: `${p.name} — ${p.kicker}`, description: p.lede },
-  twitter: { title: `${p.name} — ${p.kicker}`, description: p.lede },
+  openGraph: {
+    title: `${p.name} — Free local-first notes app`,
+    description: p.lede,
+  },
+  twitter: {
+    title: `${p.name} — Free local-first notes app`,
+    description: p.lede,
+  },
+};
+
+const softwareSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: p.name,
+  applicationCategory: "ProductivityApplication",
+  operatingSystem: "Windows, Web",
+  description: p.lede,
+  url: "https://palmaboard.com/note",
+  downloadUrl: p.downloadUrl,
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
 };
 
 export default function NotePage() {
@@ -27,6 +45,10 @@ export default function NotePage() {
     // buttons pick up the Cobalt→Violet run. This is the only place in the
     // family where that gradient is allowed to appear.
     <div data-product="note">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
+      />
       <ProductHero product={p}>
         <NoteWindow />
       </ProductHero>

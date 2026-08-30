@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: family.name,
     short_name: family.name,
     description:
-      "Two local-first Windows apps: Palma Canvas for references and moodboards, PalmaNote for pages, notes and lists.",
+      "Free local-first tools for designers: Palma Canvas for visual references, moodboards and storyboards, and PalmaNote for notes, plans and drafts.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

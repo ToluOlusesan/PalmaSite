@@ -298,7 +298,7 @@ function Arrow({ d }: { d: string }) {
   return <path d={d} fill="none" stroke={INK} strokeOpacity="0.24" strokeWidth="1.2" strokeLinecap="round" />;
 }
 
-/* A hand-drawn annotation: a small paper label with an italic serif caption and
+/* A hand-drawn annotation: a small paper label with a serif caption and
    a pencil arrow curving out to a point on the scene. Monochrome — the paper-
    native reinterpretation of the reference sites' mascot pointers (no colour, no
    collaborator faces). Fades in on a loop via .tc-anno. */
@@ -348,7 +348,7 @@ function AnnoTag({
       />
       <g transform={`rotate(${rot} ${cx} ${cy})`}>
         <rect x={x} y={y} width={w} height={h} rx="3" fill={BAR} stroke={INK} strokeOpacity="0.5" strokeWidth="0.7" />
-        <text x={cx} y={cy + 0.3} fontSize="5.6" textAnchor="middle" dominantBaseline="central" fill={INK} fillOpacity="0.82" style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}>
+        <text x={cx} y={cy + 0.3} fontSize="5.6" textAnchor="middle" dominantBaseline="central" fill={INK} fillOpacity="0.82" style={{ fontFamily: "var(--font-serif)", fontStyle: "normal" }}>
           {text}
         </text>
       </g>
@@ -506,7 +506,7 @@ function ExportScene() {
     </g>
   );
   return (
-    <svg {...svgProps} aria-label="Exporting a process brief for a client from the Export dialog">
+    <svg {...svgProps} aria-label="Exporting a process brief from the Export dialog">
       {/* plain surface — the modal is the whole subject now */}
       <rect x="0" y="0" width={W} height={H} fill={CANVAS} />
       <rect x="0" y="0" width={W} height={H} fill="url(#tc-dots)" />

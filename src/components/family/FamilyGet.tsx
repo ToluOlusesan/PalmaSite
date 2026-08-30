@@ -18,9 +18,9 @@ export function FamilyGet() {
   return (
     <section id="get" className="scroll-mt-24 py-16 sm:py-24">
       <Shell>
-        <SectionHead title="Take whichever one you need.">
-          One is a Windows app, the other opens in a tab. Both are free,
-          forever. Neither will ask you for an email address.
+        <SectionHead title="Pick where the work starts.">
+          Download either app for Windows. PalmaNote also runs in your browser.
+          Both are free to use, with no account or subscription.
         </SectionHead>
 
         <div className="mt-12 grid gap-4 sm:mt-14 lg:grid-cols-2">
@@ -65,7 +65,7 @@ function GetCard({ product: p }: { product: Product }) {
         {available ? (
           <ActionLink href={p.downloadUrl} variant="solid">
             <DownloadGlyph />
-            Download
+            Download for Windows
           </ActionLink>
         ) : p.webUrl ? (
           <ActionLink href={p.webUrl} target="_blank" rel="noopener" variant="solid">
@@ -83,7 +83,7 @@ function GetCard({ product: p }: { product: Product }) {
           transitionTypes={["nav-forward"]}
           className="pressable inline-flex h-12 items-center gap-2 rounded-full px-4 text-[15px] font-medium text-[var(--accent)] hover:bg-[var(--accent-soft)]"
         >
-          {available || p.webUrl ? "See what it does" : "See what it will do"}
+          {available || p.webUrl ? `Explore ${p.short}` : `Preview ${p.short}`}
           <ArrowGlyph />
         </Link>
       </div>

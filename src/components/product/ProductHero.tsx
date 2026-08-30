@@ -88,9 +88,7 @@ export function ProductHero({
             ) : (
               <h1 className="display text-[clamp(2.5rem,6.2vw,4.5rem)] text-ink">
                 {p.headline.lead}{" "}
-                <span className="font-script text-[1.45em] leading-[0.6] tracking-normal">
-                  {p.headline.accent}
-                </span>
+                <span className="font-serif not-italic">{p.headline.accent}</span>
                 {p.headline.tail}
               </h1>
             )}
@@ -163,7 +161,7 @@ export function ProductHero({
               {/* True of both routes in, which is the point: the browser build
                   keeps its pages in the browser's own storage on this machine,
                   and posts none of it anywhere. */}
-              <p className="text-[13px] text-faint">{p.chip} · Runs entirely on your machine</p>
+              <p className="text-[13px] text-faint">{p.chip} · Your work stays local</p>
             </div>
           </Reveal>
         </div>

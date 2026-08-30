@@ -23,9 +23,9 @@ export function SharedPrinciples() {
   return (
     <section id="why" className="scroll-mt-24 border-y border-line bg-panel/60 py-16 sm:py-24">
       <Shell>
-        <SectionHead title="Both apps work the same way.">
-          They&rsquo;re built on the same handful of rules. Neither one has an
-          account screen, a sync indicator, or plans to grow one.
+        <SectionHead title="The software stays out of the way.">
+          The same choices that keep both apps private and lightweight are also
+          what make them free to use.
         </SectionHead>
 
         <div className="mt-12 grid gap-4 sm:mt-14 sm:grid-cols-2">

@@ -30,10 +30,12 @@ export function ProductGet({ product: p }: { product: Product }) {
               then had no name at all for anyone navigating by heading. */}
           <h2 className="display-sm mx-auto mt-6 max-w-[36rem] text-balance text-[clamp(1.6rem,3.6vw,2.4rem)] text-ink">
             {available
-              ? `Download ${p.name}. It's free, forever.`
+              ? p.id === "canvas"
+                ? "Download Palma Canvas and start shaping the work."
+                : "Download PalmaNote and start with a blank page."
               : p.webUrl
-                ? `Open ${p.name} in a tab. It's free, forever.`
-                : `${p.name} isn't finished. It will also be free, forever.`}
+                ? `Open ${p.name} and start writing.`
+                : `${p.name} isn't finished yet.`}
           </h2>
         </Reveal>
 
@@ -70,7 +72,7 @@ export function ProductGet({ product: p }: { product: Product }) {
             )}
           </div>
           <p className="mt-6 text-[13px] text-faint">
-            No account required · Nothing uploaded · Runs entirely on your machine.
+            Free to use · No account · No subscription · Your work stays local
           </p>
           {/* Said here as well as in the band above, because this is the last
               line before somebody presses the button, and the one thing they
@@ -108,7 +110,7 @@ export function SiblingBand({ current }: { current: ProductId }) {
           >
             <ProductTile id={other.id} size={56} className="shadow-soft" />
             <div className="min-w-0 flex-1">
-              <span className="eyebrow">The other one</span>
+              <span className="eyebrow">Also in Palma</span>
               {/* A top-level band, so a top-level heading — the eyebrow above
                   it is decoration, not the rank. */}
               <h2 className="display-sm mt-2 text-[1.375rem] text-ink">{other.name}</h2>
@@ -117,7 +119,7 @@ export function SiblingBand({ current }: { current: ProductId }) {
               </p>
             </div>
             <span className="inline-flex shrink-0 items-center gap-1.5 text-[13.5px] font-medium text-[var(--accent)]">
-              Open
+              Explore
               <ArrowGlyph className="transition-transform duration-300 ease-[var(--ease-out)] group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0" />
             </span>
           </Link>

@@ -45,16 +45,16 @@ export function InsertDemo() {
   return (
     <section className="border-y border-line bg-panel/60 py-16 sm:py-24">
       <Shell>
-        <SectionHead title="Everything is one key away.">
-          <strong className="font-medium text-ink">/</strong> opens every block.{" "}
-          <strong className="font-medium text-ink">@</strong> finds a page — or
-          makes one that doesn&rsquo;t exist yet, without moving your caret.
-          Hold a selection and the bar comes to the words.
+        <SectionHead title="Write first. Add structure when you need it.">
+          <strong className="font-medium text-ink">/</strong> opens the block
+          menu. <strong className="font-medium text-ink">@</strong> links a page
+          or creates one without breaking the sentence. Select any words and
+          the formatting tools come to you.
         </SectionHead>
 
         <div className="mt-12 grid gap-5 sm:mt-14 lg:grid-cols-2">
           <Reveal className="flex flex-col">
-            <h3 className="text-[0.9375rem] font-semibold text-ink">The insert menu</h3>
+            <h3 className="text-[0.9375rem] font-semibold text-ink">Add a block</h3>
             {/* `grow`, not `flex-1`. `flex-1` sets `flex-basis: 0`, which drops
                 the card's real content out of the row-height calculation — the
                 grid then sizes to the other column and the menu gets clipped
@@ -102,7 +102,7 @@ export function InsertDemo() {
           </Reveal>
 
           <Reveal delay={80} className="flex flex-col">
-            <h3 className="text-[0.9375rem] font-semibold text-ink">The selection bar</h3>
+            <h3 className="text-[0.9375rem] font-semibold text-ink">Work with a selection</h3>
             <div className="mt-3.5 grow rounded-[1rem] border border-line bg-paper p-6">
               {/* `--i` on each control drives its own delay from CSS, so the
                   sequence is one transition rule rather than ten keyframes —

@@ -20,9 +20,9 @@ export function CompareBand() {
   return (
     <section id="compare" className="scroll-mt-24 py-16 sm:py-24">
       <Shell>
-        <SectionHead title="You probably came for one of them.">
-          They share a name and not much else. One holds the pictures you&rsquo;re
-          working from, the other holds the words you&rsquo;re writing.
+        <SectionHead title="Two kinds of thinking. Two focused tools.">
+          Reach for Canvas when the idea needs to be seen. Reach for Note when
+          it needs to be written down.
         </SectionHead>
 
         <Reveal className="mt-12 overflow-hidden rounded-[1.25rem] border border-line sm:mt-14">

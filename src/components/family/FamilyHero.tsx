@@ -35,22 +35,22 @@ export function FamilyHero() {
 
           <Reveal delay={120}>
             <h1 className="display mt-5 text-[clamp(2.6rem,6.4vw,4.75rem)] text-ink">
-              Two apps.
-              <br className="hidden sm:block" /> One way of working.
+              One for the eye.
+              <br className="hidden sm:block" /> One for the page.
             </h1>
           </Reveal>
 
           <Reveal delay={200}>
             <p className="mx-auto mt-7 max-w-[34rem] text-pretty text-[1.0625rem] leading-[1.65] text-muted">
-              One is for looking: references, images and video, collected while
-              you work out what you&rsquo;re making. One is for writing: pages,
-              notes and lists. Both keep everything on your machine.
+              Palma Canvas helps designers turn scattered references into a
+              clear visual direction. PalmaNote gives notes, plans and drafts a
+              quiet place to take shape. Both keep your work on your machine.
             </p>
           </Reveal>
 
           <Reveal delay={260}>
             <p className="mt-7 text-[13px] text-faint">
-              Windows · Free, forever · No account, no cloud, no AI
+              Free to use · No account · Works offline · No subscription
             </p>
           </Reveal>
         </div>

@@ -17,12 +17,12 @@ import { IconHistory } from "./NoteIcons";
 
 const points = [
   {
-    title: "It saves as you type",
-    body: "Half a second after you stop typing, and again when you navigate away, switch tabs or close the window. Saving never blocks a keystroke.",
+    title: "Saved before you think about saving",
+    body: "PalmaNote saves half a second after you stop typing, then again when you leave the page, switch tabs or close the window. It never blocks a keystroke.",
   },
   {
-    title: "Every page keeps its own history",
-    body: "One snapshot per two minutes of actual writing, plus one each time you leave the page. Not one per keystroke, which would just fill your disk with hundreds of near-identical copies of the same chapter.",
+    title: "A history for every page",
+    body: "During active writing, PalmaNote keeps a snapshot about every two minutes and another when you leave. Enough history to recover a thought without filling the disk with near-identical copies.",
   },
 ];
 
@@ -39,10 +39,10 @@ export function HistoryBand() {
   return (
     <section className="py-16 sm:py-24">
       <Shell>
-        <SectionHead title="Nothing you wrote is gone.">
-          It&rsquo;s all in one file on your disk, and every page keeps its own
-          revisions. There&rsquo;s no sync indicator because there&rsquo;s
-          nothing to sync.
+        <SectionHead title="Your earlier words stay within reach.">
+          The Windows app keeps the library in one file on your disk, while
+          every page keeps its own revisions. There is no sync indicator because
+          there is nothing to sync.
         </SectionHead>
 
         {/* `items-center`, so the two prose blocks sit against the middle of the

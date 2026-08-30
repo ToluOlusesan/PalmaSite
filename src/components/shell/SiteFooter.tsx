@@ -61,7 +61,7 @@ export function SiteFooter() {
     <footer className="border-t border-line bg-paper">
       <div className="mx-auto flex max-w-[70rem] flex-col items-center px-6 py-14 sm:px-10 sm:py-16">
         <p className="text-center text-[15px] text-ink">
-          Reach out to me on my socials, or see my work at{" "}
+          Follow what I&rsquo;m making below, or see more of my work at{" "}
           <a
             href={family.portfolioUrl}
             target="_blank"
@@ -109,16 +109,10 @@ export function SiteFooter() {
           >
             Canvas guide
           </a>
-          <a
-            href={`mailto:${family.feedbackEmail}?subject=Palmaboard%20feedback`}
-            className="text-[13.5px] text-muted transition-colors hover:text-ink"
-          >
-            Feedback
-          </a>
         </nav>
 
         <p className="mt-8 text-center text-[12.5px] text-faint">
-          © {family.year} {family.maker} · Free, forever · Nothing on this page tracks you.
+          © {family.year} {family.maker} · Made independently · No tracking on this site
         </p>
       </div>
     </footer>
