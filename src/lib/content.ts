@@ -99,7 +99,7 @@ export const products: Record<ProductId, Product> = {
     blurb:
       "Collect the references, find the pattern, and shape a moodboard, storyboard or brief.",
     status: "available",
-    version: "1.3.0",
+    version: "1.3.1",
     downloadUrl:
       "https://github.com/ToluOlusesan/PalmaStudio/releases/latest/download/Palma-Setup.exe",
     guideUrl: "/Palma-User-Guide.pdf",
@@ -128,7 +128,7 @@ export const products: Record<ProductId, Product> = {
     blurb:
       "A calm writing space for notes, plans, lists and linked pages — on Windows or in your browser.",
     status: "available",
-    version: "0.2.1",
+    version: "0.2.2",
     /**
      * The same shape as Canvas's, and stable for the same reason: the release
      * carries an asset under this exact name every time, so shipping a build
@@ -317,6 +317,31 @@ export type ReleaseNote = {
 
 export const canvasReleases: ReleaseNote[] = [
   {
+    version: "1.3.1",
+    date: "September 2026",
+    headline: "A quicker way to inspect the references on your board.",
+    groups: [
+      {
+        kind: "new",
+        items: [
+          "Double-click any image on the Dump Board or inside a Focus zone to open it full-size.",
+        ],
+      },
+      {
+        kind: "refined",
+        items: [
+          "Canvas and Library previews now share the same quiet, view-only presentation.",
+        ],
+      },
+      {
+        kind: "fixed",
+        items: [
+          "Close a preview with its backdrop, the close button or Escape without disturbing the canvas beneath it.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.3.0",
     date: "August 2026",
     headline: "Storyboards, frame-accurate GIFs and full-resolution saves.",
@@ -382,6 +407,32 @@ export const canvasReleases: ReleaseNote[] = [
 ];
 
 export const noteReleases: ReleaseNote[] = [
+  {
+    version: "0.2.2",
+    date: "September 2026",
+    headline: "Lists that can hold the next layer of a thought.",
+    groups: [
+      {
+        kind: "new",
+        items: [
+          "Nested lists let you group related items beneath a single list heading, then collapse the group when you only need its name.",
+        ],
+      },
+      {
+        kind: "refined",
+        items: [
+          "Reorder list blocks directly from their block handle.",
+          "The tracker uses shorter, clearer labels, and the guide navigation follows the section you are reading.",
+        ],
+      },
+      {
+        kind: "fixed",
+        items: [
+          "The nested-list control now sits at the right edge instead of overlapping the block handle.",
+        ],
+      },
+    ],
+  },
   {
     version: "0.2.1",
     date: "August 2026",
