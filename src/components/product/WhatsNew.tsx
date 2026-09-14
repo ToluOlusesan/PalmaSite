@@ -1,4 +1,7 @@
+"use client";
+
 import { Sparkles, Wand2, Wrench, type LucideIcon } from "lucide-react";
+import { type PointerEvent } from "react";
 import { type ReleaseGroupKind, type ReleaseNote } from "@/lib/content";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHead, Shell } from "@/components/ui/SectionHead";
@@ -8,6 +11,12 @@ const meta: Record<ReleaseGroupKind, { label: string; icon: LucideIcon }> = {
   refined: { label: "Refined", icon: Wand2 },
   fixed: { label: "Fixed", icon: Wrench },
 };
+
+function followCardEdge(event: PointerEvent<HTMLElement>) {
+  const box = event.currentTarget.getBoundingClientRect();
+  event.currentTarget.style.setProperty("--release-edge-x", `${event.clientX - box.left}px`);
+  event.currentTarget.style.setProperty("--release-edge-y", `${event.clientY - box.top}px`);
+}
 
 /**
  * One release, grouped into New / Refined / Fixed.
@@ -44,7 +53,8 @@ export function WhatsNew({ release: r }: { release: ReleaseNote | undefined }) {
               <Reveal
                 key={g.kind}
                 delay={gi * 70}
-                className="flex flex-col rounded-2xl border border-line bg-panel p-7 transition-colors duration-300 hover:border-line-2"
+                className="release-card flex flex-col rounded-2xl border border-line bg-panel p-7 transition-colors duration-300 hover:border-line-2"
+                onPointerMove={followCardEdge}
               >
                 <span className="grid h-11 w-11 place-items-center rounded-xl border border-line bg-paper text-ink">
                   <Icon className="h-5 w-5" strokeWidth={1.5} aria-hidden />

@@ -941,6 +941,46 @@ em {
 
 }
 
+/* ======================================================== Release card edge */
+
+/* A blue trace follows the pointer rather than flooding the whole card. The
+   mask keeps it on the perimeter, so the changelog stays quiet until a reader
+   is choosing which group to inspect. */
+.release-card {
+  --release-edge-x: 50%;
+  --release-edge-y: 50%;
+  position: relative;
+  isolation: isolate;
+}
+
+.release-card::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: -1px;
+  padding: 1px;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(
+    9rem circle at var(--release-edge-x) var(--release-edge-y),
+    rgb(76 132 255 / 92%),
+    rgb(76 132 255 / 30%) 32%,
+    transparent 68%
+  );
+  opacity: 0;
+  transition: opacity 180ms ease;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.release-card:hover::after,
+.release-card:focus-within::after {
+  opacity: 1;
+}
+
 /* ===================================== Canvas spotlight (a card being dragged) */
 @keyframes spot-card {
   0%,

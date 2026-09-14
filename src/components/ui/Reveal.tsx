@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ElementType, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ElementType, type PointerEventHandler, type ReactNode } from "react";
 
 type Props = {
   children: ReactNode;
@@ -8,13 +8,15 @@ type Props = {
   className?: string;
   /** Stagger the reveal, in milliseconds. */
   delay?: number;
+  /** Optional local interaction while the element stays responsible for reveal. */
+  onPointerMove?: PointerEventHandler<HTMLElement>;
 };
 
 /**
  * Reveals its children when scrolled into view. Animation is pure CSS
  * (see `.reveal` in globals.css); this only toggles the class once.
  */
-export function Reveal({ children, as: Tag = "div", className = "", delay = 0 }: Props) {
+export function Reveal({ children, as: Tag = "div", className = "", delay = 0, onPointerMove }: Props) {
   const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -47,6 +49,7 @@ export function Reveal({ children, as: Tag = "div", className = "", delay = 0 }:
       ref={ref}
       className={`reveal ${visible ? "is-visible" : ""} ${className}`}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+      onPointerMove={onPointerMove}
     >
       {children}
     </Tag>

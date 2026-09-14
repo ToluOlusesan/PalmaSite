@@ -128,7 +128,7 @@ export const products: Record<ProductId, Product> = {
     blurb:
       "A calm writing space for notes, plans, lists and linked pages — on Windows or in your browser.",
     status: "available",
-    version: "0.2.3",
+    version: "0.2.4",
     /**
      * The same shape as Canvas's, and stable for the same reason: the release
      * carries an asset under this exact name every time, so shipping a build
@@ -408,20 +408,21 @@ export const canvasReleases: ReleaseNote[] = [
 
 export const noteReleases: ReleaseNote[] = [
   {
-    version: "0.2.3",
+    version: "0.2.4",
     date: "September 2026",
-    headline: "A clearer window and a quicker place for the side thought.",
+    headline: "A semi-visual overhaul for a clearer, calmer writing window.",
     groups: [
       {
         kind: "new",
         items: [
-          "The notes button beside formatting now creates a sticky immediately, opens the rail and places the cursor in it.",
+          "Sticky notes now have a reserved rail beside the page. When it is hidden, the notes control restores what is already there instead of making another note.",
         ],
       },
       {
         kind: "refined",
         items: [
-          "Sidebar, tabs, page controls and Settings use a stronger secondary-text tone in light mode.",
+          "The writing window has a semi-visual overhaul: softer rounded controls, clearer hierarchy and stronger light-mode contrast across the sidebar, tabs, page controls and Settings.",
+          "Formatting is cleaner at every width, with headings and list styles gathered into one compact menu and a clearer blue New Page action in the sidebar.",
         ],
       },
     ],
