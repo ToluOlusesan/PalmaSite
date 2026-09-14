@@ -45,7 +45,11 @@ export function WhatsNew({ release: r }: { release: ReleaseNote | undefined }) {
           {r.headline}
         </SectionHead>
 
-        <div className="mt-12 grid gap-4 sm:mt-14 lg:grid-cols-3">
+        <div
+          className={`mx-auto mt-12 grid gap-4 sm:mt-14 ${
+            r.groups.length === 2 ? "max-w-[44rem] lg:grid-cols-2" : "lg:grid-cols-3"
+          }`}
+        >
           {r.groups.map((g, gi) => {
             const m = meta[g.kind];
             const Icon = m.icon;
