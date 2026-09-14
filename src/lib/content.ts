@@ -128,7 +128,7 @@ export const products: Record<ProductId, Product> = {
     blurb:
       "A calm writing space for notes, plans, lists and linked pages — on Windows or in your browser.",
     status: "available",
-    version: "0.2.2",
+    version: "0.2.3",
     /**
      * The same shape as Canvas's, and stable for the same reason: the release
      * carries an asset under this exact name every time, so shipping a build
@@ -407,6 +407,25 @@ export const canvasReleases: ReleaseNote[] = [
 ];
 
 export const noteReleases: ReleaseNote[] = [
+  {
+    version: "0.2.3",
+    date: "September 2026",
+    headline: "A clearer window and a quicker place for the side thought.",
+    groups: [
+      {
+        kind: "new",
+        items: [
+          "The notes button beside formatting now creates a sticky immediately, opens the rail and places the cursor in it.",
+        ],
+      },
+      {
+        kind: "refined",
+        items: [
+          "Sidebar, tabs, page controls and Settings use a stronger secondary-text tone in light mode.",
+        ],
+      },
+    ],
+  },
   {
     version: "0.2.2",
     date: "September 2026",
