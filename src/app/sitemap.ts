@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ["", "/canvas", "/note"];
+  const routes = ["", "/canvas", "/note", "/note/changes"];
 
   return routes.map((route) => ({
     url: `https://palmaboard.com${route}`,

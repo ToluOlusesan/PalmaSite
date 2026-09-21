@@ -84,7 +84,62 @@ export function WhatsNew({ release: r }: { release: ReleaseNote | undefined }) {
             );
           })}
         </div>
+        <p className="mx-auto mt-8 text-center text-[14px] text-muted">
+          <a
+            href="/note/changes"
+            className="font-medium text-ink underline decoration-line underline-offset-4 transition-colors hover:decoration-ink"
+          >
+            Read the full PalmaNote changelog
+          </a>
+        </p>
       </Shell>
     </section>
+  );
+}
+
+/** The complete release history, used by the dedicated changelog route. */
+export function ReleaseHistory({ releases }: { releases: ReleaseNote[] }) {
+  return (
+    <div className="space-y-16 sm:space-y-20">
+      {releases.map((r) => (
+        <article key={r.version} aria-labelledby={`release-${r.version}`}>
+          <div className="mx-auto max-w-[44rem] text-center">
+            <span className="eyebrow">v{r.version} · {r.date}</span>
+            <h2 id={`release-${r.version}`} className="mt-4 text-balance text-[clamp(1.5rem,3vw,2.1rem)] font-semibold tracking-[-0.03em] text-ink">
+              {r.headline}
+            </h2>
+          </div>
+          <div className={`mx-auto mt-8 grid gap-4 ${r.groups.length === 2 ? "max-w-[44rem] lg:grid-cols-2" : "lg:grid-cols-3"}`}>
+            {r.groups.map((g, gi) => {
+              const m = meta[g.kind];
+              const Icon = m.icon;
+              return (
+                <Reveal
+                  key={`${r.version}-${g.kind}`}
+                  delay={gi * 70}
+                  className="release-card flex flex-col rounded-2xl border border-line bg-panel p-7 transition-colors duration-300 hover:border-line-2"
+                  onPointerMove={followCardEdge}
+                >
+                  <span className="grid h-11 w-11 place-items-center rounded-xl border border-line bg-paper text-ink">
+                    <Icon className="h-5 w-5" strokeWidth={1.5} aria-hidden />
+                  </span>
+                  <h3 className="mt-6 text-[1.075rem] font-semibold tracking-[-0.012em] text-ink">
+                    {m.label}
+                  </h3>
+                  <ul className="mt-3.5 flex flex-col gap-2.5">
+                    {g.items.map((it) => (
+                      <li key={it} className="flex gap-2.5 text-[0.92rem] leading-[1.55] text-muted">
+                        <span className="mt-[9px] h-[5px] w-[5px] shrink-0 rounded-full bg-line-2" aria-hidden />
+                        <span className="text-pretty">{it}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </Reveal>
+              );
+            })}
+          </div>
+        </article>
+      ))}
+    </div>
   );
 }

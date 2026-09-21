@@ -409,6 +409,33 @@ export const canvasReleases: ReleaseNote[] = [
 export const noteReleases: ReleaseNote[] = [
   {
     version: "0.2.4",
+  {
+    version: "0.2.5",
+    date: "September 2026",
+    headline: "A clearer workspace, with calmer motion and safer clean-up.",
+    groups: [
+      {
+        kind: "new",
+        items: [
+          "Trash now opens as a focused modal, so restoring or permanently removing pages never interrupts the page you were writing.",
+          "Commented text carries the same small coloured note marker as its linked sticky, making the connection visible at a glance.",
+        ],
+      },
+      {
+        kind: "refined",
+        items: [
+          "Active tabs are easier to distinguish, the brand blue stays consistent in light and dark mode, and tab reordering now shifts neighbouring tabs like a browser.",
+          "Small controls respond more deliberately: tabs, buttons, modals and cards now use the same restrained motion language, with reduced-motion support intact.",
+        ],
+      },
+      {
+        kind: "fixed",
+        items: [
+          "Showing the notes rail again restores the existing note instead of creating a duplicate.",
+        ],
+      },
+    ],
+  },
     date: "September 2026",
     headline: "A semi-visual overhaul for a clearer, calmer writing window.",
     groups: [
