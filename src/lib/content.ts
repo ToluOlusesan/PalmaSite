@@ -30,7 +30,7 @@ export type ProductStatus = "available" | "coming-soon";
 
 /**
  * A display headline, rendered `lead` → `accent` → `tail`. The three fields
- * keep the copy flexible without changing the product page's single serif
+ * keep the copy flexible without changing the product page's single
  * voice.
  *
  * `typed` is the same sentence cut into segments, for the product whose
@@ -99,7 +99,7 @@ export const products: Record<ProductId, Product> = {
     blurb:
       "Collect the references, find the pattern, and shape a moodboard, storyboard or brief.",
     status: "available",
-    version: "1.3.1",
+    version: "1.3.0",
     downloadUrl:
       "https://github.com/ToluOlusesan/PalmaStudio/releases/latest/download/Palma-Setup.exe",
     guideUrl: "/Palma-User-Guide.pdf",
@@ -317,6 +317,32 @@ export type ReleaseNote = {
 
 export const canvasReleases: ReleaseNote[] = [
   {
+    version: "1.3.2",
+    date: "In development",
+    headline: "Color direction and sharper video captures.",
+    groups: [
+      {
+        kind: "new",
+        items: [
+          "Paste links as reference cards, with a thumbnail when the source provides one.",
+          "Focus draws a distinct color palette from all the references you have placed, so you can read the project's color vibe at a glance.",
+        ],
+      },
+      {
+        kind: "refined",
+        items: [
+          "Video controls stay comfortable to use when a large clip is viewed at a smaller canvas zoom.",
+        ],
+      },
+      {
+        kind: "fixed",
+        items: [
+          "Captured video frames now stay sharp when enlarged on the board. Existing captures use their saved full-resolution frame when it is available.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.3.1",
     date: "September 2026",
     headline: "A quicker way to inspect the references on your board.",
@@ -408,8 +434,6 @@ export const canvasReleases: ReleaseNote[] = [
 
 export const noteReleases: ReleaseNote[] = [
   {
-    version: "0.2.4",
-  {
     version: "0.2.5",
     date: "September 2026",
     headline: "A clearer workspace, with calmer motion and safer clean-up.",
@@ -436,6 +460,8 @@ export const noteReleases: ReleaseNote[] = [
       },
     ],
   },
+  {
+    version: "0.2.4",
     date: "September 2026",
     headline: "A semi-visual overhaul for a clearer, calmer writing window.",
     groups: [

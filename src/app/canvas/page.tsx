@@ -81,7 +81,7 @@ export default function CanvasPage() {
       <StepBand />
       <CloseUpBand />
       <SharedPrinciples />
-      <WhatsNew release={canvasReleases[0]} />
+      <WhatsNew release={canvasReleases[0]} title="Coming next" />
       <ProductGet product={p} />
       <SiblingBand current="canvas" />
     </div>

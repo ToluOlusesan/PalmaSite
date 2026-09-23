@@ -1,22 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, DM_Serif_Display } from "next/font/google";
+import localFont from "next/font/local";
 import { SiteNav } from "@/components/shell/SiteNav";
 import { SiteFooter } from "@/components/shell/SiteFooter";
 import { family } from "@/lib/content";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+const inter = localFont({
+  src: [
+    { path: "./fonts/inter-latin-300-normal.woff2", weight: "300" },
+    { path: "./fonts/inter-latin-400-normal.woff2", weight: "400" },
+    { path: "./fonts/inter-latin-500-normal.woff2", weight: "500" },
+    { path: "./fonts/inter-latin-600-normal.woff2", weight: "600" },
+  ],
   variable: "--font-inter",
-  display: "swap",
-});
-
-const dmSerif = DM_Serif_Display({
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-  variable: "--font-dm-serif",
   display: "swap",
 });
 
@@ -97,7 +93,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${dmSerif.variable}`}
+      className={inter.variable}
     >
       <body className="antialiased">
         <a

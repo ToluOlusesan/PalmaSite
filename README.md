@@ -18,7 +18,7 @@ account pages.
 
 - **Next.js 16** (App Router) + **React 19** + **TypeScript**
 - **Tailwind CSS v4** (tokens in `src/app/globals.css` via `@theme`)
-- Fonts: Inter (UI) and DM Serif Display (display) via `next/font`
+- Fonts: locally bundled Inter via `next/font/local`
 - `experimental.viewTransition` — see [Route transitions](#route-transitions)
 
 ## Develop

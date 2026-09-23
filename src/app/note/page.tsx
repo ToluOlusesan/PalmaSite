@@ -64,7 +64,7 @@ export default function NotePage() {
       {/* Where Canvas keeps it: the last band before the download, so what
           changed lately is read on the way to the button rather than instead
           of it. */}
-      <WhatsNew release={noteReleases[0]} />
+      <WhatsNew release={noteReleases[0]} changelogHref="/note/changes" />
       <ProductGet product={p} />
       <SiblingBand current="note" />
     </div>

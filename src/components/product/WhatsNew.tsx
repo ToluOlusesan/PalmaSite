@@ -32,7 +32,15 @@ function followCardEdge(event: PointerEvent<HTMLElement>) {
  * module-level `releases` would have meant one product's changelog wearing the
  * generic name, and the second product copying the component to get its own.
  */
-export function WhatsNew({ release: r }: { release: ReleaseNote | undefined }) {
+export function WhatsNew({
+  release: r,
+  title = "Latest changes",
+  changelogHref,
+}: {
+  release: ReleaseNote | undefined;
+  title?: string;
+  changelogHref?: string;
+}) {
   if (!r) return null;
 
   return (
@@ -40,7 +48,7 @@ export function WhatsNew({ release: r }: { release: ReleaseNote | undefined }) {
       <Shell>
         <SectionHead
           eyebrow={`v${r.version} · ${r.date}`}
-          title={<>Latest changes</>}
+          title={<>{title}</>}
         >
           {r.headline}
         </SectionHead>
@@ -84,14 +92,16 @@ export function WhatsNew({ release: r }: { release: ReleaseNote | undefined }) {
             );
           })}
         </div>
-        <p className="mx-auto mt-8 text-center text-[14px] text-muted">
-          <a
-            href="/note/changes"
-            className="font-medium text-ink underline decoration-line underline-offset-4 transition-colors hover:decoration-ink"
-          >
-            Read the full PalmaNote changelog
-          </a>
-        </p>
+        {changelogHref && (
+          <p className="mx-auto mt-8 text-center text-[14px] text-muted">
+            <a
+              href={changelogHref}
+              className="font-medium text-ink underline decoration-line underline-offset-4 transition-colors hover:decoration-ink"
+            >
+              Read the full PalmaNote changelog
+            </a>
+          </p>
+        )}
       </Shell>
     </section>
   );
