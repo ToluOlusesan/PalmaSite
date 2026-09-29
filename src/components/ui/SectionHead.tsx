@@ -11,7 +11,7 @@ export function SectionHead({
   eyebrow,
   title,
   children,
-  align = "center",
+  align = "start",
   className = "",
 }: {
   eyebrow?: string;
@@ -23,17 +23,17 @@ export function SectionHead({
   const centered = align === "center";
   return (
     <Reveal
-      className={`max-w-[42rem] ${centered ? "mx-auto text-center" : ""} ${className}`}
+      className={`max-w-[43rem] ${centered ? "mx-auto text-center" : ""} ${className}`}
     >
       {eyebrow ? <span className="eyebrow">{eyebrow}</span> : null}
       <h2
-        className={`display text-[clamp(2rem,4.6vw,3.25rem)] text-ink ${eyebrow ? "mt-4" : ""}`}
+        className={`display text-[clamp(2.15rem,4.6vw,3.75rem)] font-semibold tracking-[-0.045em] text-ink ${eyebrow ? "mt-4" : ""}`}
       >
         {title}
       </h2>
       {children ? (
         <p
-          className={`mt-5 max-w-[34rem] text-pretty text-[1.02rem] leading-[1.65] text-muted ${centered ? "mx-auto" : ""}`}
+          className={`mt-5 max-w-[34rem] text-pretty text-[1.02rem] leading-[1.55] text-muted ${centered ? "mx-auto" : ""}`}
         >
           {children}
         </p>
@@ -54,7 +54,7 @@ export function Shell({
 }) {
   return (
     <div
-      className={`mx-auto w-full px-6 sm:px-10 ${wide ? "max-w-[80rem]" : "max-w-[70rem]"} ${className}`}
+      className={`mx-auto w-full px-6 sm:px-10 ${wide ? "max-w-[76rem]" : "max-w-[72rem]"} ${className}`}
     >
       {children}
     </div>

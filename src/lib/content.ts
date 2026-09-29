@@ -18,7 +18,7 @@ export const family = {
   domain: "palmaboard.com",
   maker: "Tolu Olusesan",
   /** Said in the nav, the OG card and the hero. Keep them agreeing. */
-  tagline: "Two apps. One way of working.",
+  tagline: "A place for the work in progress.",
   year: new Date().getFullYear(),
   /** The maker's portfolio. */
   portfolioUrl: "https://olusesantolu.com",
@@ -90,14 +90,14 @@ export const products: Record<ProductId, Product> = {
     href: "/canvas",
     kicker: "For visual thinking",
     headline: {
-      lead: "From scattered references to a",
-      accent: "clear",
-      tail: " direction.",
+      lead: "Everything you're looking at,",
+      accent: "on one board",
+      tail: ".",
     },
     lede:
-      "Palma Canvas is a free, offline workspace for designers to collect references, find the thread between them, and shape that thinking into moodboards, storyboards and briefs. Add images, video and screenshots; nothing is uploaded.",
+      "Drop in images, video, screenshots and links. Move them around until you can see what belongs together. Pull the strongest references into Focus, build a storyboard, or share the board as it stands.",
     blurb:
-      "Collect the references, find the pattern, and shape a moodboard, storyboard or brief.",
+      "Keep images, video and links together while you work out the visual direction.",
     status: "available",
     version: "1.3.0",
     downloadUrl:
@@ -112,21 +112,21 @@ export const products: Record<ProductId, Product> = {
     href: "/note",
     kicker: "For thinking in words",
     headline: {
-      lead: "A quieter place to",
-      accent: "think",
+      lead: "A place to write without",
+      accent: "losing your thread",
       tail: ".",
       typed: [
-        { text: "A quieter place" },
+        { text: "A place to write" },
         { text: "\n" },
-        { text: "to " },
-        { text: "think" },
+        { text: "without " },
+        { text: "losing your thread" },
         { text: "." },
       ],
     },
     lede:
-      "Write notes, plan projects, build linked pages and keep loose thoughts beside the work. Blocks move when the structure changes, and page history keeps earlier versions close. Install it on Windows or use the full app in your browser; either way, your writing stays on your machine.",
+      "Write a quick note or stay with a longer piece. Link pages when they belong together, move blocks when the order changes, and keep side thoughts beside the page. Use it on Windows or in your browser.",
     blurb:
-      "A calm writing space for notes, plans, lists and linked pages — on Windows or in your browser.",
+      "A straightforward place for notes, plans and drafts, with room to connect them.",
     status: "available",
     version: "0.2.4",
     /**
@@ -232,23 +232,23 @@ export type Principle = {
 export const principles: Principle[] = [
   {
     icon: "hard-drive",
-    title: "Your work stays with you",
-    body: "Both apps are designed around local storage. You can work without a connection, and what you make stays on the machine in front of you.",
+    title: "Files you can find",
+    body: "Canvas saves projects in a folder you choose. PalmaNote keeps your writing in a local library file, or in this browser when you use the web app.",
   },
   {
     icon: "cloud-off",
-    title: "No account. No cloud. No AI.",
-    body: "Open the app and begin. There is no login, sync service, user profile or AI layer between you and the work.",
+    title: "No account to set up",
+    body: "Open either app and begin. There is no login to get through before you can put something down.",
   },
   {
     icon: "infinity",
-    title: "Free because they stay small",
-    body: "These apps began as tools for my own work. Without accounts or paid cloud infrastructure to run, there is no recurring service bill to turn into your subscription.",
+    title: "Free to use",
+    body: "There is no subscription and no paid tier to unlock the useful parts. I built these tools for my own work and keep them small on purpose.",
   },
   {
     icon: "user",
-    title: "Made by one designer",
-    body: "I design, build and use both apps. That keeps the decisions practical, development direct and the product focused on real work.",
+    title: "Made by someone who uses them",
+    body: "I'm a designer too. These apps change when a real project shows me where the friction is.",
   },
 ];
 
@@ -350,12 +350,14 @@ export const canvasReleases: ReleaseNote[] = [
       {
         kind: "new",
         items: [
+          "Paste a link straight onto the Dump Board: it lands immediately as a reference card and upgrades to a thumbnail when the source provides one.",
           "Double-click any image on the Dump Board or inside a Focus zone to open it full-size.",
         ],
       },
       {
         kind: "refined",
         items: [
+          "Focus now shows one shared, averaged color from the references you have placed — without a separate palette workflow.",
           "Canvas and Library previews now share the same quiet, view-only presentation.",
         ],
       },

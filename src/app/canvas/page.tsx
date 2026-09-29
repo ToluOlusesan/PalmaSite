@@ -43,21 +43,21 @@ const softwareSchema = {
 const captions = [
   {
     n: "01",
-    title: "One surface, no filing system",
+    title: "Drop it on the board",
     blurb:
-      "Images, video and screenshots can land wherever the thought makes sense. Pan, zoom and rearrange as the direction emerges.",
+      "Bring in an image, a video, a screenshot or a link. Put it where it helps you compare things.",
   },
   {
     n: "02",
-    title: "Video stays useful",
+    title: "Pause on the right frame",
     blurb:
-      "Play reference footage on the board, stop on the frame you need, and lift that moment out as a still.",
+      "Play footage where you are working, stop on a useful moment, and save that frame to the board.",
   },
   {
     n: "03",
-    title: "Notes stay in context",
+    title: "Leave the note beside it",
     blurb:
-      "Write the thought where the reference is, instead of moving to a document that has lost the visual context.",
+      "Write down what you noticed next to the reference, so you do not have to remember it later.",
   },
 ];
 

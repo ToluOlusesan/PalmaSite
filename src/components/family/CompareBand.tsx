@@ -1,85 +1,50 @@
-import { compare, productList } from "@/lib/content";
+import Link from "next/link";
+import { products } from "@/lib/content";
 import { ProductTile } from "@/components/marks/ProductTile";
+import { ArrowGlyph } from "@/components/ui/Action";
 import { Reveal } from "@/components/ui/Reveal";
-import { SectionHead, Shell } from "@/components/ui/SectionHead";
+import { Shell } from "@/components/ui/SectionHead";
 
-/**
- * The one question a family page has to answer, answered in a table.
- *
- * Rows are written so the two columns give genuinely different answers. A
- * comparison where both sides say "fast, local, yours" teaches nobody
- * anything and quietly admits the split was arbitrary — the point of these
- * rows is that after reading five of them you know which app you came for.
- *
- * One DOM, two layouts: at `md` and up each row's wrapper becomes
- * `display: contents` so its three cells drop into the parent grid as a real
- * table row. Below that the wrapper stays a card and the cells stack, each
- * naming its own product. Nothing is duplicated to make the small screen work.
- */
 export function CompareBand() {
   return (
-    <section id="compare" className="scroll-mt-24 py-16 sm:py-24">
-      <Shell>
-        <SectionHead title="Two kinds of thinking. Two focused tools.">
-          Reach for Canvas when the idea needs to be seen. Reach for Note when
-          it needs to be written down.
-        </SectionHead>
+    <section id="compare" className="scroll-mt-24 px-4 py-14 sm:px-6 sm:py-20">
+      <div className="mx-auto max-w-[76rem] overflow-hidden rounded-[14px] bg-ink text-white">
+        <Shell wide className="grid gap-14 py-16 sm:py-24 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20">
+          <Reveal>
+            <span className="text-[11px] font-medium uppercase tracking-[0.15em] text-white/55">Where each one fits</span>
+            <h2 className="display mt-6 max-w-[9em] text-[clamp(2.7rem,5vw,4.7rem)] font-semibold leading-[1.02] tracking-[-0.05em] text-white">
+              The work doesn&apos;t always arrive in one form.
+            </h2>
+            <p className="mt-7 max-w-[29rem] text-[1.05rem] leading-[1.6] text-white/70">
+              Sometimes you need to spread the references out and look. Sometimes you need a page and a little time to think. There is a Palma app for each part.
+            </p>
+          </Reveal>
 
-        <Reveal className="mt-12 overflow-hidden rounded-[1.25rem] border border-line sm:mt-14">
-          <div className="md:grid md:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)_minmax(0,1fr)]">
-            {/* Column heads — desktop only; on mobile each cell names itself. */}
-            <div className="hidden md:contents">
-              <div className="border-b border-line bg-panel px-6 py-5" />
-              {productList.map((p) => (
-                <div
-                  key={p.id}
-                  className="flex items-center gap-2.5 border-b border-l border-line bg-panel px-6 py-5"
-                >
-                  <ProductTile id={p.id} size={28} />
-                  <span className="text-[14.5px] font-medium text-ink">{p.name}</span>
-                </div>
-              ))}
-            </div>
-
-            {compare.map((row, i) => (
-              <div
-                key={row.label}
-                className={`border-line max-md:border-b max-md:p-6 md:contents ${
-                  i === compare.length - 1 ? "max-md:border-b-0" : ""
-                }`}
-              >
-                <div
-                  className={`text-[13px] text-faint max-md:mb-3 md:flex md:items-start md:bg-panel/50 md:px-6 md:py-5 md:text-[14px] md:text-muted ${
-                    i > 0 ? "md:border-t md:border-line" : ""
-                  }`}
-                >
-                  {row.label}
-                </div>
-
-                {productList.map((p) => (
-                  <div
-                    key={p.id}
-                    data-product={p.id}
-                    className={`text-[0.95rem] leading-[1.55] text-strong max-md:mt-2.5 md:border-l md:border-line md:px-6 md:py-5 ${
-                      i > 0 ? "md:border-t" : ""
-                    }`}
-                  >
-                    <span className="mb-0.5 flex items-center gap-1.5 text-[12px] font-medium text-[var(--accent)] md:hidden">
-                      <span
-                        className="h-1.5 w-1.5 rounded-full"
-                        style={{ background: "var(--accent-grad)" }}
-                        aria-hidden
-                      />
-                      {p.short}
-                    </span>
-                    <span className="text-pretty">{row[p.id]}</span>
-                  </div>
-                ))}
-              </div>
-            ))}
+          <div className="grid content-center gap-3">
+            <Reveal delay={60}>
+              <WorkCard id="canvas" title="When you need to see it" body="Collect images, video and links. Move them around, find the pattern, and take a clear direction into the next conversation." />
+            </Reveal>
+            <Reveal delay={130}>
+              <WorkCard id="note" title="When you need to write it through" body="Put the note down, build out a plan, or keep going on a draft. Reorder it when the thought changes." />
+            </Reveal>
           </div>
-        </Reveal>
-      </Shell>
+        </Shell>
+      </div>
     </section>
+  );
+}
+
+function WorkCard({ id, title, body }: { id: "canvas" | "note"; title: string; body: string }) {
+  const product = products[id];
+  return (
+    <Link href={product.href} transitionTypes={["nav-forward"]} className="group pressable flex gap-4 rounded-[10px] border border-white/15 bg-white/[0.055] p-5 transition-colors hover:bg-white/[0.10] sm:gap-5 sm:p-6">
+      <ProductTile id={id} size={44} className="shrink-0" />
+      <div className="min-w-0 flex-1">
+        <span className="text-[12px] text-white/55">{product.name}</span>
+        <h3 className="mt-1 text-[1.3rem] font-semibold tracking-[-0.03em] text-white">{title}</h3>
+        <p className="mt-2 max-w-[29rem] text-[14px] leading-[1.55] text-white/70">{body}</p>
+      </div>
+      <ArrowGlyph className="mt-1 shrink-0 text-white/70 transition-transform group-hover:translate-x-1 motion-reduce:transition-none" />
+    </Link>
   );
 }

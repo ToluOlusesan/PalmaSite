@@ -14,11 +14,11 @@ export type Caption = { n: string; title: string; blurb: string };
  */
 export function CaptionBand({ items }: { items: Caption[] }) {
   return (
-    <section className="pb-4 pt-10 sm:pb-8 sm:pt-14">
+    <section className="pb-8 pt-8 sm:pb-12 sm:pt-12">
       <Shell wide>
-        <div className="grid gap-x-10 gap-y-9 sm:grid-cols-3">
+        <div className="grid gap-3 sm:grid-cols-3">
           {items.map((c, i) => (
-            <Reveal key={c.title} delay={i * 70}>
+            <Reveal key={c.title} delay={i * 70} className="min-h-[200px] rounded-[10px] border border-line bg-paper p-6 sm:p-7">
               <span className="text-[13px] tabular-nums text-[var(--accent)]">{c.n}</span>
               {/* h2 despite the small type. This band sits directly under the
                   page's h1 with no heading of its own above it, so h3 would

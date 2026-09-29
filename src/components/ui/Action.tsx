@@ -17,7 +17,7 @@ import type { ComponentProps, ReactNode } from "react";
 type Variant = "solid" | "outline" | "quiet";
 
 const base =
-  "pressable inline-flex h-12 items-center justify-center gap-2.5 rounded-full px-6 text-[15px] font-medium whitespace-nowrap";
+  "pressable inline-flex h-11 items-center justify-center gap-2.5 rounded-lg px-5 text-[14px] font-medium whitespace-nowrap";
 
 const variants: Record<Variant, string> = {
   solid: "text-[var(--accent-ink)] shadow-soft hover:shadow-lift",
