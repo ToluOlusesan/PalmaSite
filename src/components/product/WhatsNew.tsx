@@ -34,13 +34,63 @@ function followCardEdge(event: PointerEvent<HTMLElement>) {
  */
 export function WhatsNew({
   release: r,
+  releases,
+  limit = 4,
   title = "Latest changes",
   changelogHref,
 }: {
-  release: ReleaseNote | undefined;
+  release?: ReleaseNote;
+  releases?: ReleaseNote[];
+  limit?: number;
   title?: string;
   changelogHref?: string;
 }) {
+  if (!r && !releases?.length) return null;
+
+  if (releases?.length) {
+    const recent = releases
+      .flatMap((entry) => entry.groups.flatMap((group) =>
+        group.items.map((text) => ({ kind: group.kind, text, version: entry.version }))
+      ))
+      .slice(0, limit);
+
+    return (
+      <section id="whats-new" className="scroll-mt-24 py-16 sm:py-24">
+        <Shell>
+          <SectionHead title={<>{title}</>}>
+            A few recent improvements to Palma Canvas.
+          </SectionHead>
+          <div className="mx-auto mt-10 grid max-w-[60rem] gap-3 sm:mt-12 sm:grid-cols-2">
+            {recent.map((update, index) => {
+              const m = meta[update.kind];
+              const Icon = m.icon;
+              return (
+                <Reveal
+                  key={`${update.version}-${update.kind}-${update.text}`}
+                  delay={index * 55}
+                  className="release-card flex items-start gap-4 rounded-xl border border-line bg-panel p-5 transition-colors duration-300 hover:border-line-2 sm:p-6"
+                  onPointerMove={followCardEdge}
+                >
+                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-line bg-paper text-ink">
+                    <Icon className="h-[18px] w-[18px]" strokeWidth={1.5} aria-hidden />
+                  </span>
+                  <div className="min-w-0">
+                    <div className="mb-1.5 flex items-center gap-2 text-[11px] text-faint">
+                      <span className="font-medium text-muted">{m.label}</span>
+                      <span aria-hidden>·</span>
+                      <span>v{update.version}</span>
+                    </div>
+                    <p className="text-[0.92rem] leading-[1.55] text-muted">{update.text}</p>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+        </Shell>
+      </section>
+    );
+  }
+
   if (!r) return null;
 
   return (
