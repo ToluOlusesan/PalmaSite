@@ -1,20 +1,13 @@
 import type { ReactNode } from "react";
 import { Reveal } from "./Reveal";
 
-/**
- * The heading block every band on every page opens with: eyebrow, display
- * line, one paragraph. It exists so the two product pages keep the same
- * vertical rhythm — sibling pages that set their own heading sizes stop
- * reading as one site within about two scrolls.
- */
+/** Shared heading scale and paragraph width for site sections. */
 export function SectionHead({
-  eyebrow,
   title,
   children,
   align = "start",
   className = "",
 }: {
-  eyebrow?: string;
   title: ReactNode;
   children?: ReactNode;
   align?: "center" | "start";
@@ -25,9 +18,8 @@ export function SectionHead({
     <Reveal
       className={`max-w-[43rem] ${centered ? "mx-auto text-center" : ""} ${className}`}
     >
-      {eyebrow ? <span className="eyebrow">{eyebrow}</span> : null}
       <h2
-        className={`display text-[clamp(2.15rem,4.6vw,3.75rem)] font-semibold tracking-[-0.045em] text-ink ${eyebrow ? "mt-4" : ""}`}
+        className="display text-[clamp(2.15rem,4.6vw,3.75rem)] font-semibold tracking-[-0.045em] text-ink"
       >
         {title}
       </h2>

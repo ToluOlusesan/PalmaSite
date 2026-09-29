@@ -47,7 +47,6 @@ export function WhatsNew({
     <section id="whats-new" className="scroll-mt-24 py-16 sm:py-24">
       <Shell>
         <SectionHead
-          eyebrow={`v${r.version} · ${r.date}`}
           title={<>{title}</>}
         >
           {r.headline}
@@ -114,8 +113,7 @@ export function ReleaseHistory({ releases }: { releases: ReleaseNote[] }) {
       {releases.map((r) => (
         <article key={r.version} aria-labelledby={`release-${r.version}`}>
           <div className="mx-auto max-w-[44rem] text-center">
-            <span className="eyebrow">v{r.version} · {r.date}</span>
-            <h2 id={`release-${r.version}`} className="mt-4 text-balance text-[clamp(1.5rem,3vw,2.1rem)] font-semibold tracking-[-0.03em] text-ink">
+            <h2 id={`release-${r.version}`} className="text-balance text-[clamp(1.5rem,3vw,2.1rem)] font-semibold tracking-[-0.03em] text-ink">
               {r.headline}
             </h2>
           </div>

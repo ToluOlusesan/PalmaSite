@@ -31,7 +31,7 @@ export function IntroducingStoryboard() {
   return (
     <section id="storyboard" className="scroll-mt-24 py-16 sm:py-24">
       <Shell wide>
-        <SectionHead eyebrow="Storyboard" title="Turn the direction into a sequence.">
+        <SectionHead title="Turn the direction into a sequence.">
           When order and timing matter, arrange the references you already
           collected into panels without rebuilding the project somewhere else.
         </SectionHead>

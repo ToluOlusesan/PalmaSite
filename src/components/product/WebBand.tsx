@@ -38,7 +38,7 @@ export function WebBand({ product: p }: { product: Product }) {
   return (
     <section id="browser" className="scroll-mt-24 border-y border-line bg-panel/60 py-16 sm:py-24">
       <Shell>
-        <SectionHead eyebrow="In your browser" title="The full app, one tab away.">
+        <SectionHead title="The full app, one tab away.">
           Open the same {p.name} in the browser you already have. It is the
           quickest route from a passing thought to a page.
         </SectionHead>

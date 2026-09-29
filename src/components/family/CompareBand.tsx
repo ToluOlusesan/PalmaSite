@@ -11,9 +11,8 @@ export function CompareBand() {
       <div className="mx-auto max-w-[76rem] overflow-hidden rounded-[14px] bg-ink text-white">
         <Shell wide className="grid gap-14 py-16 sm:py-24 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20">
           <Reveal>
-            <span className="text-[11px] font-medium uppercase tracking-[0.15em] text-white/55">Where each one fits</span>
-            <h2 className="display mt-6 max-w-[9em] text-[clamp(2.7rem,5vw,4.7rem)] font-semibold leading-[1.02] tracking-[-0.05em] text-white">
-              The work doesn&apos;t always arrive in one form.
+            <h2 className="display max-w-[10em] text-[clamp(2.7rem,4.7vw,4.35rem)] font-semibold leading-[1.02] tracking-[-0.05em] text-white">
+              Two different apps for whatever your needs might be.
             </h2>
             <p className="mt-7 max-w-[29rem] text-[1.05rem] leading-[1.6] text-white/70">
               Sometimes you need to spread the references out and look. Sometimes you need a page and a little time to think. There is a Palma app for each part.
@@ -40,7 +39,6 @@ function WorkCard({ id, title, body }: { id: "canvas" | "note"; title: string; b
     <Link href={product.href} transitionTypes={["nav-forward"]} className="group pressable flex gap-4 rounded-[10px] border border-white/15 bg-white/[0.055] p-5 transition-colors hover:bg-white/[0.10] sm:gap-5 sm:p-6">
       <ProductTile id={id} size={44} className="shrink-0" />
       <div className="min-w-0 flex-1">
-        <span className="text-[12px] text-white/55">{product.name}</span>
         <h3 className="mt-1 text-[1.3rem] font-semibold tracking-[-0.03em] text-white">{title}</h3>
         <p className="mt-2 max-w-[29rem] text-[14px] leading-[1.55] text-white/70">{body}</p>
       </div>

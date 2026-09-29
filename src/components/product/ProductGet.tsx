@@ -18,13 +18,6 @@ export function ProductGet({ product: p }: { product: Product }) {
 
       <Shell className="relative z-[1]">
         <Reveal>
-          <span className="inline-flex items-center gap-2 rounded-full border border-line-2 px-3 py-1 text-[11.5px] font-medium uppercase tracking-[0.14em] text-muted">
-            {available
-              ? `Windows · v${p.version}${p.webUrl ? " · or your browser" : ""}`
-              : p.webUrl
-                ? "In your browser · nothing to install"
-                : "Windows · coming soon"}
-          </span>
           {/* This line *is* the band's heading — it was a <p> carrying display
               type, which looks right and outlines wrong: the download section
               then had no name at all for anyone navigating by heading. */}
@@ -110,10 +103,7 @@ export function SiblingBand({ current }: { current: ProductId }) {
           >
             <ProductTile id={other.id} size={56} className="shadow-soft" />
             <div className="min-w-0 flex-1">
-              <span className="eyebrow">Also in Palma</span>
-              {/* A top-level band, so a top-level heading — the eyebrow above
-                  it is decoration, not the rank. */}
-              <h2 className="display-sm mt-2 text-[1.375rem] text-ink">{other.name}</h2>
+              <h2 className="display-sm text-[1.375rem] text-ink">{other.name}</h2>
               <p className="mt-1.5 text-pretty text-[0.95rem] leading-[1.55] text-muted">
                 {other.blurb}
               </p>

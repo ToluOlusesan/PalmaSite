@@ -97,7 +97,7 @@ export const products: Record<ProductId, Product> = {
     lede:
       "Drop in images, video, screenshots and links. Move them around until you can see what belongs together. Pull the strongest references into Focus, build a storyboard, or share the board as it stands.",
     blurb:
-      "Keep images, video and links together while you work out the visual direction.",
+      "Keep images, video, screenshots and links together while you work out the visual direction. Move them around until you can see what belongs, then bring the strongest references into Focus or a storyboard.",
     status: "available",
     version: "1.3.0",
     downloadUrl:
@@ -126,7 +126,7 @@ export const products: Record<ProductId, Product> = {
     lede:
       "Write a quick note or stay with a longer piece. Link pages when they belong together, move blocks when the order changes, and keep side thoughts beside the page. Use it on Windows or in your browser.",
     blurb:
-      "A straightforward place for notes, plans and drafts, with room to connect them.",
+      "Give notes, plans and drafts a place of their own. Link pages when they belong together, move blocks as your thinking changes, and keep side thoughts near the writing.",
     status: "available",
     version: "0.2.4",
     /**

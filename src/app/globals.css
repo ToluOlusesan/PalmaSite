@@ -14,7 +14,7 @@
   --color-ink-2: #141414;
 
   /* Body copy sits only a hair off the ink so long paragraphs stay readable;
-     `faint` is for chrome that must recede (eyebrows, meta, captions). */
+     `faint` is for quiet meta and captions. */
   --color-muted: rgba(10, 10, 10, 0.66);
   --color-strong: rgba(10, 10, 10, 0.88);
   --color-faint: rgba(10, 10, 10, 0.46);
@@ -131,9 +131,8 @@ body {
 
 /* Tracking is size-specific — one letter-spacing value is wrong somewhere.
    Large display type reads too loose as it grows, so it tightens; body copy
-   sits near zero; small uppercase chrome opens up to stay legible. These are
-   applied via the `.display` / `.eyebrow` classes rather than per-component
-   arbitrary values, so the scale stays defensible in one place. */
+   sits near zero. These values are applied through the display classes rather
+   than per-component arbitrary values. */
 .display {
   font-family: var(--display-face, var(--font-serif));
   font-weight: var(--display-weight, 400);
@@ -172,15 +171,6 @@ body {
   --display-weight: 600;
   --display-track: -0.035em;
   --display-track-sm: -0.024em;
-}
-
-.eyebrow {
-  font-size: 0.71rem;
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--color-faint);
 }
 
 /* The hero ground — a faint dot grid, scoped to the hero and faded out at the

@@ -1,4 +1,4 @@
-import { FamilyHero } from "@/components/family/FamilyHero";
+import { ProductChooser } from "@/components/family/ProductChooser";
 import { CompareBand } from "@/components/family/CompareBand";
 import { SharedPrinciples } from "@/components/family/SharedPrinciples";
 import { FamilyGet } from "@/components/family/FamilyGet";
@@ -14,7 +14,7 @@ import { FamilyGet } from "@/components/family/FamilyGet";
 export default function Home() {
   return (
     <>
-      <FamilyHero />
+      <ProductChooser />
       <CompareBand />
       <SharedPrinciples />
       <FamilyGet />

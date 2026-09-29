@@ -18,7 +18,7 @@ export function FamilyGet() {
   return (
     <section id="get" className="scroll-mt-24 border-t border-line bg-panel/40 py-16 sm:py-24">
       <Shell>
-        <SectionHead eyebrow="Get Palma" title="Get the app you need.">
+        <SectionHead title="Get the app you need.">
           Both apps are free on Windows. You can also use PalmaNote in your browser. No account needed.
         </SectionHead>
 
