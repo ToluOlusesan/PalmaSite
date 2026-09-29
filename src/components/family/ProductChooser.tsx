@@ -17,10 +17,10 @@ export function ProductChooser() {
         <div id="apps" className="scroll-mt-28">
           <Reveal className="mb-10 max-w-[56rem] sm:mb-12">
             <h1 className="display text-[clamp(3rem,6vw,5rem)] font-semibold leading-[1.02] tracking-[-0.05em] text-ink">
-              One for the eye.<br className="hidden sm:block" /> One for the page.
+              Tools for references and writing.
             </h1>
             <p className="mt-6 max-w-[40rem] text-pretty text-[1.05rem] leading-[1.6] text-muted sm:text-[1.125rem]">
-              One for the visual work. One for the words that go with it.
+              Keep the images, videos and links for a project together. Write notes, plans and drafts in PalmaNote.
             </p>
           </Reveal>
 

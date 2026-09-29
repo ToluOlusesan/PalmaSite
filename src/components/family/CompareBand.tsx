@@ -21,10 +21,10 @@ export function CompareBand() {
 
           <div className="grid content-center gap-3">
             <Reveal delay={60}>
-              <WorkCard id="canvas" title="When you need to see it" body="Collect images, video and links. Move them around, find the pattern, and take a clear direction into the next conversation." />
+              <WorkCard id="canvas" title="When you need to plan the visuals" body="Collect images, video and links. Move them around, find the pattern, and take a clear direction into the next conversation." />
             </Reveal>
             <Reveal delay={130}>
-              <WorkCard id="note" title="When you need to write it through" body="Put the note down, build out a plan, or keep going on a draft. Reorder it when the thought changes." />
+              <WorkCard id="note" title="When you need to write your thoughts" body="Put the note down, build out a plan, or keep going on a draft. Reorder it when the thought changes." />
             </Reveal>
           </div>
         </Shell>

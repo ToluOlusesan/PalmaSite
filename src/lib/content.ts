@@ -18,7 +18,7 @@ export const family = {
   domain: "palmaboard.com",
   maker: "Tolu Olusesan",
   /** Said in the nav, the OG card and the hero. Keep them agreeing. */
-  tagline: "A place for the work in progress.",
+  tagline: "Tools for references and writing.",
   year: new Date().getFullYear(),
   /** The maker's portfolio. */
   portfolioUrl: "https://olusesantolu.com",
@@ -90,8 +90,8 @@ export const products: Record<ProductId, Product> = {
     href: "/canvas",
     kicker: "For visual thinking",
     headline: {
-      lead: "Everything you're looking at,",
-      accent: "on one board",
+      lead: "All your references,",
+      accent: "in one place",
       tail: ".",
     },
     lede:
@@ -99,7 +99,7 @@ export const products: Record<ProductId, Product> = {
     blurb:
       "Keep images, video, screenshots and links together while you work out the visual direction. Move them around until you can see what belongs, then bring the strongest references into Focus or a storyboard.",
     status: "available",
-    version: "1.3.0",
+    version: "1.3.3",
     downloadUrl:
       "https://github.com/ToluOlusesan/PalmaStudio/releases/latest/download/Palma-Setup.exe",
     guideUrl: "/Palma-User-Guide.pdf",
@@ -112,21 +112,15 @@ export const products: Record<ProductId, Product> = {
     href: "/note",
     kicker: "For thinking in words",
     headline: {
-      lead: "A place to write without",
-      accent: "losing your thread",
+      lead: "A writing app that",
+      accent: "does just that",
       tail: ".",
-      typed: [
-        { text: "A place to write" },
-        { text: "\n" },
-        { text: "without " },
-        { text: "losing your thread" },
-        { text: "." },
-      ],
+      typed: [{ text: "A writing app that" }, { text: "\n" }, { text: "does just that." }],
     },
     lede:
-      "Write a quick note or stay with a longer piece. Link pages when they belong together, move blocks when the order changes, and keep side thoughts beside the page. Use it on Windows or in your browser.",
+      "A writing app for notes, plans and drafts. Start writing, arrange the page as you go, and keep related thoughts together.",
     blurb:
-      "Give notes, plans and drafts a place of their own. Link pages when they belong together, move blocks as your thinking changes, and keep side thoughts near the writing.",
+      "A simple writing app for notes, plans and drafts.",
     status: "available",
     version: "0.2.4",
     /**
@@ -317,8 +311,28 @@ export type ReleaseNote = {
 
 export const canvasReleases: ReleaseNote[] = [
   {
+    version: "1.3.3",
+    date: "September 2026",
+    headline: "A calmer canvas, with a faster Library.",
+    groups: [
+      {
+        kind: "refined",
+        items: [
+          "Note text stays easier to read when you zoom out on the canvas.",
+          "The Library mounts only the references near your current scroll position, keeping large collections responsive.",
+        ],
+      },
+      {
+        kind: "fixed",
+        items: [
+          "Reset size is available from an item's context menu, including for notes.",
+        ],
+      },
+    ],
+  },
+  {
     version: "1.3.2",
-    date: "In development",
+    date: "September 2026",
     headline: "Color direction and sharper video captures.",
     groups: [
       {
@@ -330,15 +344,11 @@ export const canvasReleases: ReleaseNote[] = [
       },
       {
         kind: "refined",
-        items: [
-          "Video controls stay comfortable to use when a large clip is viewed at a smaller canvas zoom.",
-        ],
+        items: ["Video controls stay comfortable to use when a large clip is viewed at a smaller canvas zoom."],
       },
       {
         kind: "fixed",
-        items: [
-          "Captured video frames now stay sharp when enlarged on the board. Existing captures use their saved full-resolution frame when it is available.",
-        ],
+        items: ["Captured video frames now stay sharp when enlarged on the board. Existing captures use their saved full-resolution frame when it is available."],
       },
     ],
   },

@@ -60,17 +60,28 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-line bg-paper">
       <div className="mx-auto flex max-w-[70rem] flex-col items-center px-6 py-14 sm:px-10 sm:py-16">
-        <p className="text-center text-[15px] text-ink">
-          Follow what I&rsquo;m making below, or see more of my work at{" "}
+        <div className="flex items-center gap-3 text-[15px] text-ink">
           <a
             href={family.portfolioUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-line underline-offset-2 transition-colors hover:decoration-ink"
+            aria-label="Visit Tolu Olusesan’s portfolio"
+            className="pressable h-10 w-10 shrink-0 overflow-hidden rounded-full border border-line"
           >
-            olusesantolu.com
+            <img src="/images/tolu-headshot.jpg" alt="Tolu Olusesan" className="h-full w-full object-cover object-[50%_42%]" />
           </a>
-        </p>
+          <p>
+            Follow what I&rsquo;m making below, or see more of my work at{" "}
+            <a
+              href={family.portfolioUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-line underline-offset-2 transition-colors hover:decoration-ink"
+            >
+              olusesantolu.com
+            </a>
+          </p>
+        </div>
 
         <div className="mt-5 flex items-center gap-4">
           {socials.map(({ id, label, href }) => {
