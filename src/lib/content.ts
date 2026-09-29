@@ -99,7 +99,7 @@ export const products: Record<ProductId, Product> = {
     blurb:
       "Keep images, video, screenshots and links together while you work out the visual direction. Move them around until you can see what belongs, then bring the strongest references into Focus or a storyboard.",
     status: "available",
-    version: "1.3.3",
+    version: "1.3.4",
     downloadUrl:
       "https://github.com/ToluOlusesan/PalmaStudio/releases/latest/download/Palma-Setup.exe",
     guideUrl: "/Palma-User-Guide.pdf",
@@ -310,6 +310,20 @@ export type ReleaseNote = {
 };
 
 export const canvasReleases: ReleaseNote[] = [
+  {
+    version: "1.3.4",
+    date: "September 2026",
+    headline: "Resize a selection together.",
+    groups: [
+      {
+        kind: "refined",
+        items: [
+          "Reset size now restores every selected reference in one action.",
+          "Resize a selection together while keeping each item’s proportions and spacing in step.",
+        ],
+      },
+    ],
+  },
   {
     version: "1.3.3",
     date: "September 2026",
