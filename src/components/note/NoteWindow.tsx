@@ -3,7 +3,7 @@
 import { useTilt } from "@/lib/motion";
 import { NoteMark } from "@/components/marks/NoteMark";
 import {
-  IconBullets,
+  IconChevronDown,
   IconChevronLeft,
   IconChevronRight,
   IconClose,
@@ -12,14 +12,14 @@ import {
   IconHighlighter,
   IconHistory,
   IconImage,
-  IconOrdered,
+  IconNote,
   IconPage,
+  IconPageView,
   IconPlusPage,
-  IconShare,
+  IconQuestion,
   IconSidebar,
   IconStar,
-  IconTasks,
-  IconTheme,
+  IconTrash,
   IconDots,
 } from "./NoteIcons";
 
@@ -56,9 +56,6 @@ export function NoteWindow() {
           <span className="nw-icon text-ink">
             <NoteMark className="h-[17px] w-[17px]" title="" />
           </span>
-          <span className="hidden text-[0.8125rem] text-[color:var(--nw-muted)] sm:inline">
-            Import
-          </span>
           <span className="nw-icon">
             <IconSidebar />
           </span>
@@ -75,21 +72,22 @@ export function NoteWindow() {
             </span>
           </div>
 
+          {/* 0.3: everything about files behind one word, the way Word has it —
+              New, Open, Save, Import, Export — and only the window's own
+              things beside it: the writing chart, the guide, settings. */}
           <div className="nw-toolbar hidden sm:flex">
-            <span className="nw-icon">
-              <IconHistory />
+            <span className="nw-file">
+              File
+              <IconChevronDown size={11} />
             </span>
             <span className="nw-icon">
               <IconGrid />
             </span>
             <span className="nw-icon">
+              <IconQuestion />
+            </span>
+            <span className="nw-icon">
               <IconGear />
-            </span>
-            <span className="nw-icon">
-              <IconShare />
-            </span>
-            <span className="nw-icon">
-              <IconTheme />
             </span>
           </div>
         </div>
@@ -106,29 +104,29 @@ export function NoteWindow() {
             Chapter One
           </span>
 
+          {/* Formatting, then the page's own things: its notes, its history,
+              and page view — the page as a sheet of paper. */}
           <div className="nw-toolbar">
             <span className="nw-tool font-semibold">B</span>
             <span className="nw-tool italic">I</span>
+            <span className="nw-tool underline underline-offset-2">U</span>
             <span className="nw-tool line-through">S</span>
             <span className="nw-tool">
               <IconHighlighter size={15} />
             </span>
             <span className="nw-rule" />
             <span className="nw-tool hidden sm:grid">
-              H<sub>1</sub>
-            </span>
-            <span className="nw-tool hidden sm:grid">
-              H<sub>2</sub>
+              <IconDots size={15} />
             </span>
             <span className="nw-rule hidden sm:block" />
-            <span className="nw-tool">
-              <IconBullets size={15} />
+            <span className="nw-tool" data-on="">
+              <IconNote size={15} />
             </span>
             <span className="nw-tool hidden sm:grid">
-              <IconOrdered size={15} />
+              <IconHistory size={15} />
             </span>
-            <span className="nw-tool" data-on="">
-              <IconTasks size={15} />
+            <span className="nw-tool hidden sm:grid">
+              <IconPageView size={15} />
             </span>
           </div>
         </div>
@@ -136,6 +134,12 @@ export function NoteWindow() {
         {/* ── body ──────────────────────────────────────────────────────── */}
         <div className="nw-body">
           <aside className="nw-side">
+            {/* New page at the head of the pages it adds to, not at the foot
+                of a list that grows. */}
+            <span className="nw-new">
+              <IconPlusPage size={15} />
+              New page
+            </span>
             <span className="nw-side-label">Pages</span>
             <span className="nw-row" data-active="">
               <IconPage size={14} />
@@ -151,16 +155,9 @@ export function NoteWindow() {
                 <span className="truncate">{p}</span>
               </span>
             ))}
-            <span className="nw-row mt-1 text-[color:var(--nw-faint)]">
-              <IconPlusPage size={15} />
-              Add page
-            </span>
-            {/* The word count used to live here too. Two different word counts
-                in one window read as two different numbers — the status bar is
-                where it belongs, so this says how many pages instead. */}
-            <span className="mt-auto flex items-center justify-between px-1.5 pt-4 text-[0.6875rem] text-[color:var(--nw-faint)]">
-              <span>Archive</span>
-              <span>5 pages</span>
+            <span className="mt-auto flex items-center justify-center gap-1.5 pt-4 text-[0.75rem] text-[color:var(--nw-faint)]">
+              <IconTrash size={13} />
+              Trash
             </span>
           </aside>
 

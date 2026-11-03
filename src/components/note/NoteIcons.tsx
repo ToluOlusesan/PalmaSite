@@ -243,3 +243,48 @@ export function IconTrend(p: Props) {
     </Glyph>
   );
 }
+
+export function IconQuestion(p: Props) {
+  return (
+    <Glyph {...p}>
+      <circle cx="8" cy="8" r="6" {...stroke} />
+      <path d="M6.3 6.4a1.8 1.8 0 1 1 2.5 1.6c-.5.2-.8.6-.8 1.1v.4" {...stroke} />
+      <circle cx="8" cy="11.4" r="0.55" fill="currentColor" />
+    </Glyph>
+  );
+}
+
+export function IconNote(p: Props) {
+  return (
+    <Glyph {...p}>
+      <path d="M3 2.5h10a.5.5 0 0 1 .5.5v6.8L9.8 13.5H3a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5Z" {...stroke} />
+      <path d="M13.5 9.8H10.3a.5.5 0 0 0-.5.5v3.2" {...stroke} />
+    </Glyph>
+  );
+}
+
+export function IconTrash(p: Props) {
+  return (
+    <Glyph {...p}>
+      <path d="M2.8 4.2h10.4M6.4 4.2V2.8h3.2v1.4M4.2 4.2l.6 9h6.4l.6-9" {...stroke} />
+    </Glyph>
+  );
+}
+
+/** Page view: a page with its lines, filled in when on. */
+export function IconPageView(p: Props) {
+  return (
+    <Glyph {...p}>
+      <path d="M9.5 1.5H4a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V5l-3.5-3.5Z" {...stroke} />
+      <path d="M5.5 8.2h5M5.5 10.6h5" {...stroke} />
+    </Glyph>
+  );
+}
+
+export function IconAlign(p: Props) {
+  return (
+    <Glyph {...p}>
+      <path d="M2.5 4h11M2.5 7.3h7M2.5 10.6h11M2.5 13.9h7" {...stroke} />
+    </Glyph>
+  );
+}

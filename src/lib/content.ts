@@ -122,7 +122,7 @@ export const products: Record<ProductId, Product> = {
     blurb:
       "A simple writing app for notes, plans and drafts.",
     status: "available",
-    version: "0.2.4",
+    version: "0.3.0",
     /**
      * The same shape as Canvas's, and stable for the same reason: the release
      * carries an asset under this exact name every time, so shipping a build
@@ -198,12 +198,12 @@ export const compare: CompareRow[] = [
   {
     label: "What it holds",
     canvas: "Images, video, screenshots, comments, focus zones",
-    note: "Text blocks, headings, tasks, stickies, links between pages",
+    note: "Text blocks, headings, tasks, stickies, links between pages — and Word documents",
   },
   {
     label: "You leave with",
     canvas: "A visual direction, moodboard, storyboard or process brief",
-    note: "A clearer thought, plan, draft or list",
+    note: "A clearer thought, plan, draft or list — as a page, a Word file or a PDF",
   },
   {
     label: "Where it keeps things",
@@ -459,6 +459,39 @@ export const canvasReleases: ReleaseNote[] = [
 ];
 
 export const noteReleases: ReleaseNote[] = [
+  {
+    version: "0.3.0",
+    date: "November 2026",
+    headline: "Word documents, PDF export, and a calmer, rounder window.",
+    groups: [
+      {
+        kind: "new",
+        items: [
+          "Open a Word document with Ctrl+O and save it back with Ctrl+S — formatting, lists, tables and pictures come with it.",
+          "Underline, text colour, text size and alignment, from the bar that appears when you select words.",
+          "Export a PDF straight to a file, laid out exactly as the page looks — no print dialog.",
+          "Page view (Ctrl+Alt+P) shows the page as a sheet of paper, with where each page will end.",
+          "Double-click a .docx, PDF or markdown file to open it in PalmaNote.",
+        ],
+      },
+      {
+        kind: "refined",
+        items: [
+          "A File menu holds New, Open, Save, Import and Export. History sits with the page, and the theme is a simple choice in Settings.",
+          "Rounder buttons and fields, softer shadows, and springy motion throughout — menus, tabs, the sidebar and the notes rail glide instead of jumping.",
+          "New page now sits at the top of the sidebar, and Export has moved to Ctrl+Shift+S.",
+        ],
+      },
+      {
+        kind: "fixed",
+        items: [
+          "Dragging list items works, including to-dos and nested bullets, with a line showing where each will land.",
+          "Dragged tabs land exactly where you drop them.",
+          "The word count keeps up as you type, and first-time users see the welcome tour again.",
+        ],
+      },
+    ],
+  },
   {
     version: "0.2.5",
     date: "September 2026",

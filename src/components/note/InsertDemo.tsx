@@ -4,6 +4,7 @@ import { SectionHead, Shell } from "@/components/ui/SectionHead";
 import {
   IconBullets,
   IconChevronDown,
+  IconAlign,
   IconHighlighter,
   IconImage,
   IconOrdered,
@@ -108,24 +109,30 @@ export function InsertDemo() {
                   sequence is one transition rule rather than ten keyframes —
                   and the controls stay direct flex children, which the rules
                   and toggles depend on for their alignment. */}
-              <div className="nw-unfold nw-seq mb-5 inline-flex items-center gap-0.5 rounded-xl border border-line bg-paper p-1 shadow-lift">
-                <span className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-[0.8125rem] text-strong" style={step(0)}>
+              <div className="nw-unfold nw-seq mb-5 inline-flex items-center gap-0.5 rounded-full border border-line bg-paper p-1 shadow-lift">
+                <span className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[0.8125rem] text-strong" style={step(0)}>
                   Text
                   <IconChevronDown size={11} />
                 </span>
                 <span className="nw-rule" style={step(1)} />
                 <span className="nw-tool font-semibold" style={step(2)}>B</span>
                 <span className="nw-tool italic" style={step(3)}>I</span>
-                <span className="nw-tool line-through" style={step(4)}>S</span>
-                <span className="nw-rule" style={step(5)} />
-                <span className="nw-tool" style={step(6)}>
-                  <IconBullets size={14} />
+                <span className="nw-tool underline underline-offset-2" style={step(4)}>U</span>
+                <span className="nw-tool line-through" style={step(5)}>S</span>
+                <span className="nw-rule" style={step(6)} />
+                {/* 0.3: size, colour and alignment — the Word half. */}
+                <span className="nw-tool tabular-nums text-strong" style={step(7)}>12</span>
+                <span className="nw-tool" style={step(8)}>
+                  <span className="flex flex-col items-center leading-none">
+                    <span className="text-[0.8125rem] font-medium">A</span>
+                    <span className="mt-0.5 h-[2px] w-3 rounded-full bg-[#d1453b]" />
+                  </span>
                 </span>
-                <span className="nw-tool" style={step(7)}>
-                  <IconTasks size={14} />
+                <span className="nw-tool hidden sm:grid" style={step(9)}>
+                  <IconAlign size={14} />
                 </span>
-                <span className="nw-rule" style={step(8)} />
-                <span className="nw-tool" data-on="" style={step(9)}>
+                <span className="nw-rule" style={step(10)} />
+                <span className="nw-tool" data-on="" style={step(11)}>
                   <IconHighlighter size={14} />
                 </span>
               </div>
