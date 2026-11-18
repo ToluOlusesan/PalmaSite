@@ -95,11 +95,11 @@ export const products: Record<ProductId, Product> = {
       tail: ".",
     },
     lede:
-      "Drop in images, video, screenshots and links. Move them around until you can see what belongs together. Pull the strongest references into Focus, build a storyboard, or share the board as it stands.",
+      "Drop in images, video, screenshots and links. Move them around until you can see what belongs together. Frame the strongest references into directions, build a storyboard, or share the board as it stands.",
     blurb:
-      "Keep images, video, screenshots and links together while you work out the visual direction. Move them around until you can see what belongs, then bring the strongest references into Focus or a storyboard.",
+      "Keep images, video, screenshots and links together while you work out the visual direction. Move them around until you can see what belongs, then frame the strongest references into directions or a storyboard.",
     status: "available",
-    version: "1.3.4",
+    version: "1.4.1",
     downloadUrl:
       "https://github.com/ToluOlusesan/PalmaStudio/releases/latest/download/Palma-Setup.exe",
     guideUrl: "/Palma-User-Guide.pdf",
@@ -197,7 +197,7 @@ export const compare: CompareRow[] = [
   },
   {
     label: "What it holds",
-    canvas: "Images, video, screenshots, comments, focus zones",
+    canvas: "Images, video, screenshots, comments, frames",
     note: "Text blocks, headings, tasks, stickies, links between pages — and Word documents",
   },
   {
@@ -272,9 +272,9 @@ export const steps: Step[] = [
   {
     id: "focus",
     n: "02",
-    title: "Find the thread in Focus",
+    title: "Find the thread in frames",
     blurb:
-      "Move the strongest references into named zones — colour, type, material, motion, composition, or whatever the project needs.",
+      "Frame the strongest references into named directions — colour, type, material, motion, composition, or whatever the project needs — then compare two side by side.",
   },
   {
     id: "storyboard",
@@ -310,6 +310,53 @@ export type ReleaseNote = {
 };
 
 export const canvasReleases: ReleaseNote[] = [
+  {
+    version: "1.4.1",
+    date: "November 2026",
+    headline: "Pick any colour for a frame.",
+    groups: [
+      {
+        kind: "new",
+        items: [
+          "Click a frame’s colour dot, or the palette button in its toolbar, to choose from ten swatches or a custom colour.",
+        ],
+      },
+      {
+        kind: "refined",
+        items: [
+          "Dragging is calmer: items no longer pull towards each other’s edges, and still settle neatly onto the grid.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "1.4.0",
+    date: "November 2026",
+    headline: "Frame directions, connect them, compare them.",
+    groups: [
+      {
+        kind: "new",
+        items: [
+          "Frames: select references and press Ctrl G to frame them, then choose a free, grid, masonry or row layout.",
+          "Compare two frames side by side, each with its palette, and duplicate a frame as a new direction.",
+          "Drop a connector on empty board to grow a linked note.",
+        ],
+      },
+      {
+        kind: "refined",
+        items: [
+          "Connectors are now curves, elbows or straight lines you can bend, label, dash and reconnect.",
+          "Focus is now part of the board: existing Focus zones move onto it once, as named frames.",
+        ],
+      },
+      {
+        kind: "fixed",
+        items: [
+          "Video scrubbing works, and large files stream instead of loading whole.",
+        ],
+      },
+    ],
+  },
   {
     version: "1.3.4",
     date: "September 2026",
